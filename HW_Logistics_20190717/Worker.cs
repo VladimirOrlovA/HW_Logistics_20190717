@@ -13,7 +13,8 @@ namespace HW_Logistics_20190717
         public int solary { get; set; }
 
 
-        public Worker(DateTime birthday, long inn, DateTime employmentDate, string position, int solary) : base(birthday, inn)
+        public Worker(string firstName, string lastName, string middleName, DateTime birthday, long inn, DateTime employmentDate, string position, int solary) 
+            : base(firstName, lastName, middleName, birthday, inn)
         {
             this.employmentDate = employmentDate;
             this.position = position;

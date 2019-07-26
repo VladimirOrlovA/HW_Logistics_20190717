@@ -8,16 +8,19 @@ namespace HW_Logistics_20190717
 {
     class Person
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string MiddleName { get; set; }
-        public DateTime Birthday { get; }
-        public long Inn { get; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string middleName { get; set; }
+        public DateTime birthday { get; }
+        public long inn { get; }
        
-        public Person(DateTime birthday, long inn)
+        public Person(string firstName, string lastName, string middleName, DateTime birthday, long inn)
         {
-            this.Birthday = birthday;
-            this.Inn = inn;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.middleName = middleName;
+            this.birthday = birthday;
+            this.inn = inn;
         }
 
         public override bool Equals(object obj)
@@ -35,34 +38,33 @@ namespace HW_Logistics_20190717
             return base.ToString();
         }
 
-        public void InfoPerson()
+         public void InfoPerson() 
         {
             //Console.WriteLine("\n----------------- Информация о человеке -----------------\n\n");
             Console.WriteLine("ФИО полностью ----- " + GetLFM());
-            Console.WriteLine("Дата рождения ----- " + Birthday);
+            Console.WriteLine("Дата рождения ----- " + birthday);
             Console.WriteLine("Возраст ----------- " + Age());
-            Console.WriteLine("ИНН --------------- " + Inn);
+            Console.WriteLine("ИНН --------------- " + inn);
             Console.WriteLine("\n---------------------------------------------------------\n\n");
         }
         
         // Возвращает строку с полным ФИО
         public string GetLFM()
         {
-            return (LastName + " " + FirstName + " " + MiddleName);
+            return (lastName + " " + firstName + " " + middleName);
         }
 
         // Возвращает строку с фамилией и инициалами
         public string GetLastNameAndFM()
         {
-            return (LastName + " " + FirstName.Substring(0,1) + "." + MiddleName.Substring(0,1) + ".");
+            return (lastName + " " + firstName.Substring(0,1) + "." + middleName.Substring(0,1) + ".");
         }
 
         //Возвращает текущий возраст
         public int Age()
         {
-            return DateTime.Today.Year - Birthday.Year;
+            return DateTime.Today.Year - birthday.Year;
         }
-
     }
 
 }
