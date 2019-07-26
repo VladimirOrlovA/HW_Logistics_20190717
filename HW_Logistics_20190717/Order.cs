@@ -46,7 +46,7 @@ namespace HW_Logistics_20190717
 
         public void InfoOrder()
         {
-            Console.WriteLine("\n----------------- Информация о заказе -----------------\n\n");
+            Console.WriteLine("\n----------------- Информация о заказе -------------------\n\n");
             Console.WriteLine("Номер заказа ------------ " + orderID);
             Console.WriteLine("Номер клиента ----------- " + customerID);
             Console.WriteLine("Вес посылки ------------- " + weight);

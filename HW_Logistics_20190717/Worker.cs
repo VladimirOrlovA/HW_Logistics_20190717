@@ -13,8 +13,8 @@ namespace HW_Logistics_20190717
         public int solary { get; set; }
 
 
-        public Worker(string firstName, string lastName, string middleName, DateTime birthday, long inn, DateTime employmentDate, string position, int solary) 
-            : base(firstName, lastName, middleName, birthday, inn)
+        public Worker(string lastName, string firstName,  string middleName, DateTime birthday, long inn, DateTime employmentDate, string position, int solary) 
+            : base(lastName, firstName,  middleName, birthday, inn)
         {
             this.employmentDate = employmentDate;
             this.position = position;
@@ -40,9 +40,9 @@ namespace HW_Logistics_20190717
         {
             Console.WriteLine("\n----------------- Информация о работнике -----------------\n\n");
             InfoPerson();
-            Console.WriteLine("Дата приема на работу ----- " + employmentDate);
-            Console.WriteLine("Должность ----------------- " + position);
-            Console.WriteLine("Оклад --------------------- " + solary);
+            Console.WriteLine("Дата приема на работу --- " + employmentDate);
+            Console.WriteLine("Должность --------------- " + position);
+            Console.WriteLine("Оклад ------------------- " + solary);
             Console.WriteLine("\n---------------------------------------------------------\n\n");
         }
     }

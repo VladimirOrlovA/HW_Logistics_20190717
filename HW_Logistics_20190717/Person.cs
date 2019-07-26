@@ -8,16 +8,16 @@ namespace HW_Logistics_20190717
 {
     class Person
     {
-        public string firstName { get; set; }
         public string lastName { get; set; }
+        public string firstName { get; set; }
         public string middleName { get; set; }
         public DateTime birthday { get; }
         public long inn { get; }
        
-        public Person(string firstName, string lastName, string middleName, DateTime birthday, long inn)
+        public Person(string lastName, string firstName, string middleName, DateTime birthday, long inn)
         {
-            this.firstName = firstName;
             this.lastName = lastName;
+            this.firstName = firstName;
             this.middleName = middleName;
             this.birthday = birthday;
             this.inn = inn;
@@ -41,11 +41,11 @@ namespace HW_Logistics_20190717
          public void InfoPerson() 
         {
             //Console.WriteLine("\n----------------- Информация о человеке -----------------\n\n");
-            Console.WriteLine("ФИО полностью ----- " + GetLFM());
-            Console.WriteLine("Дата рождения ----- " + birthday);
-            Console.WriteLine("Возраст ----------- " + Age());
-            Console.WriteLine("ИНН --------------- " + inn);
-            Console.WriteLine("\n---------------------------------------------------------\n\n");
+            Console.WriteLine("ФИО полностью ----------- " + GetLFM());
+            Console.WriteLine("Дата рождения ----------- " + birthday);
+            Console.WriteLine("Возраст ----------------- " + Age());
+            Console.WriteLine("ИНН --------------------- " + inn);
+            //Console.WriteLine("\n---------------------------------------------------------\n\n");
         }
         
         // Возвращает строку с полным ФИО

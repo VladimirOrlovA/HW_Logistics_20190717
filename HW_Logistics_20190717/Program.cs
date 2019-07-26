@@ -10,7 +10,7 @@ namespace HW_Logistics_20190717
     {
         static void Main(string[] args)
         {
-            //Person first = new Person(new DateTime(1980, 07, 16), 20660716888);
+            Person person1 = new Person("Орлов", "Владимир", "Александрович", new DateTime(1980, 07, 16), 20660716888);
             //first.FirstName = "Владимир";
             //first.LastName = "Орлов";
             //first.MiddleName = "Александрович";
@@ -31,9 +31,12 @@ namespace HW_Logistics_20190717
             //second.InfoPerson();
 
 
-            Order first = new Order(1, 1, 15.5, 10.8, 111,222, DateTime.Today, DateTime.Now);
+            Worker worker1 = new Worker("Нестеров", "Павел", "Николаевич", new DateTime(1994,10,12), 2586556655, new DateTime(2010,01,23), "экспедитор", 180000);
+            Order order1 = new Order(1, 1, 15.5, 10.8, 111,222, DateTime.Today, DateTime.Now);
 
-            first.InfoOrder();
+            person1.InfoPerson();
+            worker1.InfoWorker();
+            order1.InfoOrder();
 
             Console.ReadKey();
         }
