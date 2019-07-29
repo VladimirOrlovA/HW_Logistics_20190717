@@ -8,7 +8,7 @@ namespace HW_Logistics_20190717
 {
     internal class Сustomer : Person
     {
-        public int customerID;
+        public int customerID { get; set; }
 
         public Сustomer(string lastName, string firstName, string middleName, DateTime birthday, long inn, int customerID)
             : base(lastName, firstName, middleName, birthday, inn)
@@ -31,11 +31,11 @@ namespace HW_Logistics_20190717
             return base.ToString();
         }
 
-        public void InfoWorker()
+        public void InfoCustomer()
         {
             Console.WriteLine("\n----------------- Информация о заказчике -----------------\n\n");
+            Console.WriteLine("Номер клиента ----------- " + customerID);
             InfoPerson();
-            Console.WriteLine("Номер клиента ------------- " + customerID);
             Console.WriteLine("\n---------------------------------------------------------\n\n");
         }
     }
