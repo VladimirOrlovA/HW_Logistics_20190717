@@ -33,11 +33,14 @@ namespace HW_Logistics_20190717
             Worker worker1 = new Worker("Нестеров", "Павел", "Николаевич", new DateTime(1994,10,12), 2586556655, new DateTime(2010,01,23), "экспедитор", 180000);
             Сustomer customer1 = new Сustomer("Нестеров", "Павел", "Николаевич", new DateTime(1994, 10, 12), 2586556655, 1);
             Order order1 = new Order(1, 1, 15.5, 10.8, 111,222, DateTime.Today, DateTime.Now);
+            Route route1 = new Route(1, "Алматы", "Нур-Султан");
 
             person1.InfoPerson();
             worker1.InfoWorker();
             customer1.InfoCustomer();
             order1.InfoOrder();
+            route1.InfoRoute();
+
 
             Console.ReadKey();
         }
