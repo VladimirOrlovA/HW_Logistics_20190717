@@ -35,12 +35,6 @@ namespace HW_Logistics_20190717
         public void addRoute(Route addRoute)
         {
             Route[] tmp = new Route[routeList.Length + 1];
-
-            //for (int i=0; i<routeList.Length; i++)
-            //{
-            //    tmp[i] = routeList[i];
-            //}
-
             Array.Copy(routeList, tmp, routeList.Length);
             Array.Resize(ref routeList, (routeList.Length + 1));
             Array.Copy(tmp, routeList, routeList.Length);
@@ -53,7 +47,7 @@ namespace HW_Logistics_20190717
 
             foreach (Route i in routeList)
             {
-                Console.WriteLine("Из города " + i.routeStart + " в город " + i.routeEnd);
+                Console.WriteLine(i.routeID + " - " + i.routeStart + " - " + i.routeEnd);
             }
         }
 

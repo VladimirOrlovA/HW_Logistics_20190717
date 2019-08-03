@@ -30,11 +30,11 @@ namespace HW_Logistics_20190717
             //first.InfoPerson();
             //second.InfoPerson();
 
-            Worker worker1 = new Worker("Нестеров", "Павел", "Николаевич", new DateTime(1994,10,12), 2586556655, new DateTime(2010,01,23), "экспедитор", 180000);
-            Сustomer customer1 = new Сustomer("Нестеров", "Павел", "Николаевич", new DateTime(1994, 10, 12), 2586556655, 1);
-            Order order1 = new Order(1, 1, 15.5, 10.8, 111,222, DateTime.Today, DateTime.Now);
+            Worker worker1 = new Worker("Нестеров", "Павел", "Николаевич", new DateTime(1994, 10, 12), 2586556655, new DateTime(2010, 01, 23), "экспедитор", 180000);
+            Сustomer customer1 = new Сustomer("Быстров", "Олег", "Васильевич", new DateTime(2001, 01, 12), 2586556586, 1);
+            Order order1 = new Order(1, 1, 15.5, 10.8, 111, 222, DateTime.Today, DateTime.Now);
             Route route1 = new Route(1, "Алматы", "Нур-Султан");
-            Route route2 = new Route(2,  "Нур-Султан", "Павлодар");
+            Route route2 = new Route(2, "Нур-Султан", "Павлодар");
             Сarrier carrier1 = new Сarrier("FastTran");
 
             person1.InfoPerson();
@@ -47,7 +47,6 @@ namespace HW_Logistics_20190717
             carrier1.addRoute(route1);
             carrier1.addRoute(route2);
             carrier1.InfoCarrier();
-
 
             Console.ReadKey();
         }
