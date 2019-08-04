@@ -48,6 +48,8 @@ namespace HW_Logistics_20190717
             carrier1.addRoute(route2);
             carrier1.InfoCarrier();
 
+            Console.WriteLine(person1.GetType());
+
             Console.ReadKey();
         }
     }
