@@ -48,7 +48,9 @@ namespace HW_Logistics_20190717
             carrier1.addRoute(route2);
             carrier1.InfoCarrier();
 
-            Console.WriteLine(person1.GetType());
+            worker1.InfoWorker();
+
+            Console.WriteLine(Convert.ToString(worker1.GetType()).Substring(22));
 
             Console.ReadKey();
         }
