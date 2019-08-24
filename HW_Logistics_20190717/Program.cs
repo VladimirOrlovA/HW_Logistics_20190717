@@ -10,6 +10,7 @@ namespace HW_Logistics_20190717
     {
         static void Main(string[] args)
         {
+            /*
             Person person1 = new Person("Орлов", "Владимир", "Александрович", new DateTime(1980, 07, 16), 20660716888);
             //first.FirstName = "Владимир";
             //first.LastName = "Орлов";
@@ -49,8 +50,15 @@ namespace HW_Logistics_20190717
             carrier1.InfoCarrier();
 
             worker1.InfoWorker();
+            
 
             Console.WriteLine(Convert.ToString(worker1.GetType()).Substring(22));
+            */
+
+            ConnDBSQL db = new ConnDBSQL();
+
+            //db.CreateTable();
+            db.ReadTable();
 
             Console.ReadKey();
         }
