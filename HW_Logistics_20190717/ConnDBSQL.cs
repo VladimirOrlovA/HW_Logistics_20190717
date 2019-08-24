@@ -33,7 +33,6 @@ namespace HW_Logistics_20190717
 
                     String sql = null;
 
-                    // Create a Table and insert some sample data
                     Console.Write("Creating sample table with data, press any key to continue...");
                     Console.ReadKey(true);
                     StringBuilder sb = new StringBuilder();
@@ -46,32 +45,61 @@ namespace HW_Logistics_20190717
                     sb.Append(" birthday DATE, ");
                     sb.Append(" inn DECIMAL ");
                     sb.Append("); ");
-                    sb.Append("INSERT INTO Person (lastName, firstName, middleName, birthday, inn) VALUES ");
-                    sb.Append("('Orlov', 'Vladimir', 'Aleksandrovich', '1980-07-16', 20660716888); ");
                     sql = sb.ToString();
-
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
-                        // Выполняет инструкцию по соединению и возвращает количество затронутых строк. 
-                        // Для операторов UPDATE, INSERT и DELETE возвращаемое значение представляет собой 
-                        // количество строк, на которые влияет команда.
                         command.ExecuteNonQuery();
-                        Console.WriteLine("\n\n");
-                        Console.WriteLine("ServerVersion: {0}", connection.ServerVersion);
-                        Console.WriteLine("State: {0}", connection.State);
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Done. Table Person is created");
+                        Console.WriteLine("Done. Table is created");
                     }
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
+                return;
             }
         }
 
-        public void ReadTable()
+        public void InsertTable()
+        {
+            try
+            {
+                Console.Write("Connecting to SQL Server ... \n");
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                {
+                    connection.Open();
+                    Console.WriteLine("Done.");
+                    Console.WriteLine("ServerVersion: {0}", connection.ServerVersion);
+                    Console.WriteLine("State: {0}", connection.State);
+
+                    String sql = null;
+
+                    Console.Write("\nCreating sample table with data, press any key to continue...\n");
+                    Console.ReadKey(true);
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append("USE Logistics; ");
+                    sb.Append("INSERT INTO Person (lastName, firstName, middleName, birthday, inn) VALUES ");
+                    sb.Append("('Orlov', 'Vladimir', 'Aleksandrovich', '1980-07-16', 20660716888), ");
+                    sb.Append("('Нестеров', 'Павел', 'Николаевич', '1994-10-12', 2586556655); ");
+                    sql = sb.ToString();
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        Console.Write("\nRecords Processed - ");
+                        Console.WriteLine(command.ExecuteNonQuery());
+                        Console.WriteLine("Done.");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return;
+            }
+        }
+
+        public void ViewTable()
         {
             try
             {
@@ -99,11 +127,11 @@ namespace HW_Logistics_20190717
                             Console.WriteLine();
                             while (reader.Read())
                             {
-                                Console.WriteLine("{0} {1} {2} {3} {4} {5}",
-                                    reader.GetValue(0),
-                                    reader.GetValue(1),
-                                    reader.GetValue(2),
-                                    reader.GetValue(3),
+                                Console.WriteLine("{0} \t {1} \t {2} \t {3} \t {4} \t {5}",
+                                    reader.GetInt32(0),
+                                    reader.GetString(1),
+                                    reader.GetString(2),
+                                    reader.GetString(3),
                                     reader.GetValue(4),
                                     reader.GetValue(5));
                             }
