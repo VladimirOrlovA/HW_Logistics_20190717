@@ -10,7 +10,7 @@ namespace HW_Logistics_20190717
     {
         static void Main(string[] args)
         {
-            /*
+            
             Person person1 = new Person("Орлов", "Владимир", "Александрович", new DateTime(1980, 07, 16), 20660716888);
             //first.FirstName = "Владимир";
             //first.LastName = "Орлов";
@@ -38,12 +38,12 @@ namespace HW_Logistics_20190717
             Route route2 = new Route(2, "Нур-Султан", "Павлодар");
             Сarrier carrier1 = new Сarrier("FastTran");
 
-            person1.InfoPerson();
-            worker1.InfoWorker();
-            customer1.InfoCustomer();
-            order1.InfoOrder();
-            route1.InfoRoute();
-            carrier1.InfoCarrier();
+            //person1.InfoPerson();
+            //worker1.InfoWorker();
+            //customer1.InfoCustomer();
+            //order1.InfoOrder();
+            //route1.InfoRoute();
+            //carrier1.InfoCarrier();
 
             carrier1.addRoute(route1);
             carrier1.addRoute(route2);
@@ -51,17 +51,17 @@ namespace HW_Logistics_20190717
 
             worker1.InfoWorker();
             
-
-            Console.WriteLine(Convert.ToString(worker1.GetType()).Substring(22));
-            */
+            
+            //Console.WriteLine(Convert.ToString(worker1.GetType()).Substring(22));
+            
 
             //Person person1 = new Person("Орлов", "Владимир", "Александрович", new DateTime(1980, 07, 16), 20660716888);
 
             ConnDBSQL db = new ConnDBSQL();
 
-            //db.CreateTable();
-            //db.InsertTable();
-            db.ViewTable();
+            //db.CreateTable(person1.CreateTableQuery());
+            db.InsertTable(person1.InsertTableQuery());
+            db.ViewTable(person1.ViewTableQuery());
 
             Console.ReadKey();
         }

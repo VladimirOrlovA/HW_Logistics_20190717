@@ -48,6 +48,45 @@ namespace HW_Logistics_20190717
             //Console.WriteLine("\n---------------------------------------------------------\n\n");
         }
         
+        // Формирует строку запроса в БД для создания таблицы
+        public string CreateTableQuery()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("USE Logistics; ");
+            sb.Append("CREATE TABLE Person (");
+            sb.Append(" Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ");
+            sb.Append(" lastName NVARCHAR(50), ");
+            sb.Append(" firstName NVARCHAR(50), ");
+            sb.Append(" middleName NVARCHAR(50), ");
+            sb.Append(" birthday DATE, ");
+            sb.Append(" inn DECIMAL ");
+            sb.Append("); ");
+            string sql = sb.ToString();
+            return sql;
+        }
+
+        // Формирует строку запроса в БД для вставки данных
+        public string InsertTableQuery()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("USE Logistics; ");
+            sb.Append("INSERT INTO Person (lastName, firstName, middleName, birthday, inn) VALUES ");
+            sb.Append($"('{lastName}', '{firstName}', '{middleName}', " +
+                $"'{birthday.Year}-{birthday.Month}-{birthday.Day}', {inn}) ");
+            string sql = sb.ToString();
+            return sql;
+        }
+
+        // Формирует строку запроса в БД для вставки данных
+        public string ViewTableQuery()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("USE Logistics; ");
+            sb.Append("SELECT * FROM Person;");
+            string sql = sb.ToString();
+            return sql;
+        }
+
         // Возвращает строку с полным ФИО
         public string GetLFM()
         {

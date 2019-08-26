@@ -19,7 +19,7 @@ namespace HW_Logistics_20190717
             builder.InitialCatalog = "master";
         }
 
-        public void CreateTable()
+        public void CreateTable(string strSqlQuery)
         {
             try
             {
@@ -31,23 +31,9 @@ namespace HW_Logistics_20190717
                     Console.WriteLine("ServerVersion: {0}", connection.ServerVersion);
                     Console.WriteLine("State: {0}", connection.State);
 
-                    String sql = null;
+                    Console.Write("Creating table...");
 
-                    Console.Write("Creating sample table with data, press any key to continue...");
-                    Console.ReadKey(true);
-                    StringBuilder sb = new StringBuilder();
-                    sb.Append("USE Logistics; ");
-                    sb.Append("CREATE TABLE Person ( ");
-                    sb.Append(" Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ");
-                    sb.Append(" lastName NVARCHAR(50), ");
-                    sb.Append(" firstName NVARCHAR(50), ");
-                    sb.Append(" middleName NVARCHAR(50), ");
-                    sb.Append(" birthday DATE, ");
-                    sb.Append(" inn DECIMAL ");
-                    sb.Append("); ");
-                    sql = sb.ToString();
-
-                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    using (SqlCommand command = new SqlCommand(strSqlQuery, connection))
                     {
                         command.ExecuteNonQuery();
                         Console.WriteLine("Done. Table is created");
@@ -61,7 +47,7 @@ namespace HW_Logistics_20190717
             }
         }
 
-        public void InsertTable()
+        public void InsertTable(string strSqlQuery)
         {
             try
             {
@@ -72,19 +58,8 @@ namespace HW_Logistics_20190717
                     Console.WriteLine("Done.");
                     Console.WriteLine("ServerVersion: {0}", connection.ServerVersion);
                     Console.WriteLine("State: {0}", connection.State);
-
-                    String sql = null;
-
-                    Console.Write("\nCreating sample table with data, press any key to continue...\n");
-                    Console.ReadKey(true);
-                    StringBuilder sb = new StringBuilder();
-                    sb.Append("USE Logistics; ");
-                    sb.Append("INSERT INTO Person (lastName, firstName, middleName, birthday, inn) VALUES ");
-                    sb.Append("('Orlov', 'Vladimir', 'Aleksandrovich', '1980-07-16', 20660716888), ");
-                    sb.Append("('Нестеров', 'Павел', 'Николаевич', '1994-10-12', 2586556655); ");
-                    sql = sb.ToString();
-
-                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    Console.Write("\nInserting data to table...\n");
+                    using (SqlCommand command = new SqlCommand(strSqlQuery, connection))
                     {
                         Console.Write("\nRecords Processed - ");
                         Console.WriteLine(command.ExecuteNonQuery());
@@ -99,7 +74,50 @@ namespace HW_Logistics_20190717
             }
         }
 
-        public void ViewTable()
+        public void ViewTable(string strSqlQuery)
+        {
+            try
+            {
+                Console.Write("Connecting to SQL Server ... \n");
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                {
+                    connection.Open();
+                    Console.WriteLine("Done.");
+                    Console.WriteLine("ServerVersion: {0}", connection.ServerVersion);
+                    Console.WriteLine("State: {0}", connection.State);
+
+                    // READ table
+                    Console.WriteLine("Reading data from table... \n\n");
+
+                    using (SqlCommand command = new SqlCommand(strSqlQuery, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            Console.WriteLine();
+
+                            //считываем строки таблицы
+                            while (reader.Read())
+                            {
+                                // считываем поля строки
+                                string rowStr = null;
+                                for (int i = 0; i != reader.FieldCount; i++)
+                                {
+                                    rowStr += reader.GetValue(i) + "\t";
+                                }
+                                Console.WriteLine(rowStr);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return;
+            }
+        }
+
+        public void ViewTableDEMO()
         {
             try
             {
@@ -135,9 +153,10 @@ namespace HW_Logistics_20190717
                                     reader.GetValue(4),
                                     reader.GetValue(5));
                             }
+                            Console.WriteLine(reader.FieldCount);
                         }
                     }
-                } 
+                }
             }
             catch (Exception e)
             {
@@ -145,5 +164,8 @@ namespace HW_Logistics_20190717
                 return;
             }
         }
+
+
+
     }
 }
