@@ -103,7 +103,7 @@ namespace HW_Logistics_20190717
                                 string rowStr = null;
                                 for (int i = 0; i != reader.FieldCount; i++)
                                 {
-                                    rowStr += reader.GetValue(i) + "\t";
+                                    rowStr += reader.GetValue(i) + " || ";
                                 }
                                 Console.WriteLine(rowStr);
                             }
