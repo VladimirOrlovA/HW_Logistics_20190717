@@ -31,12 +31,13 @@ namespace HW_Logistics_20190717
             //first.InfoPerson();
             //second.InfoPerson();
 
-            Worker worker1 = new Worker("Нестеров", "Павел", "Николаевич", new DateTime(1994, 10, 12), 2586556655, new DateTime(2010, 01, 23), "экспедитор", 180000);
-            Сustomer customer1 = new Сustomer("Быстров", "Олег", "Васильевич", new DateTime(2001, 01, 12), 2586556586, 1);
-            Order order1 = new Order(1, 1, 15.5, 10.8, 111, 222, DateTime.Today, DateTime.Now);
-            Route route1 = new Route(1, "Алматы", "Нур-Султан");
-            Route route2 = new Route(2, "Нур-Султан", "Павлодар");
-            Сarrier carrier1 = new Сarrier("FastTran");
+            //Worker worker1 = new Worker("Нестеров", "Павел", "Николаевич", new DateTime(1994, 10, 12), 2586556655, 1, new DateTime(2010, 01, 23), "экспедитор", 180000);
+            //Сustomer customer1 = new Сustomer("Быстров", "Олег", "Васильевич", new DateTime(2001, 01, 12), 2586556586, 2);
+
+            //Order order1 = new Order(1, 1, 15.5, 10.8, 111, 222, DateTime.Today, DateTime.Now);
+            //Route route1 = new Route(1, "Алматы", "Нур-Султан");
+            //Route route2 = new Route(2, "Нур-Султан", "Павлодар");
+            //Сarrier carrier1 = new Сarrier("FastTran");
 
             //person1.InfoPerson();
             //worker1.InfoWorker();
@@ -45,23 +46,33 @@ namespace HW_Logistics_20190717
             //route1.InfoRoute();
             //carrier1.InfoCarrier();
 
-            carrier1.addRoute(route1);
-            carrier1.addRoute(route2);
-            carrier1.InfoCarrier();
+            //carrier1.addRoute(route1);
+            //carrier1.addRoute(route2);
+            //carrier1.InfoCarrier();
 
-            worker1.InfoWorker();
-            
+            //worker1.InfoWorker();
+            //customer1.InfoCustomer();
             
             //Console.WriteLine(Convert.ToString(worker1.GetType()).Substring(22));
-            
 
-            //Person person1 = new Person("Орлов", "Владимир", "Александрович", new DateTime(1980, 07, 16), 20660716888);
 
             ConnDBSQL db = new ConnDBSQL();
 
+            Worker worker1 = new Worker("Нестеров", "Павел", "Николаевич", new DateTime(1994, 10, 12), 2586556655, 1, new DateTime(2010, 01, 23), "экспедитор", 180000);
+            Сustomer customer1 = new Сustomer("Быстров", "Олег", "Васильевич", new DateTime(2001, 01, 12), 2586556586, 2);
+
             //db.CreateTable(person1.CreateTableQuery());
-            db.InsertTable(person1.InsertTableQuery());
-            db.ViewTable(person1.ViewTableQuery());
+            //db.CreateTable(worker1.CreateTableQuery());
+            //db.CreateTable(customer1.CreateTableQuery());
+
+            //db.InsertTable(worker1.InsertTableQueryPerson());
+            //db.InsertTable(worker1.InsertTableQuery());
+
+            //db.InsertTable(customer1.InsertTableQueryPerson());
+            //db.InsertTable(customer1.InsertTableQuery());
+
+            db.ViewTable(worker1.ViewTableQuery());
+            db.ViewTable(customer1.ViewTableQuery());
 
             Console.ReadKey();
         }

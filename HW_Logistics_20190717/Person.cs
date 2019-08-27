@@ -13,7 +13,8 @@ namespace HW_Logistics_20190717
         public string middleName { get; set; }
         public DateTime birthday { get; }
         public long inn { get; }
-       
+
+        public Person() { }
         public Person(string lastName, string firstName, string middleName, DateTime birthday, long inn)
         {
             this.lastName = lastName;
@@ -38,7 +39,7 @@ namespace HW_Logistics_20190717
             return base.ToString();
         }
 
-         public void InfoPerson() 
+        public void InfoPerson()
         {
             //Console.WriteLine("\n----------------- Информация о человеке -----------------\n\n");
             Console.WriteLine("ФИО полностью ----------- " + GetLFM());
@@ -47,13 +48,13 @@ namespace HW_Logistics_20190717
             Console.WriteLine("ИНН --------------------- " + inn);
             //Console.WriteLine("\n---------------------------------------------------------\n\n");
         }
-        
+
         // Формирует строку запроса в БД для создания таблицы
         public string CreateTableQuery()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE Logistics; ");
-            sb.Append("CREATE TABLE Person (");
+            sb.Append("CREATE TABLE Persons (");
             sb.Append(" Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ");
             sb.Append(" lastName NVARCHAR(50), ");
             sb.Append(" firstName NVARCHAR(50), ");
@@ -66,11 +67,11 @@ namespace HW_Logistics_20190717
         }
 
         // Формирует строку запроса в БД для вставки данных
-        public string InsertTableQuery()
+        public string InsertTableQueryPerson()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE Logistics; ");
-            sb.Append("INSERT INTO Person (lastName, firstName, middleName, birthday, inn) VALUES ");
+            sb.Append("INSERT INTO Persons (lastName, firstName, middleName, birthday, inn) VALUES ");
             sb.Append($"('{lastName}', '{firstName}', '{middleName}', " +
                 $"'{birthday.Year}-{birthday.Month}-{birthday.Day}', {inn}) ");
             string sql = sb.ToString();
@@ -82,7 +83,7 @@ namespace HW_Logistics_20190717
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE Logistics; ");
-            sb.Append("SELECT * FROM Person;");
+            sb.Append("SELECT * FROM Persons;");
             string sql = sb.ToString();
             return sql;
         }
@@ -96,7 +97,7 @@ namespace HW_Logistics_20190717
         // Возвращает строку с фамилией и инициалами
         public string GetLastNameAndFM()
         {
-            return (lastName + " " + firstName.Substring(0,1) + "." + middleName.Substring(0,1) + ".");
+            return (lastName + " " + firstName.Substring(0, 1) + "." + middleName.Substring(0, 1) + ".");
         }
 
         //Возвращает текущий возраст

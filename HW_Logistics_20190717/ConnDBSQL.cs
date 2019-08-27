@@ -76,6 +76,7 @@ namespace HW_Logistics_20190717
 
         public void ViewTable(string strSqlQuery)
         {
+            Console.WriteLine("-------------------------------------------------------------------");
             try
             {
                 Console.Write("Connecting to SQL Server ... \n");
@@ -115,6 +116,7 @@ namespace HW_Logistics_20190717
                 Console.WriteLine(e.ToString());
                 return;
             }
+            Console.WriteLine("-------------------------------------------------------------------");
         }
 
         public void ViewTableDEMO()

@@ -8,7 +8,7 @@ namespace HW_Logistics_20190717
 {
     class Order
     {
-        public int orderID { get; set; }
+        public int ID { get; set; }
         public int customerID { get; set; }
         public double weight { get; set; }
         public double volume { get; set; }
@@ -17,9 +17,9 @@ namespace HW_Logistics_20190717
         public DateTime startDate { get; set; }
         public DateTime endDate { get; set; }
 
-        public Order(int orderID, int customerID, double weight, double volume, int from, int to, DateTime startDate, DateTime endDate)
+        public Order(int ID, int customerID, double weight, double volume, int from, int to, DateTime startDate, DateTime endDate)
         {
-            this.orderID = orderID;
+            this.ID = ID;
             this.customerID = customerID;
             this.weight = weight;
             this.volume = volume;
@@ -47,7 +47,7 @@ namespace HW_Logistics_20190717
         public void InfoOrder()
         {
             Console.WriteLine("\n----------------- Информация о заказе -------------------\n\n");
-            Console.WriteLine("Номер заказа ------------ " + orderID);
+            Console.WriteLine("Номер заказа ------------ " + ID);
             Console.WriteLine("Номер клиента ----------- " + customerID);
             Console.WriteLine("Вес посылки ------------- " + weight);
             Console.WriteLine("Объем посылки ----------- " + volume);
