@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HW_Logistics_20190717
 {
-    internal class Worker : Person
+    internal class Worker : Person, IWorkWithSQL
     {
         public int workerID { get; set; }
         public DateTime employmentDate { get; set; }
@@ -57,7 +57,11 @@ namespace HW_Logistics_20190717
             sb.Append("USE Logistics; ");
             sb.Append("CREATE TABLE Workers (");
             sb.Append(" Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ");
-            sb.Append(" workerID INT, ");
+            sb.Append(" lastName NVARCHAR(50), ");
+            sb.Append(" firstName NVARCHAR(50), ");
+            sb.Append(" middleName NVARCHAR(50), ");
+            sb.Append(" birthday DATE, ");
+            sb.Append(" inn DECIMAL, ");
             sb.Append(" employmentDate DATE, ");
             sb.Append(" position NVARCHAR(50), ");
             sb.Append(" solary MONEY ");
@@ -71,8 +75,9 @@ namespace HW_Logistics_20190717
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE Logistics; ");
-            sb.Append("INSERT INTO Workers (workerID, employmentDate, position, solary) VALUES ");
-            sb.Append($"('{workerID}', '{employmentDate.Year}-{employmentDate.Month}-{employmentDate.Day}', '{position}', '{solary}') ");
+            sb.Append("INSERT INTO Workers (lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
+            sb.Append($"('{lastName}', '{firstName}', '{middleName}', '{birthday.Year}-{birthday.Month}-{birthday.Day}', {inn}'," +
+                $" '{employmentDate.Year}-{employmentDate.Month}-{employmentDate.Day}', '{position}', '{solary}') ");
             string sql = sb.ToString();
             return sql;
         }
@@ -82,8 +87,7 @@ namespace HW_Logistics_20190717
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE Logistics; ");
-            sb.Append("SELECT * FROM Persons p ");
-            sb.Append("JOIN Workers w ON w.workerID = p.id ;");
+            sb.Append("SELECT * FROM Workers p ");
             string sql = sb.ToString();
             return sql;
         }

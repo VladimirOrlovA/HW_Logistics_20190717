@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ISaveAndLoadSQL.cs" />
     <Compile Include="ConnDBSQL.cs" />
     <Compile Include="DBconnDAPPER.cs" />
     <Compile Include="Order.cs" />

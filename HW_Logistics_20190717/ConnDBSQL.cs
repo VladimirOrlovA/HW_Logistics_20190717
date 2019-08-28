@@ -19,7 +19,8 @@ namespace HW_Logistics_20190717
             builder.InitialCatalog = "master";
         }
 
-        public void CreateTable(string strSqlQuery)
+        // Делает создание таблицы в БД получив строку (запроса в БД для создания таблицы) непосредственно из метода класса
+        public void CreateTableThroughClass(string strSqlQuery)
         {
             try
             {
@@ -47,7 +48,37 @@ namespace HW_Logistics_20190717
             }
         }
 
-        public void InsertTable(string strSqlQuery)
+        // Делает создание таблицы в БД получив через интерфейс данные объекта класса и строку запроса в БД для создания таблицы
+        public void CreateTable(IWorkWithSQL obj)
+        {
+            try
+            {
+                Console.Write("Connecting to SQL Server ... \n");
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                {
+                    connection.Open();
+                    Console.WriteLine("Done.");
+                    Console.WriteLine("ServerVersion: {0}", connection.ServerVersion);
+                    Console.WriteLine("State: {0}", connection.State);
+
+                    Console.Write("Creating table...");
+
+                    using (SqlCommand command = new SqlCommand(obj.CreateTableQuery(), connection))
+                    {
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Done. Table is created");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return;
+            }
+        }
+
+        // Делает запись в БД получив строку (запроса в БД для вставки в таблицу) непосредственно из метода класса
+        public void InsertTableThroughClass(string strSqlQuery)
         {
             try
             {
@@ -74,7 +105,37 @@ namespace HW_Logistics_20190717
             }
         }
 
-        public void ViewTable(string strSqlQuery)
+        // Делает запись в БД получив через интерфейс данные объекта класса и строку запроса в БД для внесения записи в таблицу
+        public void InsertTable(IWorkWithSQL obj)
+        {
+            try
+            {
+                Console.Write("Connecting to SQL Server ... \n");
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                {
+                    connection.Open();
+                    Console.WriteLine("Done.");
+                    Console.WriteLine("ServerVersion: {0}", connection.ServerVersion);
+                    Console.WriteLine("State: {0}", connection.State);
+                    Console.Write("\nInserting data to table...\n");
+                    
+                    using (SqlCommand command = new SqlCommand(obj.InsertTableQueryPerson(), connection))
+                    {
+                        Console.Write("\nRecords Processed - ");
+                        Console.WriteLine(command.ExecuteNonQuery());
+                        Console.WriteLine("Done.");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return;
+            }
+        }
+
+        // Выводит все записи из таблицы БД получив строку (запроса в БД для чтения таблицы) непосредственно из метода класса
+        public void ViewTableThroughClass(string strSqlQuery)
         {
             Console.WriteLine("-------------------------------------------------------------------");
             try
@@ -119,6 +180,53 @@ namespace HW_Logistics_20190717
             Console.WriteLine("-------------------------------------------------------------------");
         }
 
+        // Выводит все записи из таблицы БД получив через интерфейс данные объекта класса и строку запроса в БД для чтения записей из таблицы
+        public void ViewTable(IWorkWithSQL obj)
+        {
+            Console.WriteLine("-------------------------------------------------------------------");
+            try
+            {
+                Console.Write("Connecting to SQL Server ... \n");
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                {
+                    connection.Open();
+                    Console.WriteLine("Done.");
+                    Console.WriteLine("ServerVersion: {0}", connection.ServerVersion);
+                    Console.WriteLine("State: {0}", connection.State);
+
+                    // READ table
+                    Console.WriteLine("Reading data from table... \n\n");
+
+                    using (SqlCommand command = new SqlCommand(obj.CreateTableQuery(), connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            Console.WriteLine();
+
+                            //считываем строки таблицы
+                            while (reader.Read())
+                            {
+                                // считываем поля строки
+                                string rowStr = null;
+                                for (int i = 0; i != reader.FieldCount; i++)
+                                {
+                                    rowStr += reader.GetValue(i) + " || ";
+                                }
+                                Console.WriteLine(rowStr);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return;
+            }
+            Console.WriteLine("-------------------------------------------------------------------");
+        }
+
+        // метод из примера
         public void ViewTableDEMO()
         {
             try

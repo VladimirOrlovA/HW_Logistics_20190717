@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HW_Logistics_20190717
 {
-    class Person
+    abstract class Person : IWorkWithSQL
     {
         public string lastName { get; set; }
         public string firstName { get; set; }
@@ -23,22 +23,7 @@ namespace HW_Logistics_20190717
             this.birthday = birthday;
             this.inn = inn;
         }
-
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
-        public override string ToString()
-        {
-            return base.ToString();
-        }
-
+        
         public void InfoPerson()
         {
             //Console.WriteLine("\n----------------- Информация о человеке -----------------\n\n");
@@ -50,43 +35,13 @@ namespace HW_Logistics_20190717
         }
 
         // Формирует строку запроса в БД для создания таблицы
-        public string CreateTableQuery()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("USE Logistics; ");
-            sb.Append("CREATE TABLE Persons (");
-            sb.Append(" Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ");
-            sb.Append(" lastName NVARCHAR(50), ");
-            sb.Append(" firstName NVARCHAR(50), ");
-            sb.Append(" middleName NVARCHAR(50), ");
-            sb.Append(" birthday DATE, ");
-            sb.Append(" inn DECIMAL ");
-            sb.Append("); ");
-            string sql = sb.ToString();
-            return sql;
-        }
+        abstract public string CreateTableQuery();
 
         // Формирует строку запроса в БД для вставки данных
-        public string InsertTableQueryPerson()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("USE Logistics; ");
-            sb.Append("INSERT INTO Persons (lastName, firstName, middleName, birthday, inn) VALUES ");
-            sb.Append($"('{lastName}', '{firstName}', '{middleName}', " +
-                $"'{birthday.Year}-{birthday.Month}-{birthday.Day}', {inn}) ");
-            string sql = sb.ToString();
-            return sql;
-        }
+        abstract public string InsertTableQueryPerson();
 
         // Формирует строку запроса в БД для вставки данных
-        public string ViewTableQuery()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("USE Logistics; ");
-            sb.Append("SELECT * FROM Persons;");
-            string sql = sb.ToString();
-            return sql;
-        }
+        abstract public string ViewTableQuery();
 
         // Возвращает строку с полным ФИО
         public string GetLFM()
