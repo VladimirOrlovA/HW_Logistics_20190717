@@ -70,7 +70,7 @@ namespace HW_Logistics_20190717
         public bool InputCheckUppercaseLetter(string value)
         {
             if (Convert.ToInt16(value[0]) <= 65 || Convert.ToInt16(value[0]) >= 91 
-                    && Convert.ToInt16(value[0]) <= 1040 || Convert.ToInt16(value[0]) >= 1071)
+                    && Convert.ToInt16(value[0]) < 1040 || Convert.ToInt16(value[0]) > 1071)
             {
                 Console.WriteLine("Неверный ввод.");
                 Console.WriteLine("Первая буква должна быть прописной - заглавной");

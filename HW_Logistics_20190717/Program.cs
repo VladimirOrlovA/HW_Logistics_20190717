@@ -96,7 +96,7 @@ namespace HW_Logistics_20190717
             for (int i = 1040; i < 1103; i++)
                 Console.WriteLine(i + " = " + Convert.ToChar(i));
 
-            worker1.LastName = "Данилов";
+            worker1.LastName = "Андропов";
 
             Console.WriteLine("Проверка : " + worker1.LastName);
 
