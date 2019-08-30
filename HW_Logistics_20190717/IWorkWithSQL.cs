@@ -9,7 +9,7 @@ namespace HW_Logistics_20190717
     interface IWorkWithSQL
     {
         string CreateTableQuery();
-        string InsertTableQueryPerson();
+        string InsertTableQuery();
         string ViewTableQuery();
     }
 }

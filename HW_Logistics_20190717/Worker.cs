@@ -51,7 +51,7 @@ namespace HW_Logistics_20190717
         }
 
         // Формирует строку запроса в БД для создания таблицы
-        public new string CreateTableQuery()
+        public override string CreateTableQuery()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE Logistics; ");
@@ -71,7 +71,7 @@ namespace HW_Logistics_20190717
         }
 
         // Формирует строку запроса в БД для вставки данных
-        public string InsertTableQuery()
+        public override string InsertTableQuery()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE Logistics; ");
@@ -83,7 +83,7 @@ namespace HW_Logistics_20190717
         }
 
         // Формирует строку запроса в БД для вставки данных
-        public new string ViewTableQuery()
+        public override string ViewTableQuery()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE Logistics; ");

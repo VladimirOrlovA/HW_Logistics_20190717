@@ -8,22 +8,110 @@ namespace HW_Logistics_20190717
 {
     abstract class Person : IWorkWithSQL
     {
-        public string lastName { get; set; }
-        public string firstName { get; set; }
-        public string middleName { get; set; }
+        protected string lastName;
+        public string LastName
+        {
+            get
+            {
+                return lastName;
+            }
+            set
+            {
+                InputCheckUppercaseLetter(value);
+                lastName = InputCheckOnlyCyrillicLetters(value);
+            }
+        }
+
+        protected string firstName;
+        public string FirstName
+        {
+            get
+            {
+                return firstName;
+            }
+            set
+            {
+                InputCheckUppercaseLetter(value);
+                firstName = InputCheckOnlyCyrillicLetters(value);
+            }
+        }
+
+        protected string middleName;
+        public string MiddleName
+        {
+            get
+            {
+                return middleName;
+            }
+            set
+            {
+                InputCheckUppercaseLetter(value);
+                middleName = InputCheckOnlyCyrillicLetters(value);
+            }
+        }
+
         public DateTime birthday { get; }
         public long inn { get; }
 
         public Person() { }
         public Person(string lastName, string firstName, string middleName, DateTime birthday, long inn)
         {
-            this.lastName = lastName;
-            this.firstName = firstName;
-            this.middleName = middleName;
+            LastName = lastName;
+            FirstName = firstName;
+            MiddleName = middleName;
             this.birthday = birthday;
             this.inn = inn;
         }
-        
+
+        // Проверка ввода - условие первый символ - прописная/заглавная буква
+        public void InputCheckUppercaseLetter(string value)
+        {
+            if (value[0] <= 65 || value[0] >= 91 && value[0] <= 1040 || value[0] >= 1071)
+            {
+                Console.WriteLine("Неверный ввод.");
+                Console.WriteLine("Первая буква должна быть прописной - заглавной");
+            }
+        }
+
+        // Проверка ввода - условие только латинские буквы
+        public string InputCheckOnlyLatinLetters(string value)
+        {
+            for (int i = 0; i < value.Length; i++)
+                if (value[i] < 65 || value[i] > 122)
+                {
+                    //throw new ArgumentException("Неверный ввод. Имя должно содержать только латинские буквы");
+                    Console.WriteLine("Неверный ввод.");
+                    Console.WriteLine("ФИО должно содержать только латинские буквы, без пробелов и прочих символов");
+                    return value = "abcd";
+                }
+            return value;
+        }
+
+        // Проверка ввода - условие только буквы кириллицы
+        public string InputCheckOnlyCyrillicLetters(string value)
+        {
+            for (int i = 0; i < value.Length; i++)
+                if (value[i] < 1040 || value[i] > 1103)
+                {
+                    //throw new ArgumentException("Неверный ввод. Имя должно содержать только буквы кририлицы");
+                    Console.WriteLine("Неверный ввод.");
+                    Console.WriteLine("ФИО должно содержать только буквы кририлицы без пробелов и прочих символов");
+                    return value = "абвг";
+                }
+            return value;
+        }
+
+        // Проверка ввода - условие только буквы кириллицы или латиницы
+        public string InputCheckOnlyCyrOrLatLetters(string value)
+        {
+            if (value[0] < 1040 || value[0] > 1103)
+                InputCheckOnlyCyrillicLetters(value);
+
+            if (value[0] < 65 || value[0] > 122)
+                InputCheckOnlyLatinLetters(value);
+            return value = "ФИО LFM";
+        }
+
         public void InfoPerson()
         {
             //Console.WriteLine("\n----------------- Информация о человеке -----------------\n\n");
@@ -38,7 +126,7 @@ namespace HW_Logistics_20190717
         abstract public string CreateTableQuery();
 
         // Формирует строку запроса в БД для вставки данных
-        abstract public string InsertTableQueryPerson();
+        abstract public string InsertTableQuery();
 
         // Формирует строку запроса в БД для вставки данных
         abstract public string ViewTableQuery();

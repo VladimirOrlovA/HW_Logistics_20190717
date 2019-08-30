@@ -11,7 +11,7 @@ namespace HW_Logistics_20190717
         static void Main(string[] args)
         {
 
-            Person person1 = new Person("Орлов", "Владимир", "Александрович", new DateTime(1980, 07, 16), 20660716888);
+            //Person person1 = new Person("Орлов", "Владимир", "Александрович", new DateTime(1980, 07, 16), 20660716888);
             //first.FirstName = "Владимир";
             //first.LastName = "Орлов";
             //first.MiddleName = "Александрович";
@@ -58,8 +58,9 @@ namespace HW_Logistics_20190717
 
             ConnDBSQL db = new ConnDBSQL();
 
-            Worker worker1 = new Worker("Нестеров", "Павел", "Николаевич", new DateTime(1994, 10, 12), 2586556655, 1, new DateTime(2010, 01, 23), "экспедитор", 180000);
-            Сustomer customer1 = new Сustomer("Быстров", "Олег", "Васильевич", new DateTime(2001, 01, 12), 2586556586, 2);
+            //Worker workerRUS = new Worker("Нестеров", "Павел", "Николаевич", new DateTime(1994, 10, 12), 2586556655, 1, new DateTime(2010, 01, 23), "экспедитор", 180000);
+            Worker workerUS = new Worker("Nesterov", "Pavel", "Nikolaevich", new DateTime(1994, 10, 12), 2586556655, 1, new DateTime(2010, 01, 23), "экспедитор", 180000);
+            //Сustomer customer1 = new Сustomer("Быстров", "Олег", "Васильевич", new DateTime(2001, 01, 12), 2586556586, 2);
 
             //db.CreateTable(person1.CreateTableQuery());
             //db.CreateTable(worker1.CreateTableQuery());
@@ -75,48 +76,23 @@ namespace HW_Logistics_20190717
             //db.ViewTable(customer1.ViewTableQuery());
 
 
-            worker1.lastName = "ВасяVasja1";
-            Console.WriteLine(worker1.lastName.Contains("1"));
+            //worker1.lastName = "ВасяVasja1";
+            //Console.WriteLine(worker1.lastName.Contains("1"));
 
-            //for (int i = 0; i < 256; i++)
-            //{
-            //    if (i % 10 == 0)
-            //        Console.WriteLine();
-            //    Console.Write(i + " = " + (char)i + "\t");
-            //}
+            
+            for (int i = 65; i < 123; i++)
+                Console.WriteLine(i + " = " + Convert.ToChar(i));
 
-            string str = worker1.lastName;
+            for (int i = 1040; i < 1104; i++)
+                Console.WriteLine(i + " = " + Convert.ToChar(i));
 
-            //foreach(var i in str)
-            //{
-            //    Console.Write(str[i] + ' ');
-            //}
 
-            for (int i = 0; i < str.Length; i++)
-                Console.WriteLine(Convert.ToInt32( str[i]) + " = " + str[i]);
+            // worker1.birthday = "1234";
 
-            //for (int i = 0; i < str.Length; i++)
-            //    if (str[i] < 65 || str[i] > 122)
-            //    {
-            //        Console.WriteLine("Неверный ввод. Имя должно содержать только латинские буквы");
-            //        break;
-            //    }
+            Console.Write("Введите фамилию: ");
+            workerUS.LastName = Convert.ToString(Console.ReadLine());
 
-            //for (int i = 0; i < str.Length; i++)
-            //    if (str[i] < 1040 || str[i] > 1103)
-            //    {
-            //        Console.WriteLine("Неверный ввод. Имя должно содержать только буквы кририлицы");
-            //        break;
-            //    }
-
-            //for (int i = 0; i < str.Length; i++)
-            //    if (str[i] < 65 || str[i] > 122 && str[i] < 1040 || str[i] > 1103)
-            //    {
-            //        Console.WriteLine("Неверный ввод. Имя должно содержать только буквы кририлицы или латиницы");
-            //        break;
-            //    }
-
-            worker1.birthday = "1234";
+            Console.WriteLine(workerUS.LastName);
 
 
             Console.ReadKey();

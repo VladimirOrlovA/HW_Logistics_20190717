@@ -119,7 +119,7 @@ namespace HW_Logistics_20190717
                     Console.WriteLine("State: {0}", connection.State);
                     Console.Write("\nInserting data to table...\n");
                     
-                    using (SqlCommand command = new SqlCommand(obj.InsertTableQueryPerson(), connection))
+                    using (SqlCommand command = new SqlCommand(obj.InsertTableQuery(), connection))
                     {
                         Console.Write("\nRecords Processed - ");
                         Console.WriteLine(command.ExecuteNonQuery());
