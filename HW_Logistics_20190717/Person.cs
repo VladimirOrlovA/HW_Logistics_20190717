@@ -19,7 +19,7 @@ namespace HW_Logistics_20190717
             {
                 if (InputCheckUppercaseLetter(value) && InputCheckOnlyCyrillicLetters(value))
                     lastName = value;
-                lastName = " ";
+                else lastName = " ";
             }
         }
 
@@ -34,7 +34,7 @@ namespace HW_Logistics_20190717
             {
                 if (InputCheckUppercaseLetter(value) && InputCheckOnlyCyrillicLetters(value))
                     firstName = value;
-                firstName = " ";
+                else firstName = " ";
             }
         }
 
@@ -49,7 +49,7 @@ namespace HW_Logistics_20190717
             {
                 if (InputCheckUppercaseLetter(value) && InputCheckOnlyCyrillicLetters(value))
                     middleName = value;
-                middleName = " ";
+                else middleName = " ";
             }
         }
 
@@ -69,7 +69,8 @@ namespace HW_Logistics_20190717
         // Проверка ввода - условие первый символ - прописная/заглавная буква
         public bool InputCheckUppercaseLetter(string value)
         {
-            if (value[0] <= 65 || value[0] >= 91 && value[0] <= 1040 || value[0] >= 1071)
+            if (Convert.ToInt16(value[0]) <= 65 || Convert.ToInt16(value[0]) >= 91 
+                    && Convert.ToInt16(value[0]) <= 1040 || Convert.ToInt16(value[0]) >= 1071)
             {
                 Console.WriteLine("Неверный ввод.");
                 Console.WriteLine("Первая буква должна быть прописной - заглавной");
@@ -82,7 +83,7 @@ namespace HW_Logistics_20190717
         public bool InputCheckOnlyLatinLetters(string value)
         {
             for (int i = 0; i < value.Length; i++)
-                if (value[i] < 65 || value[i] > 122)
+                if (Convert.ToInt16(value[i]) < 65 || Convert.ToInt16(value[i]) > 122)
                 {
                     //throw new ArgumentException("Неверный ввод. Имя должно содержать только латинские буквы");
                     Console.WriteLine("Неверный ввод.");
@@ -96,7 +97,7 @@ namespace HW_Logistics_20190717
         public bool InputCheckOnlyCyrillicLetters(string value)
         {
             for (int i = 0; i < value.Length; i++)
-                if (value[i] < 1040 || value[i] > 1103)
+                if (Convert.ToInt16(value[i]) < 1040 || Convert.ToInt16(value[i]) > 1103)
                 {
                     //throw new ArgumentException("Неверный ввод. Имя должно содержать только буквы кририлицы");
                     Console.WriteLine("Неверный ввод.");
@@ -110,10 +111,10 @@ namespace HW_Logistics_20190717
         public bool InputCheckOnlyCyrOrLatLetters(string value)
         {
             bool flag = true;
-            if (value[0] < 1040 || value[0] > 1103)
+            if (Convert.ToInt16(value[0]) < 1040 || Convert.ToInt16(value[0]) > 1103)
                 flag = InputCheckOnlyCyrillicLetters(value);
 
-            if (value[0] < 65 || value[0] > 122)
+            if (Convert.ToInt16(value[0]) < 65 || Convert.ToInt16(value[0]) > 122)
                 flag = InputCheckOnlyLatinLetters(value);
             return flag;
         }
@@ -127,6 +128,8 @@ namespace HW_Logistics_20190717
             Console.WriteLine("ИНН --------------------- " + inn);
             //Console.WriteLine("\n---------------------------------------------------------\n\n");
         }
+
+        abstract public void Info();
 
         // Формирует строку запроса в БД для создания таблицы
         abstract public string CreateTableQuery();

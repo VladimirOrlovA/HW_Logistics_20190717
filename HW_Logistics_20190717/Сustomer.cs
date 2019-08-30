@@ -33,7 +33,7 @@ namespace HW_Logistics_20190717
             return base.ToString();
         }
 
-        public void InfoCustomer()
+        public override void Info()
         {
             Console.WriteLine("\n----------------- Информация о заказчике -----------------\n\n");
             Console.WriteLine("Номер клиента ----------- " + customerID);

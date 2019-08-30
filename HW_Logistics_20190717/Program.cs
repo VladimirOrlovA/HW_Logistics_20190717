@@ -59,7 +59,7 @@ namespace HW_Logistics_20190717
             ConnDBSQL db = new ConnDBSQL();
 
             //Worker workerRUS = new Worker("Нестеров", "Павел", "Николаевич", new DateTime(1994, 10, 12), 2586556655, 1, new DateTime(2010, 01, 23), "экспедитор", 180000);
-            Worker workerUS = new Worker("Nesterov", "Pavel", "Nikolaevich", new DateTime(1994, 10, 12), 2586556655, 1, new DateTime(2010, 01, 23), "экспедитор", 180000);
+            //Worker workerUS = new Worker("Nesterov", "Pavel", "Nikolaevich", new DateTime(1994, 10, 12), 2586556655, 1, new DateTime(2010, 01, 23), "экспедитор", 180000);
             //Сustomer customer1 = new Сustomer("Быстров", "Олег", "Васильевич", new DateTime(2001, 01, 12), 2586556586, 2);
 
             //db.CreateTable(person1.CreateTableQuery());
@@ -79,20 +79,30 @@ namespace HW_Logistics_20190717
             //worker1.lastName = "ВасяVasja1";
             //Console.WriteLine(worker1.lastName.Contains("1"));
 
-            
-            for (int i = 65; i < 123; i++)
-                Console.WriteLine(i + " = " + Convert.ToChar(i));
-
-            for (int i = 1040; i < 1104; i++)
-                Console.WriteLine(i + " = " + Convert.ToChar(i));
-
-
             // worker1.birthday = "1234";
 
-            Console.Write("Введите фамилию: ");
-            workerUS.LastName = Convert.ToString(Console.ReadLine());
+            //Console.Write("Введите фамилию: ");
+            //workerUS.LastName = Convert.ToString(Console.ReadLine());
 
-            Console.WriteLine(workerUS.LastName);
+            Worker worker1 = new Worker("Нестеров", "Павел", "Николаевич", new DateTime(1994, 10, 12), 2586556655, 1, new DateTime(2010, 01, 23), "экспедитор", 180000);
+            Worker worker2 = new Worker("Нестеров", "Семен", "Николаевич", new DateTime(1994, 10, 12), 2586556655, 1, new DateTime(2010, 01, 23), "экспедитор", 180000);
+            //Worker worker3 = new Worker("Нестеров", "Артем", "Николаевич", new DateTime(1994, 10, 12), 2586556655, 1, new DateTime(2010, 01, 23), "экспедитор", 180000);
+
+            Workers wr = new Workers();
+
+            wr.AddWorker(worker1);
+            wr.AddWorker(worker2);
+
+            for (int i = 1040; i < 1103; i++)
+                Console.WriteLine(i + " = " + Convert.ToChar(i));
+
+            worker1.LastName = "Данилов";
+
+            Console.WriteLine("Проверка : " + worker1.LastName);
+
+            wr.Info();
+
+            //Console.WriteLine(workerUS.LastName);
 
 
             Console.ReadKey();

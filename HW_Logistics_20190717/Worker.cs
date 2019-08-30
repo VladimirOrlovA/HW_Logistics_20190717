@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HW_Logistics_20190717
 {
-    internal class Worker : Person, IWorkWithSQL
+     class Worker : Person, IWorkWithSQL
     {
         public int workerID { get; set; }
         public DateTime employmentDate { get; set; }
@@ -39,7 +39,7 @@ namespace HW_Logistics_20190717
             return base.ToString();
         }
 
-        public void InfoWorker()
+        public override void Info()
         {
             Console.WriteLine("\n----------------- Информация о работнике -----------------\n\n");
             Console.WriteLine("Номер работника --------- " + workerID);
