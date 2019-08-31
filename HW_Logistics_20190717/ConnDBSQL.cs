@@ -48,7 +48,7 @@ namespace HW_Logistics_20190717
             }
         }
 
-        // Делает создание таблицы в БД получив через интерфейс данные объекта класса и строку запроса в БД для создания таблицы
+        // Делает создание таблицы в БД получив через интерфейс строку запроса в БД для создания таблицы
         public void CreateTable(IWorkWithSQL obj)
         {
             try
@@ -60,8 +60,8 @@ namespace HW_Logistics_20190717
                     Console.WriteLine("Done.");
                     Console.WriteLine("ServerVersion: {0}", connection.ServerVersion);
                     Console.WriteLine("State: {0}", connection.State);
-
-                    Console.Write("Creating table...");
+                    Console.Write("Creating table - ");
+                    Console.WriteLine(Convert.ToString(obj.GetType()).Substring(22));
 
                     using (SqlCommand command = new SqlCommand(obj.CreateTableQuery(), connection))
                     {
@@ -105,7 +105,7 @@ namespace HW_Logistics_20190717
             }
         }
 
-        // Делает запись в БД получив через интерфейс данные объекта класса и строку запроса в БД для внесения записи в таблицу
+        // Делает запись в БД получив через интерфейс строку запроса в БД для внесения записи в таблицу
         public void InsertTable(IWorkWithSQL obj)
         {
             try
@@ -180,7 +180,7 @@ namespace HW_Logistics_20190717
             Console.WriteLine("-------------------------------------------------------------------");
         }
 
-        // Выводит все записи из таблицы БД получив через интерфейс данные объекта класса и строку запроса в БД для чтения записей из таблицы
+        // Выводит все записи из таблицы БД получив через интерфейс строку запроса в БД для чтения записей из таблицы
         public void ViewTable(IWorkWithSQL obj)
         {
             Console.WriteLine("-------------------------------------------------------------------");
@@ -274,8 +274,6 @@ namespace HW_Logistics_20190717
                 return;
             }
         }
-
-
 
     }
 }

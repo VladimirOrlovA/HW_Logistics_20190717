@@ -75,34 +75,24 @@ namespace HW_Logistics_20190717
             //db.ViewTable(worker1.ViewTableQuery());
             //db.ViewTable(customer1.ViewTableQuery());
 
-
-            //worker1.lastName = "ВасяVasja1";
-            //Console.WriteLine(worker1.lastName.Contains("1"));
-
-            // worker1.birthday = "1234";
-
-            //Console.Write("Введите фамилию: ");
-            //workerUS.LastName = Convert.ToString(Console.ReadLine());
-
-            Worker worker1 = new Worker("Нестеров", "Павел", "Николаевич", new DateTime(1994, 10, 12), 2586556655, 1, new DateTime(2010, 01, 23), "экспедитор", 180000);
-            Worker worker2 = new Worker("Нестеров", "Семен", "Николаевич", new DateTime(1994, 10, 12), 2586556655, 1, new DateTime(2010, 01, 23), "экспедитор", 180000);
-            //Worker worker3 = new Worker("Нестеров", "Артем", "Николаевич", new DateTime(1994, 10, 12), 2586556655, 1, new DateTime(2010, 01, 23), "экспедитор", 180000);
+            Worker worker1 = new Worker("Брежнев", "Павел", "Федорович", new DateTime(1981, 01, 08), 2586556655, 1, new DateTime(2010, 01, 23), "менеджер", 180000);
+            Worker worker2 = new Worker("Андропов", "Семен", "Петрович", new DateTime(1992, 08, 25), 2586556655, 1, new DateTime(2010, 01, 23), "экспедитор", 120000);
+            Worker worker3 = new Worker("Горбачев", "Артем", "Дмитриевич", new DateTime(1994, 03, 18), 2586556655, 1, new DateTime(2010, 01, 23), "техник", 80000);
 
             Workers wr = new Workers();
 
-            //wr.AddWorker(worker1);
-            //wr.AddWorker(worker2);
+            wr.AddWorker(worker1);
+            wr.AddWorker(worker2);
+            wr.AddWorker(worker3);
 
-            //for (int i = 1040; i < 1103; i++)
-            //    Console.WriteLine(i + " = " + Convert.ToChar(i));
+            wr.AddWorkerI(worker1);
 
-            //worker1.LastName = "Андропов";
+            wr.Info();
 
-            //Console.WriteLine("Проверка : " + worker1.LastName);
+            db.InsertTable(wr);
 
-            worker1.CreateTableQuery();
-
-            db.CreateTable(worker1);
+            //db.CreateTable(wr);
+            //db.CreateTable(worker1);
 
             //Console.WriteLine(workerUS.LastName);
 

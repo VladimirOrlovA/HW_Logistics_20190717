@@ -8,6 +8,6 @@ namespace HW_Logistics_20190717
 {
     interface IAddWorkerToWorkers
     {
-        void AddWorker(Worker obj);
+        Worker ThisWorker();
     }
 }

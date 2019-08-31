@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HW_Logistics_20190717
 {
-     class Worker : Person, IWorkWithSQL
+     class Worker : Person, IWorkWithSQL, IAddWorkerToWorkers
     {
         public int workerID { get; set; }
         public DateTime employmentDate { get; set; }
@@ -55,7 +55,7 @@ namespace HW_Logistics_20190717
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE Logistics; ");
-            sb.Append("CREATE TABLE Workers (");
+            sb.Append("CREATE TABLE Worker (");
             sb.Append(" Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ");
             sb.Append(" lastName NVARCHAR(50), ");
             sb.Append(" firstName NVARCHAR(50), ");
@@ -92,5 +92,11 @@ namespace HW_Logistics_20190717
             return sqlQuery;
         }
 
+        // Отправляет через интерфейс объект класса Worker
+        Worker IAddWorkerToWorkers.ThisWorker()
+        {
+            return this;
+            //throw new NotImplementedException();
+        }
     }
 }
