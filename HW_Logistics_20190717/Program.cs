@@ -104,9 +104,6 @@ namespace HW_Logistics_20190717
 
             db.CreateTable(worker1);
 
-            IWorkWithSQL sd;
-            sd.CreateTableQuery();
-
             //Console.WriteLine(workerUS.LastName);
 
 
