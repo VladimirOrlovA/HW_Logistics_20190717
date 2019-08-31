@@ -70,24 +70,24 @@ namespace HW_Logistics_20190717
             return sqlQuery;
         }
 
-        // Формирует строку запроса в БД для вставки данных
+        // Формирует строку запроса в БД для вставки данных в таблицу
         public override string InsertTableQuery()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE Logistics; ");
-            sb.Append("INSERT INTO Workers (lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
-            sb.Append($"('{lastName}', '{firstName}', '{middleName}', '{birthday.Year}-{birthday.Month}-{birthday.Day}', {inn}'," +
+            sb.Append("INSERT INTO Worker (lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
+            sb.Append($"('{lastName}', '{firstName}', '{middleName}', '{birthday.Year}-{birthday.Month}-{birthday.Day}', '{inn}'," +
                 $" '{employmentDate.Year}-{employmentDate.Month}-{employmentDate.Day}', '{position}', '{solary}') ");
             string sqlQuery = sb.ToString();
             return sqlQuery;
         }
 
-        // Формирует строку запроса в БД для вставки данных
+        // Формирует строку запроса в БД для чтения данных из таблицы
         public override string ViewTableQuery()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE Logistics; ");
-            sb.Append("SELECT * FROM Workers p ");
+            sb.Append("SELECT * FROM Worker p ");
             string sqlQuery = sb.ToString();
             return sqlQuery;
         }

@@ -1,6 +1,7 @@
 USE Logistics
 
 SELECT * FROM Persons
+SELECT * FROM Worker
 SELECT * FROM Workers
 SELECT * FROM Customers
 

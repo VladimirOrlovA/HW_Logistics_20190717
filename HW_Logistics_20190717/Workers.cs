@@ -28,6 +28,7 @@ namespace HW_Logistics_20190717
                 worker.Info();
         }
 
+        // Формирует строку запроса в БД для создания таблицы
         string IWorkWithSQL.CreateTableQuery()
         {
             StringBuilder sb = new StringBuilder();
@@ -48,6 +49,7 @@ namespace HW_Logistics_20190717
             //throw new NotImplementedException();
         }
 
+        // Формирует строку запроса в БД для вставки данных в таблицу
         string IWorkWithSQL.InsertTableQuery()
         {
             StringBuilder sb = new StringBuilder();
@@ -69,9 +71,15 @@ namespace HW_Logistics_20190717
             //throw new NotImplementedException();
         }
 
+        // Формирует строку запроса в БД для чтения данных из таблицы
         string IWorkWithSQL.ViewTableQuery()
         {
-            throw new NotImplementedException();
+            StringBuilder sb = new StringBuilder();
+            sb.Append("USE Logistics; ");
+            sb.Append("SELECT * FROM Workers p ");
+            string sqlQuery = sb.ToString();
+            return sqlQuery;
+            //throw new NotImplementedException();
         }
     }
 }
