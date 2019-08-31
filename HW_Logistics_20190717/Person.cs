@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HW_Logistics_20190717
 {
-    abstract class Person : IWorkWithSQL
+    abstract class Person: IWorkWithSQL
     {
         protected string lastName;
         public string LastName

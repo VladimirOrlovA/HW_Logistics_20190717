@@ -66,8 +66,8 @@ namespace HW_Logistics_20190717
             sb.Append(" position NVARCHAR(50), ");
             sb.Append(" solary MONEY ");
             sb.Append("); ");
-            string sql = sb.ToString();
-            return sql;
+            string sqlQuery = sb.ToString();
+            return sqlQuery;
         }
 
         // Формирует строку запроса в БД для вставки данных
@@ -78,8 +78,8 @@ namespace HW_Logistics_20190717
             sb.Append("INSERT INTO Workers (lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
             sb.Append($"('{lastName}', '{firstName}', '{middleName}', '{birthday.Year}-{birthday.Month}-{birthday.Day}', {inn}'," +
                 $" '{employmentDate.Year}-{employmentDate.Month}-{employmentDate.Day}', '{position}', '{solary}') ");
-            string sql = sb.ToString();
-            return sql;
+            string sqlQuery = sb.ToString();
+            return sqlQuery;
         }
 
         // Формирует строку запроса в БД для вставки данных
@@ -88,8 +88,8 @@ namespace HW_Logistics_20190717
             StringBuilder sb = new StringBuilder();
             sb.Append("USE Logistics; ");
             sb.Append("SELECT * FROM Workers p ");
-            string sql = sb.ToString();
-            return sql;
+            string sqlQuery = sb.ToString();
+            return sqlQuery;
         }
 
     }

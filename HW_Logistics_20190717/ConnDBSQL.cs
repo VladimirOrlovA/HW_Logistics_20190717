@@ -78,7 +78,7 @@ namespace HW_Logistics_20190717
         }
 
         // Делает запись в БД получив строку (запроса в БД для вставки в таблицу) непосредственно из метода класса
-        public void InsertTableThroughClass(string strSqlQuery)
+        public void InsertTableThroughClass(string strQuery)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace HW_Logistics_20190717
                     Console.WriteLine("ServerVersion: {0}", connection.ServerVersion);
                     Console.WriteLine("State: {0}", connection.State);
                     Console.Write("\nInserting data to table...\n");
-                    using (SqlCommand command = new SqlCommand(strSqlQuery, connection))
+                    using (SqlCommand command = new SqlCommand(strQuery, connection))
                     {
                         Console.Write("\nRecords Processed - ");
                         Console.WriteLine(command.ExecuteNonQuery());
@@ -119,7 +119,7 @@ namespace HW_Logistics_20190717
                     Console.WriteLine("State: {0}", connection.State);
                     Console.Write("\nInserting data to table...\n");
                     
-                    using (SqlCommand command = new SqlCommand(obj.InsertTableQuery(), connection))
+                    using (SqlCommand command = new SqlCommand(obj.InsertTableQuery()   , connection))
                     {
                         Console.Write("\nRecords Processed - ");
                         Console.WriteLine(command.ExecuteNonQuery());
@@ -197,7 +197,7 @@ namespace HW_Logistics_20190717
                     // READ table
                     Console.WriteLine("Reading data from table... \n\n");
 
-                    using (SqlCommand command = new SqlCommand(obj.CreateTableQuery(), connection))
+                    using (SqlCommand command = new SqlCommand(obj.ViewTableQuery(), connection))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
                         {

@@ -52,8 +52,8 @@ namespace HW_Logistics_20190717
             //sb.Append(" orderID INT FOREIGN KEY (orderID) REFERENCES Orders (id), ");
             sb.Append(" orderID INT, ");
             sb.Append("); ");
-            string sql = sb.ToString();
-            return sql;
+            string sqlQuery = sb.ToString();
+            return sqlQuery;
         }
 
         // Формирует строку запроса в БД для вставки данных
@@ -63,8 +63,8 @@ namespace HW_Logistics_20190717
             sb.Append("USE Logistics; ");
             sb.Append("INSERT INTO Customers (customerID, orderID) VALUES ");
             sb.Append($"('{customerID}', '{orderID}') ");
-            string sql = sb.ToString();
-            return sql;
+            string sqlQuery = sb.ToString();
+            return sqlQuery;
         }
 
         // Формирует строку запроса в БД для вставки данных
@@ -74,8 +74,8 @@ namespace HW_Logistics_20190717
             sb.Append("USE Logistics; ");
             sb.Append("SELECT * FROM Persons p ");
             sb.Append("JOIN Customers c ON c.customerID = p.id ;");
-            string sql = sb.ToString();
-            return sql;
+            string sqlQuery = sb.ToString();
+            return sqlQuery;
         }
 
     }

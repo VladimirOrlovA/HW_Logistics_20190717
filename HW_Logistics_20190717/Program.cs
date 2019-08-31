@@ -90,17 +90,22 @@ namespace HW_Logistics_20190717
 
             Workers wr = new Workers();
 
-            wr.AddWorker(worker1);
-            wr.AddWorker(worker2);
+            //wr.AddWorker(worker1);
+            //wr.AddWorker(worker2);
 
-            for (int i = 1040; i < 1103; i++)
-                Console.WriteLine(i + " = " + Convert.ToChar(i));
+            //for (int i = 1040; i < 1103; i++)
+            //    Console.WriteLine(i + " = " + Convert.ToChar(i));
 
-            worker1.LastName = "Андропов";
+            //worker1.LastName = "Андропов";
 
-            Console.WriteLine("Проверка : " + worker1.LastName);
+            //Console.WriteLine("Проверка : " + worker1.LastName);
 
-            wr.Info();
+            worker1.CreateTableQuery();
+
+            db.CreateTable(worker1);
+
+            IWorkWithSQL sd;
+            sd.CreateTableQuery();
 
             //Console.WriteLine(workerUS.LastName);
 
