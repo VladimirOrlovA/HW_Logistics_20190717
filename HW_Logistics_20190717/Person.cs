@@ -53,8 +53,8 @@ namespace HW_Logistics_20190717
             }
         }
 
-        public DateTime birthday { get; }
-        public long inn { get; }
+        public DateTime birthday { get; set; }
+        public long inn { get; set; }
 
         public Person() { }
         public Person(string lastName, string firstName, string middleName, DateTime birthday, long inn)

@@ -8,21 +8,25 @@ namespace HW_Logistics_20190717
 {
      class Worker : Person, IWorkWithSQL, IAddWorkerToWorkers
     {
-        public int workerID { get; set; }
+        static int count = 0;
+        public int workerID{ get; set; }
         public DateTime employmentDate { get; set; }
         public string position { get; set; }
         public int solary { get; set; }
 
 
         public Worker(string lastName, string firstName,  string middleName, DateTime birthday, 
-                        long inn, int workerID, DateTime employmentDate, string position, int solary) 
+                        long inn, DateTime employmentDate, string position, int solary) 
             : base(lastName, firstName,  middleName, birthday, inn)
         {
-            this.workerID = workerID;
+            workerID = ++count
+;
             this.employmentDate = employmentDate;
             this.position = position;
             this.solary = solary;
         }
+
+        public Worker() { }
 
         public override bool Equals(object obj)
         {

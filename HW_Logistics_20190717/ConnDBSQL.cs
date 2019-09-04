@@ -118,8 +118,8 @@ namespace HW_Logistics_20190717
                     Console.WriteLine("ServerVersion: {0}", connection.ServerVersion);
                     Console.WriteLine("State: {0}", connection.State);
                     Console.Write("\nInserting data to table...\n");
-                    
-                    using (SqlCommand command = new SqlCommand(obj.InsertTableQuery()   , connection))
+
+                    using (SqlCommand command = new SqlCommand(obj.InsertTableQuery(), connection))
                     {
                         Console.Write("\nRecords Processed - ");
                         Console.WriteLine(command.ExecuteNonQuery());
@@ -274,6 +274,61 @@ namespace HW_Logistics_20190717
                 return;
             }
         }
+
+        public void ReadTable(IWorkWithSQL obj)
+        {
+            Console.WriteLine("-------------------------------------------------------------------");
+            try
+            {
+                Console.Write("Connecting to SQL Server ... \n");
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                {
+                    connection.Open();
+                    Console.WriteLine("Done.");
+                    Console.WriteLine("ServerVersion: {0}", connection.ServerVersion);
+                    Console.WriteLine("State: {0}", connection.State);
+
+                    // READ table
+                    Console.WriteLine("Reading data from table... \n\n");
+
+                    using (SqlCommand command = new SqlCommand(obj.ViewTableQuery(), connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            Console.WriteLine();
+
+                            //считываем строки таблицы
+                            while (reader.Read())
+                            {
+                                // считываем поля строки
+                                string[] rowStr = new string[reader.FieldCount];
+                                for (int i = 0; i != reader.FieldCount; i++)
+                                {
+                                    rowStr[i] = Convert.ToString(reader.GetValue(i));
+                                }
+                                Worker tmpWorker = new Worker();
+
+                                tmpWorker.LastName = rowStr[1];
+                                tmpWorker.FirstName = rowStr[2];
+                                tmpWorker.MiddleName = rowStr[3];
+                                tmpWorker.birthday = Convert.ToDateTime(rowStr[4]);
+                                tmpWorker.inn = Convert.ToInt32(rowStr[5]);
+                                tmpWorker.employmentDate = Convert.ToDateTime(rowStr[6]);
+                                tmpWorker.position = rowStr[7];
+                                tmpWorker.solary = Convert.ToInt32(rowStr[8]);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return;
+            }
+            Console.WriteLine("-------------------------------------------------------------------");
+        }
+
 
     }
 }

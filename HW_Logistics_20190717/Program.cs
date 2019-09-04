@@ -8,6 +8,7 @@ namespace HW_Logistics_20190717
 {
     class Program
     {
+        static int wrcnt = 0;
         static void Main(string[] args)
         {
 
@@ -75,9 +76,9 @@ namespace HW_Logistics_20190717
             //db.ViewTable(worker1.ViewTableQuery());
             //db.ViewTable(customer1.ViewTableQuery());
 
-            Worker worker1 = new Worker("Брежнев", "Павел", "Федорович", new DateTime(1981, 01, 08), 2586556655, 1, new DateTime(2010, 01, 23), "менеджер", 180000);
-            Worker worker2 = new Worker("Андропов", "Семен", "Петрович", new DateTime(1992, 08, 25), 2586556655, 1, new DateTime(2010, 01, 23), "экспедитор", 120000);
-            Worker worker3 = new Worker("Горбачев", "Артем", "Дмитриевич", new DateTime(1994, 03, 18), 2586556655, 1, new DateTime(2010, 01, 23), "техник", 80000);
+            Worker worker1 = new Worker("Брежнев", "Павел", "Федорович", new DateTime(1981, 01, 08), 2586556655, new DateTime(2010, 01, 23), "менеджер", 180000);
+            Worker worker2 = new Worker("Андропов", "Семен", "Петрович", new DateTime(1992, 08, 25), 2586556655, new DateTime(2010, 01, 23), "экспедитор", 120000);
+            //Worker worker3 = new Worker("Горбачев", "Артем", "Дмитриевич", new DateTime(1994, 03, 18), 2586556655, 1, new DateTime(2010, 01, 23), "техник", 80000);
 
             Workers wr = new Workers();
 
@@ -85,17 +86,19 @@ namespace HW_Logistics_20190717
             //wr.AddWorker(worker2);
             //wr.AddWorker(worker3);
 
-            //wr.AddWorkerI(worker1);
+            wr.AddWorkerI(worker1);
+            wr.AddWorkerI(worker2);
 
-            //wr.Info();
+            wr.Info();
 
             //db.InsertTable(wr);
             //db.ViewTable(wr);
             //Console.WriteLine("----------------------------------------------------");
             //db.InsertTable(worker1);
             //db.ViewTable(worker1);
-           
+
             // ====== Реализовать загрузку данных из таблиц при запуске программы
+
 
             //db.CreateTable(wr);
             //db.CreateTable(worker1);
