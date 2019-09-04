@@ -34,7 +34,7 @@ namespace HW_Logistics_20190717
             StringBuilder sb = new StringBuilder();
             sb.Append("USE Logistics; ");
             sb.Append("CREATE TABLE Workers (");
-            sb.Append(" Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ");
+            sb.Append(" workerID INT NOT NULL, ");
             sb.Append(" lastName NVARCHAR(50), ");
             sb.Append(" firstName NVARCHAR(50), ");
             sb.Append(" middleName NVARCHAR(50), ");
@@ -42,7 +42,7 @@ namespace HW_Logistics_20190717
             sb.Append(" inn DECIMAL, ");
             sb.Append(" employmentDate DATE, ");
             sb.Append(" position NVARCHAR(50), ");
-            sb.Append(" solary MONEY ");
+            sb.Append(" solary INT ");
             sb.Append("); ");
             string sqlQuery = sb.ToString();
             return sqlQuery;
@@ -54,13 +54,13 @@ namespace HW_Logistics_20190717
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE Logistics; ");
-            sb.Append("INSERT INTO Workers (lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
+            sb.Append("INSERT INTO Workers (workerID, lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
 
             int count = 0;
             foreach (Worker i in workersList)
             {
                 count++;
-                sb.Append($"('{i.LastName}', '{i.FirstName}', '{i.MiddleName}', '{i.birthday.Year}-{i.birthday.Month}-{i.birthday.Day}', '{i.inn}'," +
+                sb.Append($"('{i.workerID}', '{i.LastName}', '{i.FirstName}', '{i.MiddleName}', '{i.birthday.Year}-{i.birthday.Month}-{i.birthday.Day}', '{i.inn}'," +
                     $" '{i.employmentDate.Year}-{i.employmentDate.Month}-{i.employmentDate.Day}', '{i.position}', '{i.solary}')");
                 if(workersList.Capacity != count) sb.Append(", ");
             }

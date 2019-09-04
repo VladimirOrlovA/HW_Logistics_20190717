@@ -60,7 +60,7 @@ namespace HW_Logistics_20190717
             StringBuilder sb = new StringBuilder();
             sb.Append("USE Logistics; ");
             sb.Append("CREATE TABLE Worker (");
-            sb.Append(" Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ");
+            sb.Append(" workerID INT NOT NULL, ");
             sb.Append(" lastName NVARCHAR(50), ");
             sb.Append(" firstName NVARCHAR(50), ");
             sb.Append(" middleName NVARCHAR(50), ");
@@ -68,7 +68,7 @@ namespace HW_Logistics_20190717
             sb.Append(" inn DECIMAL, ");
             sb.Append(" employmentDate DATE, ");
             sb.Append(" position NVARCHAR(50), ");
-            sb.Append(" solary MONEY ");
+            sb.Append(" solary INT ");
             sb.Append("); ");
             string sqlQuery = sb.ToString();
             return sqlQuery;
@@ -79,8 +79,8 @@ namespace HW_Logistics_20190717
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE Logistics; ");
-            sb.Append("INSERT INTO Worker (lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
-            sb.Append($"('{lastName}', '{firstName}', '{middleName}', '{birthday.Year}-{birthday.Month}-{birthday.Day}', '{inn}'," +
+            sb.Append("INSERT INTO Worker (workerID, lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
+            sb.Append($"('{workerID}', '{lastName}', '{firstName}', '{middleName}', '{birthday.Year}-{birthday.Month}-{birthday.Day}', '{inn}'," +
                 $" '{employmentDate.Year}-{employmentDate.Month}-{employmentDate.Day}', '{position}', '{solary}') ");
             string sqlQuery = sb.ToString();
             return sqlQuery;

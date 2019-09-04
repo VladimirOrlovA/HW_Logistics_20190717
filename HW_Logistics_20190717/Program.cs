@@ -82,15 +82,22 @@ namespace HW_Logistics_20190717
 
             Workers wr = new Workers();
 
-            //wr.AddWorker(worker1);
-            //wr.AddWorker(worker2);
+            //db.ReadTable(wr);
+
+            wr.AddWorker(worker1);
+            wr.AddWorker(worker2);
             //wr.AddWorker(worker3);
 
-            wr.AddWorkerI(worker1);
-            wr.AddWorkerI(worker2);
+            //wr.AddWorkerI(worker1);
+            //wr.AddWorkerI(worker2);
 
             wr.Info();
 
+
+            //db.CreateTable(wr);
+            db.InsertTable(wr);
+
+            db.ViewTable(wr);
             //db.InsertTable(wr);
             //db.ViewTable(wr);
             //Console.WriteLine("----------------------------------------------------");

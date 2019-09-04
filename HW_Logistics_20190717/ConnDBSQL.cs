@@ -308,14 +308,18 @@ namespace HW_Logistics_20190717
                                 }
                                 Worker tmpWorker = new Worker();
 
+                                tmpWorker.workerID = Convert.ToInt32(rowStr[0]);
                                 tmpWorker.LastName = rowStr[1];
                                 tmpWorker.FirstName = rowStr[2];
                                 tmpWorker.MiddleName = rowStr[3];
                                 tmpWorker.birthday = Convert.ToDateTime(rowStr[4]);
-                                tmpWorker.inn = Convert.ToInt32(rowStr[5]);
+                                tmpWorker.inn = Convert.ToInt64(rowStr[5]);
                                 tmpWorker.employmentDate = Convert.ToDateTime(rowStr[6]);
                                 tmpWorker.position = rowStr[7];
                                 tmpWorker.solary = Convert.ToInt32(rowStr[8]);
+
+                                Workers wrks = new Workers();
+                                wrks.AddWorker(tmpWorker);
                             }
                         }
                     }
