@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HW_Logistics_20190717
 {
-    class Workers : IWorkWithSQL, ICountObj
+    class Workers : ICountObj
     {
         private List<Worker> workersList = new List<Worker>();
 
@@ -40,7 +40,7 @@ namespace HW_Logistics_20190717
         }
 
         // Формирует строку запроса в БД для создания таблицы
-        string IWorkWithSQL.CreateTableQuery()
+        public void CreateTable(IConnDataBaseSQL obj)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
@@ -56,12 +56,12 @@ namespace HW_Logistics_20190717
             sb.Append(" solary INT ");
             sb.Append("); ");
             string sqlQuery = sb.ToString();
-            return sqlQuery;
+            obj.CreateTable(sqlQuery);
             //throw new NotImplementedException();
         }
 
         // Формирует строку запроса в БД для вставки данных в таблицу
-        string IWorkWithSQL.InsertTableQuery()
+        public void InsertTable(IConnDataBaseSQL obj)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
@@ -78,21 +78,20 @@ namespace HW_Logistics_20190717
                     $" '{i.employmentDate.Year}-{i.employmentDate.Month}-{i.employmentDate.Day}', '{i.position}', '{i.solary}')");
                 if (workersList.Count != count) sb.Append(", ");
             }
-            if (count == 0)
-                return sqlQuery;
-            return sqlQuery = sb.ToString();
 
+            sqlQuery = sb.ToString();
+            obj.InsertTable(sqlQuery);
             //throw new NotImplementedException();
         }
 
         // Формирует строку запроса в БД для чтения данных из таблицы
-        string IWorkWithSQL.ViewTableQuery()
+        public void ViewTable(IConnDataBaseSQL obj)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
             sb.Append("SELECT * FROM Workers p ");
             string sqlQuery = sb.ToString();
-            return sqlQuery;
+            obj.InsertTable(sqlQuery);
             //throw new NotImplementedException();
         }
 

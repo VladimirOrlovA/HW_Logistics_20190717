@@ -46,7 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConnDataBaseSQL.cs" />
     <Compile Include="IAddWorkerToWorkers.cs" />
+    <Compile Include="IConnDataBaseSQL.cs" />
     <Compile Include="ICountObj.cs" />
     <Compile Include="IWorkWithSQL.cs" />
     <Compile Include="ConnDBSQL.cs" />

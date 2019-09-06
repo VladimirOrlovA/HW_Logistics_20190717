@@ -12,11 +12,10 @@ namespace HW_Logistics_20190717
         {
 
             // создаем строку с данными для подключения к БД SQL
-            ConnDBSQL db = new ConnDBSQL();
+            ConnDataBaseSQL db = new ConnDataBaseSQL();
 
             // создаем базу данных если не существует
             db.CreareDataBase();
-
 
             // создаем основные объекты для работы программы
             Worker worker = new Worker();
@@ -24,12 +23,12 @@ namespace HW_Logistics_20190717
             // 1, 2, ...
 
             // создаем таблицу для Workers
-            db.CreateTable(workers);
+            workers.CreateTable(db);
             // 1, 2, ...
 
 
             // загрузка данных из таблиц БД в объекты программы
-            workers = db.LoadData(workers);
+            //workers = db.LoadData(workers);
 
             // установка начального значения для счетчика объектов, 
             //чтобы корректно считать вновь созданные объекты в текущей сессии программы

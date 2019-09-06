@@ -8,16 +8,16 @@ namespace HW_Logistics_20190717
 {
     class Worker : Person, IWorkWithSQL, IAddWorkerToWorkers
     {
-        public static int workerCount=0;
-        public int workerID{ get; set; }
+        public static int workerCount = 0;
+        public int workerID { get; set; }
         public DateTime employmentDate { get; set; }
         public string position { get; set; }
         public int solary { get; set; }
 
 
-        public Worker(string lastName, string firstName,  string middleName, DateTime birthday, 
-                        long inn, DateTime employmentDate, string position, int solary) 
-            : base(lastName, firstName,  middleName, birthday, inn)
+        public Worker(string lastName, string firstName, string middleName, DateTime birthday,
+                        long inn, DateTime employmentDate, string position, int solary)
+            : base(lastName, firstName, middleName, birthday, inn)
         {
             workerID = ++workerCount;
             this.employmentDate = employmentDate;
@@ -54,7 +54,7 @@ namespace HW_Logistics_20190717
         }
 
         // Формирует строку запроса в БД для создания таблицы
-        public override string CreateTableQuery()
+        public override void CreateTable(IConnDataBaseSQL obj)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
@@ -70,35 +70,34 @@ namespace HW_Logistics_20190717
             sb.Append(" solary INT ");
             sb.Append("); ");
             string sqlQuery = sb.ToString();
-            return sqlQuery;
+            obj.CreateTable(sqlQuery);
         }
 
         // Формирует строку запроса в БД для вставки данных в таблицу
-        public override string InsertTableQuery()
+        public override void InsertTable(IConnDataBaseSQL obj)
         {
-            string sqlQuery;
+
             // проверка на случай передачи в строку данных объекта с пустыми полями,
             // чтобы исключить ошибки в программе - проблемы с циклами и таблицы - внесение неверных данных
-            if (workerID != 0)
-            {
-                StringBuilder sb = new StringBuilder();
-                sb.Append("USE LogisticsOVA; ");
-                sb.Append("INSERT INTO Workers (workerID, lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
-                sb.Append($"('{workerID}', '{lastName}', '{firstName}', '{middleName}', '{birthday.Year}-{birthday.Month}-{birthday.Day}', '{inn}'," +
-                    $" '{employmentDate.Year}-{employmentDate.Month}-{employmentDate.Day}', '{position}', '{solary}') ");
-                return sqlQuery = sb.ToString();
-            }
-            return sqlQuery=null;
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("USE LogisticsOVA; ");
+            sb.Append("INSERT INTO Workers (workerID, lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
+            sb.Append($"('{workerID}', '{lastName}', '{firstName}', '{middleName}', '{birthday.Year}-{birthday.Month}-{birthday.Day}', '{inn}'," +
+                $" '{employmentDate.Year}-{employmentDate.Month}-{employmentDate.Day}', '{position}', '{solary}') ");
+            string sqlQuery = sb.ToString();
+
+            obj.CreateTable(sqlQuery);
         }
 
         // Формирует строку запроса в БД для чтения данных из таблицы
-        public override string ViewTableQuery()
+        public override void ViewTable(IConnDataBaseSQL obj)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
             sb.Append("SELECT * FROM Worker p ");
             string sqlQuery = sb.ToString();
-            return sqlQuery;
+            obj.ViewTable(sqlQuery);
         }
 
         // Отправляет через интерфейс объект класса Worker

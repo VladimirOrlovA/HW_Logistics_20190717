@@ -136,14 +136,14 @@ namespace HW_Logistics_20190717
         // для обязательного переопределения метода вывода информации в дочерних классах
         abstract public void Info();
 
-        // Формирует строку запроса в БД для создания таблицы
-        abstract public string CreateTableQuery();
+        // Создание таблицы в БД
+        abstract public void CreateTable(IConnDataBaseSQL obj);
 
-        // Формирует строку запроса в БД для вставки данных
-        abstract public string InsertTableQuery();
+        // Вставка данных в таблицу БД
+        abstract public void InsertTable(IConnDataBaseSQL obj);
 
-        // Формирует строку запроса в БД для вставки данных
-        abstract public string ViewTableQuery();
+        // Чтение содержимого таблицы
+        abstract public void ViewTable(IConnDataBaseSQL obj);
 
         // Возвращает строку с полным ФИО
         public string GetLFM()
