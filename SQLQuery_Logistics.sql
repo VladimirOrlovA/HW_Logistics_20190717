@@ -5,7 +5,7 @@ SELECT * FROM Worker
 SELECT * FROM Workers
 SELECT * FROM Customers
 
-DROP TABLE Worker
+DROP TABLE Workers
 
 SELECT * FROM Persons p 
 JOIN Workers w ON p.id = w.workerID

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HW_Logistics_20190717
 {
-    class Workers: IWorkWithSQL
+    class Workers : IWorkWithSQL, ICountObj
     {
         private List<Worker> workersList = new List<Worker>();
 
@@ -22,17 +22,28 @@ namespace HW_Logistics_20190717
             workersList.Add(obj.ThisWorker());
         }
 
+        // получаем информацию по содержимому каждого объекта листа
         public void Info()
         {
-            foreach (var worker in workersList)
-                worker.Info();
+            for (int i = 0; i != workersList.Count; i++)
+                workersList[i].Info();
+
+            //foreach (var worker in workersList)
+            //    worker.Info();
+        }
+
+        // Возвращаем текущее кол-во записей объектов в листе
+        int ICountObj.CountObj()
+        {
+            return workersList.Count;
+            //throw new NotImplementedException();
         }
 
         // Формирует строку запроса в БД для создания таблицы
         string IWorkWithSQL.CreateTableQuery()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("USE Logistics; ");
+            sb.Append("USE LogisticsOVA; ");
             sb.Append("CREATE TABLE Workers (");
             sb.Append(" workerID INT NOT NULL, ");
             sb.Append(" lastName NVARCHAR(50), ");
@@ -53,20 +64,23 @@ namespace HW_Logistics_20190717
         string IWorkWithSQL.InsertTableQuery()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("USE Logistics; ");
+            sb.Append("USE LogisticsOVA; ");
             sb.Append("INSERT INTO Workers (workerID, lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
 
+            // объявляем переменную счетчика для подсчета кол-ва итерации, чтобы в запросе на последний
+            // ввод строки в таблицу не ставить "," (обеспечение правильности синтаксиса запроса SQL)
             int count = 0;
+            string sqlQuery = null;
             foreach (Worker i in workersList)
             {
                 count++;
                 sb.Append($"('{i.workerID}', '{i.LastName}', '{i.FirstName}', '{i.MiddleName}', '{i.birthday.Year}-{i.birthday.Month}-{i.birthday.Day}', '{i.inn}'," +
                     $" '{i.employmentDate.Year}-{i.employmentDate.Month}-{i.employmentDate.Day}', '{i.position}', '{i.solary}')");
-                if(workersList.Capacity != count) sb.Append(", ");
+                if (workersList.Count != count) sb.Append(", ");
             }
-                string sqlQuery = sb.ToString();
-            Console.WriteLine(sqlQuery);
-            return sqlQuery;
+            if (count == 0)
+                return sqlQuery;
+            return sqlQuery = sb.ToString();
 
             //throw new NotImplementedException();
         }
@@ -75,11 +89,12 @@ namespace HW_Logistics_20190717
         string IWorkWithSQL.ViewTableQuery()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("USE Logistics; ");
+            sb.Append("USE LogisticsOVA; ");
             sb.Append("SELECT * FROM Workers p ");
             string sqlQuery = sb.ToString();
             return sqlQuery;
             //throw new NotImplementedException();
         }
+
     }
 }

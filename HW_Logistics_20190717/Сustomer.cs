@@ -45,7 +45,7 @@ namespace HW_Logistics_20190717
         public override string CreateTableQuery()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("USE Logistics; ");
+            sb.Append("USE LogisticsOVA; ");
             sb.Append("CREATE TABLE Customers (");
             sb.Append(" Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ");
             sb.Append(" customerID INT, ");
@@ -60,7 +60,7 @@ namespace HW_Logistics_20190717
         public override string InsertTableQuery()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("USE Logistics; ");
+            sb.Append("USE LogisticsOVA; ");
             sb.Append("INSERT INTO Customers (customerID, orderID) VALUES ");
             sb.Append($"('{customerID}', '{orderID}') ");
             string sqlQuery = sb.ToString();
@@ -71,7 +71,7 @@ namespace HW_Logistics_20190717
         public override string ViewTableQuery()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("USE Logistics; ");
+            sb.Append("USE LogisticsOVA; ");
             sb.Append("SELECT * FROM Persons p ");
             sb.Append("JOIN Customers c ON c.customerID = p.id ;");
             string sqlQuery = sb.ToString();

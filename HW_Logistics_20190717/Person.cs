@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace HW_Logistics_20190717
 {
-    abstract class Person: IWorkWithSQL
+    internal abstract class Person: IWorkWithSQL
     {
         protected string lastName;
+        // сеттер геттер для lastName
         public string LastName
         {
             get
@@ -24,6 +25,7 @@ namespace HW_Logistics_20190717
         }
 
         protected string firstName;
+        // сеттер геттер для firstName
         public string FirstName
         {
             get
@@ -39,6 +41,7 @@ namespace HW_Logistics_20190717
         }
 
         protected string middleName;
+        // сеттер геттер для MiddleName
         public string MiddleName
         {
             get
@@ -119,6 +122,7 @@ namespace HW_Logistics_20190717
             return flag;
         }
 
+        // вывод в консоль информации по определенным полям объекта
         public void InfoPerson()
         {
             //Console.WriteLine("\n----------------- Информация о человеке -----------------\n\n");
@@ -129,6 +133,7 @@ namespace HW_Logistics_20190717
             //Console.WriteLine("\n---------------------------------------------------------\n\n");
         }
 
+        // для обязательного переопределения метода вывода информации в дочерних классах
         abstract public void Info();
 
         // Формирует строку запроса в БД для создания таблицы
