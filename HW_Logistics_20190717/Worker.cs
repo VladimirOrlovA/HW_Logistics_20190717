@@ -58,7 +58,7 @@ namespace HW_Logistics_20190717
         public override string CreateTableQuery()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("USE Logistics; ");
+            sb.Append("USE LogisticsOVA; ");
             sb.Append("CREATE TABLE Worker (");
             sb.Append(" workerID INT NOT NULL, ");
             sb.Append(" lastName NVARCHAR(50), ");
@@ -78,7 +78,7 @@ namespace HW_Logistics_20190717
         public override string InsertTableQuery()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("USE Logistics; ");
+            sb.Append("USE LogisticsOVA; ");
             sb.Append("INSERT INTO Worker (workerID, lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
             sb.Append($"('{workerID}', '{lastName}', '{firstName}', '{middleName}', '{birthday.Year}-{birthday.Month}-{birthday.Day}', '{inn}'," +
                 $" '{employmentDate.Year}-{employmentDate.Month}-{employmentDate.Day}', '{position}', '{solary}') ");
@@ -90,7 +90,7 @@ namespace HW_Logistics_20190717
         public override string ViewTableQuery()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("USE Logistics; ");
+            sb.Append("USE LogisticsOVA; ");
             sb.Append("SELECT * FROM Worker p ");
             string sqlQuery = sb.ToString();
             return sqlQuery;

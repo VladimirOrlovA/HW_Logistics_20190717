@@ -11,12 +11,50 @@ namespace HW_Logistics_20190717
     class ConnDBSQL
     {
         public static SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+        // создаем строку с данными для подключения к БД SQL
         public ConnDBSQL()
         {
             builder.DataSource = "ASUS_P52F\\SQLEXPRESS";
             builder.UserID = "OVA";
             builder.Password = "123";
             builder.InitialCatalog = "master";
+        }
+
+        // Создаем базу данных для программы
+        public void CreareDataBase()
+        {
+            Console.WriteLine("\n-------------------------------------------------------------------\n\n");
+            try
+            {
+                Console.Write("Connecting to SQL Server ... \n");
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                {
+                    connection.Open();
+                    Console.WriteLine("Done.");
+                    Console.WriteLine("ServerVersion: {0}", connection.ServerVersion);
+                    Console.WriteLine("State: {0}", connection.State);
+                    Console.WriteLine("\n-------------------------------------------------------------------\n");
+
+                    //StringBuilder sb = new StringBuilder();
+                    //sb.Append("IF  NOT EXISTS (SELECT 1 FROM sys.databases WHERE name = N'LogisticsOVA') ");
+                    //sb.Append("BEGIN ");
+                    //sb.Append("CREATE DATABASE [LogisticsOVA] ");
+                    //sb.Append("END; ");
+
+                    string strSqlQuery = "CREATE DATABASE [LogisticsOVA]";
+                    using (SqlCommand command = new SqlCommand(strSqlQuery, connection))
+                    {
+                        command.ExecuteNonQuery();
+                        Console.Write("Creating DataBase --- LogisticsOVA");
+                        Console.WriteLine("Done. DataBase is created");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("\n" + e.ToString().Substring(48, 43));
+                Console.WriteLine("\n\n-------------------------------------------------------------------\n");
+            }
         }
 
         // Делает создание таблицы в БД получив строку (запроса в БД для создания таблицы) непосредственно из метода класса
@@ -32,11 +70,10 @@ namespace HW_Logistics_20190717
                     Console.WriteLine("ServerVersion: {0}", connection.ServerVersion);
                     Console.WriteLine("State: {0}", connection.State);
 
-                    Console.Write("Creating table...");
-
                     using (SqlCommand command = new SqlCommand(strSqlQuery, connection))
                     {
                         command.ExecuteNonQuery();
+                        Console.Write("Creating table...");
                         Console.WriteLine("Done. Table is created");
                     }
                 }
@@ -44,7 +81,7 @@ namespace HW_Logistics_20190717
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                return;
+                Console.WriteLine("\n-------------------------------------------------------------------\n\n");
             }
         }
 
@@ -53,27 +90,24 @@ namespace HW_Logistics_20190717
         {
             try
             {
-                Console.Write("Connecting to SQL Server ... \n");
                 using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
                 {
                     connection.Open();
-                    Console.WriteLine("Done.");
-                    Console.WriteLine("ServerVersion: {0}", connection.ServerVersion);
-                    Console.WriteLine("State: {0}", connection.State);
-                    Console.Write("Creating table - ");
-                    Console.WriteLine(Convert.ToString(obj.GetType()).Substring(22));
+                    //Console.WriteLine(Convert.ToString(obj.GetType()).Substring(22));
 
                     using (SqlCommand command = new SqlCommand(obj.CreateTableQuery(), connection))
                     {
                         command.ExecuteNonQuery();
-                        Console.WriteLine("Done. Table is created");
+                        Console.Write("Creating table...  ");
+                        Console.WriteLine("Done. Table " + Convert.ToString(obj.GetType()).Substring(22) + " is created");
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
-                return;
+                Console.Write(e.ToString().Substring(48, 46));
+                Console.Write(Convert.ToString(obj.GetType()).Substring(22));
+                Console.WriteLine("\n\n-------------------------------------------------------------------\n");
             }
         }
 
@@ -101,7 +135,7 @@ namespace HW_Logistics_20190717
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                return;
+                Console.WriteLine("\n-------------------------------------------------------------------\n\n");
             }
         }
 
@@ -124,13 +158,14 @@ namespace HW_Logistics_20190717
                         Console.Write("\nRecords Processed - ");
                         Console.WriteLine(command.ExecuteNonQuery());
                         Console.WriteLine("Done.");
+                        Console.WriteLine("\n-------------------------------------------------------------------\n\n");
                     }
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                return;
+                Console.WriteLine("\n-------------------------------------------------------------------\n\n");
             }
         }
 
@@ -171,13 +206,14 @@ namespace HW_Logistics_20190717
                         }
                     }
                 }
+                Console.WriteLine("\n-------------------------------------------------------------------\n\n");
+
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                return;
+                Console.WriteLine("\n-------------------------------------------------------------------\n\n");
             }
-            Console.WriteLine("-------------------------------------------------------------------");
         }
 
         // Выводит все записи из таблицы БД получив через интерфейс строку запроса в БД для чтения записей из таблицы
@@ -217,13 +253,13 @@ namespace HW_Logistics_20190717
                         }
                     }
                 }
+                Console.WriteLine("\n-------------------------------------------------------------------\n\n");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                return;
+                Console.WriteLine("\n-------------------------------------------------------------------\n\n");
             }
-            Console.WriteLine("-------------------------------------------------------------------");
         }
 
         // метод из примера
@@ -275,7 +311,8 @@ namespace HW_Logistics_20190717
             }
         }
 
-        public void ReadTable(IWorkWithSQL obj)
+        // Загружает данные из таблиц SQL в объекты программы
+        public void LoadData(IWorkWithSQL obj)
         {
             Console.WriteLine("-------------------------------------------------------------------");
             try
@@ -296,6 +333,7 @@ namespace HW_Logistics_20190717
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             Console.WriteLine();
+                            Workers wrks = new Workers();
 
                             //считываем строки таблицы
                             while (reader.Read())
@@ -306,8 +344,8 @@ namespace HW_Logistics_20190717
                                 {
                                     rowStr[i] = Convert.ToString(reader.GetValue(i));
                                 }
-                                Worker tmpWorker = new Worker();
 
+                                Worker tmpWorker = new Worker();
                                 tmpWorker.workerID = Convert.ToInt32(rowStr[0]);
                                 tmpWorker.LastName = rowStr[1];
                                 tmpWorker.FirstName = rowStr[2];
@@ -317,9 +355,6 @@ namespace HW_Logistics_20190717
                                 tmpWorker.employmentDate = Convert.ToDateTime(rowStr[6]);
                                 tmpWorker.position = rowStr[7];
                                 tmpWorker.solary = Convert.ToInt32(rowStr[8]);
-
-                                Workers wrks = new Workers();
-                                wrks.AddWorker(tmpWorker);
                             }
                         }
                     }

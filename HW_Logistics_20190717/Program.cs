@@ -8,9 +8,21 @@ namespace HW_Logistics_20190717
 {
     class Program
     {
-        static int wrcnt = 0;
         static void Main(string[] args)
         {
+            // создаем строку с данными для подключения к БД SQL
+            ConnDBSQL db = new ConnDBSQL();
+
+            // создаем базу данных если не существует
+            db.CreareDataBase();
+
+            // создаем основные объекты для работы программы
+            Workers wr = new Workers();
+            // 1, 2, ...
+
+            // создаем таблицу для Workers
+            db.CreateTable(wr);
+            // 1, 2, ...
 
             //Person person1 = new Person("Орлов", "Владимир", "Александрович", new DateTime(1980, 07, 16), 20660716888);
             //first.FirstName = "Владимир";
@@ -57,7 +69,6 @@ namespace HW_Logistics_20190717
             //Console.WriteLine(Convert.ToString(worker1.GetType()).Substring(22));
 
 
-            ConnDBSQL db = new ConnDBSQL();
 
             //Worker workerRUS = new Worker("Нестеров", "Павел", "Николаевич", new DateTime(1994, 10, 12), 2586556655, 1, new DateTime(2010, 01, 23), "экспедитор", 180000);
             //Worker workerUS = new Worker("Nesterov", "Pavel", "Nikolaevich", new DateTime(1994, 10, 12), 2586556655, 1, new DateTime(2010, 01, 23), "экспедитор", 180000);
@@ -76,28 +87,29 @@ namespace HW_Logistics_20190717
             //db.ViewTable(worker1.ViewTableQuery());
             //db.ViewTable(customer1.ViewTableQuery());
 
-            Worker worker1 = new Worker("Брежнев", "Павел", "Федорович", new DateTime(1981, 01, 08), 2586556655, new DateTime(2010, 01, 23), "менеджер", 180000);
-            Worker worker2 = new Worker("Андропов", "Семен", "Петрович", new DateTime(1992, 08, 25), 2586556655, new DateTime(2010, 01, 23), "экспедитор", 120000);
-            //Worker worker3 = new Worker("Горбачев", "Артем", "Дмитриевич", new DateTime(1994, 03, 18), 2586556655, 1, new DateTime(2010, 01, 23), "техник", 80000);
+            //Workers wr = new Workers();
+            //db.ReadTable(wr);
 
-            Workers wr = new Workers();
+            //Worker worker1 = new Worker("Брежнев", "Павел", "Федорович", new DateTime(1981, 01, 08), 2586556655, new DateTime(2010, 01, 23), "менеджер", 180000);
+            //Worker worker2 = new Worker("Андропов", "Семен", "Петрович", new DateTime(1992, 08, 25), 2586556655, new DateTime(2010, 01, 23), "экспедитор", 120000);
+            //Worker worker3 = new Worker("Горбачев", "Артем", "Дмитриевич", new DateTime(1994, 03, 18), 2586556655, new DateTime(2010, 01, 23), "техник", 80000);
 
             //db.ReadTable(wr);
 
-            wr.AddWorker(worker1);
-            wr.AddWorker(worker2);
+            //wr.AddWorker(worker1);
+            //wr.AddWorker(worker2);
             //wr.AddWorker(worker3);
 
             //wr.AddWorkerI(worker1);
             //wr.AddWorkerI(worker2);
 
-            wr.Info();
+            //wr.Info();
 
 
             //db.CreateTable(wr);
-            db.InsertTable(wr);
+            //db.InsertTable(wr);
 
-            db.ViewTable(wr);
+            //db.ViewTable(wr);
             //db.InsertTable(wr);
             //db.ViewTable(wr);
             //Console.WriteLine("----------------------------------------------------");

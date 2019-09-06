@@ -11,5 +11,6 @@ namespace HW_Logistics_20190717
         string CreateTableQuery();
         string InsertTableQuery();
         string ViewTableQuery();
+        //Workers CreateTmpObj();
     }
 }

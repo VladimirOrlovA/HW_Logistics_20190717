@@ -32,7 +32,7 @@ namespace HW_Logistics_20190717
         string IWorkWithSQL.CreateTableQuery()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("USE Logistics; ");
+            sb.Append("USE LogisticsOVA; ");
             sb.Append("CREATE TABLE Workers (");
             sb.Append(" workerID INT NOT NULL, ");
             sb.Append(" lastName NVARCHAR(50), ");
@@ -49,11 +49,18 @@ namespace HW_Logistics_20190717
             //throw new NotImplementedException();
         }
 
+        //Workers IWorkWithSQL.CreateTmpObj()
+        //{
+        //    Workers wrks = new Workers();
+        //    return wrks;
+        //    //throw new NotImplementedException();
+        //}
+
         // Формирует строку запроса в БД для вставки данных в таблицу
         string IWorkWithSQL.InsertTableQuery()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("USE Logistics; ");
+            sb.Append("USE LogisticsOVA; ");
             sb.Append("INSERT INTO Workers (workerID, lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
 
             int count = 0;
@@ -62,7 +69,7 @@ namespace HW_Logistics_20190717
                 count++;
                 sb.Append($"('{i.workerID}', '{i.LastName}', '{i.FirstName}', '{i.MiddleName}', '{i.birthday.Year}-{i.birthday.Month}-{i.birthday.Day}', '{i.inn}'," +
                     $" '{i.employmentDate.Year}-{i.employmentDate.Month}-{i.employmentDate.Day}', '{i.position}', '{i.solary}')");
-                if(workersList.Capacity != count) sb.Append(", ");
+                if(workersList.Count != count) sb.Append(", ");
             }
                 string sqlQuery = sb.ToString();
             Console.WriteLine(sqlQuery);
@@ -75,7 +82,7 @@ namespace HW_Logistics_20190717
         string IWorkWithSQL.ViewTableQuery()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("USE Logistics; ");
+            sb.Append("USE LogisticsOVA; ");
             sb.Append("SELECT * FROM Workers p ");
             string sqlQuery = sb.ToString();
             return sqlQuery;
