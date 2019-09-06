@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAddWorkerToWorkers.cs" />
+    <Compile Include="ICountObj.cs" />
     <Compile Include="IWorkWithSQL.cs" />
     <Compile Include="ConnDBSQL.cs" />
     <Compile Include="DBconnDAPPER.cs" />

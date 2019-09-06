@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HW_Logistics_20190717
 {
-    class Workers: IWorkWithSQL
+    class Workers : IWorkWithSQL, ICountObj
     {
         private List<Worker> workersList = new List<Worker>();
 
@@ -22,10 +22,21 @@ namespace HW_Logistics_20190717
             workersList.Add(obj.ThisWorker());
         }
 
+        // получаем информацию по содержимому каждого объекта листа
         public void Info()
         {
-            foreach (var worker in workersList)
-                worker.Info();
+            for (int i = 0; i != workersList.Count; i++)
+                workersList[i].Info();
+
+            //foreach (var worker in workersList)
+            //    worker.Info();
+        }
+
+        // Возвращаем текущее кол-во записей объектов в листе
+        int ICountObj.CountObj()
+        {
+            return workersList.Count;
+            //throw new NotImplementedException();
         }
 
         // Формирует строку запроса в БД для создания таблицы
@@ -49,13 +60,6 @@ namespace HW_Logistics_20190717
             //throw new NotImplementedException();
         }
 
-        //Workers IWorkWithSQL.CreateTmpObj()
-        //{
-        //    Workers wrks = new Workers();
-        //    return wrks;
-        //    //throw new NotImplementedException();
-        //}
-
         // Формирует строку запроса в БД для вставки данных в таблицу
         string IWorkWithSQL.InsertTableQuery()
         {
@@ -63,17 +67,20 @@ namespace HW_Logistics_20190717
             sb.Append("USE LogisticsOVA; ");
             sb.Append("INSERT INTO Workers (workerID, lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
 
+            // объявляем переменную счетчика для подсчета кол-ва итерации, чтобы в запросе на последний
+            // ввод строки в таблицу не ставить "," (обеспечение правильности синтаксиса запроса SQL)
             int count = 0;
+            string sqlQuery = null;
             foreach (Worker i in workersList)
             {
                 count++;
                 sb.Append($"('{i.workerID}', '{i.LastName}', '{i.FirstName}', '{i.MiddleName}', '{i.birthday.Year}-{i.birthday.Month}-{i.birthday.Day}', '{i.inn}'," +
                     $" '{i.employmentDate.Year}-{i.employmentDate.Month}-{i.employmentDate.Day}', '{i.position}', '{i.solary}')");
-                if(workersList.Count != count) sb.Append(", ");
+                if (workersList.Count != count) sb.Append(", ");
             }
-                string sqlQuery = sb.ToString();
-            Console.WriteLine(sqlQuery);
-            return sqlQuery;
+            if (count == 0)
+                return sqlQuery;
+            return sqlQuery = sb.ToString();
 
             //throw new NotImplementedException();
         }
@@ -88,5 +95,6 @@ namespace HW_Logistics_20190717
             return sqlQuery;
             //throw new NotImplementedException();
         }
+
     }
 }

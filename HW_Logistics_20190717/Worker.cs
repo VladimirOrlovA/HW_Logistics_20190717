@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace HW_Logistics_20190717
 {
-     class Worker : Person, IWorkWithSQL, IAddWorkerToWorkers
+    class Worker : Person, IWorkWithSQL, IAddWorkerToWorkers
     {
-        static int count = 0;
+        public static int workerCount=0;
         public int workerID{ get; set; }
         public DateTime employmentDate { get; set; }
         public string position { get; set; }
@@ -19,8 +19,7 @@ namespace HW_Logistics_20190717
                         long inn, DateTime employmentDate, string position, int solary) 
             : base(lastName, firstName,  middleName, birthday, inn)
         {
-            workerID = ++count
-;
+            workerID = ++workerCount;
             this.employmentDate = employmentDate;
             this.position = position;
             this.solary = solary;
@@ -77,13 +76,19 @@ namespace HW_Logistics_20190717
         // Формирует строку запроса в БД для вставки данных в таблицу
         public override string InsertTableQuery()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("USE LogisticsOVA; ");
-            sb.Append("INSERT INTO Worker (workerID, lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
-            sb.Append($"('{workerID}', '{lastName}', '{firstName}', '{middleName}', '{birthday.Year}-{birthday.Month}-{birthday.Day}', '{inn}'," +
-                $" '{employmentDate.Year}-{employmentDate.Month}-{employmentDate.Day}', '{position}', '{solary}') ");
-            string sqlQuery = sb.ToString();
-            return sqlQuery;
+            string sqlQuery;
+            // проверка на случай передачи в строку данных объекта с пустыми полями,
+            // чтобы исключить ошибки в программе - проблемы с циклами и таблицы - внесение неверных данных
+            if (workerID != 0)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("USE LogisticsOVA; ");
+                sb.Append("INSERT INTO Workers (workerID, lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
+                sb.Append($"('{workerID}', '{lastName}', '{firstName}', '{middleName}', '{birthday.Year}-{birthday.Month}-{birthday.Day}', '{inn}'," +
+                    $" '{employmentDate.Year}-{employmentDate.Month}-{employmentDate.Day}', '{position}', '{solary}') ");
+                return sqlQuery = sb.ToString();
+            }
+            return sqlQuery=null;
         }
 
         // Формирует строку запроса в БД для чтения данных из таблицы
@@ -101,6 +106,12 @@ namespace HW_Logistics_20190717
         {
             return this;
             //throw new NotImplementedException();
+        }
+
+        // устнавливает счетчик на цифру кол-ва ранее созданных объектов 
+        public void SetCountObj(ICountObj obj)
+        {
+            workerCount = obj.CountObj();
         }
     }
 }

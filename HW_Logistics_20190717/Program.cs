@@ -10,39 +10,34 @@ namespace HW_Logistics_20190717
     {
         static void Main(string[] args)
         {
+
             // создаем строку с данными для подключения к БД SQL
             ConnDBSQL db = new ConnDBSQL();
 
             // создаем базу данных если не существует
             db.CreareDataBase();
 
+
             // создаем основные объекты для работы программы
-            Workers wr = new Workers();
+            Worker worker = new Worker();
+            Workers workers = new Workers();
             // 1, 2, ...
 
             // создаем таблицу для Workers
-            db.CreateTable(wr);
+            db.CreateTable(workers);
             // 1, 2, ...
 
-            //Person person1 = new Person("Орлов", "Владимир", "Александрович", new DateTime(1980, 07, 16), 20660716888);
-            //first.FirstName = "Владимир";
-            //first.LastName = "Орлов";
-            //first.MiddleName = "Александрович";
 
-            //Console.WriteLine("ФИО полностью \t" + first.GetLFM() + "\n");
-            //Console.WriteLine("Фамилия и И.О. \t" + first.GetLastNameAndFM() + "\n\n");
+            // загрузка данных из таблиц БД в объекты программы
+            workers = db.LoadData(workers);
 
-            //Console.WriteLine("Дата рождения \t" + first.Birthday.ToShortDateString());
-            //Console.WriteLine("ИНН \t\t" + first.Inn);
-            //Console.WriteLine("Возраст \t" + first.Age());
+            // установка начального значения для счетчика объектов, 
+            //чтобы корректно считать вновь созданные объекты в текущей сессии программы
+            worker.SetCountObj(workers);
 
-            //Person second = new Person(new DateTime(1860, 01, 29), 20456885556);
-            //second.FirstName = "Антон";
-            //second.LastName = "Чехов";
-            //second.MiddleName = "Павлович";
 
-            //first.InfoPerson();
-            //second.InfoPerson();
+
+
 
             //Worker worker1 = new Worker("Нестеров", "Павел", "Николаевич", new DateTime(1994, 10, 12), 2586556655, 1, new DateTime(2010, 01, 23), "экспедитор", 180000);
             //Сustomer customer1 = new Сustomer("Быстров", "Олег", "Васильевич", new DateTime(2001, 01, 12), 2586556586, 2);
@@ -90,24 +85,26 @@ namespace HW_Logistics_20190717
             //Workers wr = new Workers();
             //db.ReadTable(wr);
 
+            
             //Worker worker1 = new Worker("Брежнев", "Павел", "Федорович", new DateTime(1981, 01, 08), 2586556655, new DateTime(2010, 01, 23), "менеджер", 180000);
-            //Worker worker2 = new Worker("Андропов", "Семен", "Петрович", new DateTime(1992, 08, 25), 2586556655, new DateTime(2010, 01, 23), "экспедитор", 120000);
-            //Worker worker3 = new Worker("Горбачев", "Артем", "Дмитриевич", new DateTime(1994, 03, 18), 2586556655, new DateTime(2010, 01, 23), "техник", 80000);
+            Worker worker2 = new Worker("Андропов", "Семен", "Петрович", new DateTime(1992, 08, 25), 2586556655, new DateTime(2010, 01, 23), "экспедитор", 120000);
+            Worker worker3 = new Worker("Горбачев", "Артем", "Дмитриевич", new DateTime(1994, 03, 18), 2586556655, new DateTime(2010, 01, 23), "техник", 80000);
+            Worker workerRUS = new Worker("Нестеров", "Павел", "Николаевич", new DateTime(1994, 10, 12), 2586556655, new DateTime(2010, 01, 23), "экспедитор", 180000);
 
-            //db.ReadTable(wr);
+            //workers.AddWorker(worker1);
+            workers.AddWorker(worker2);
+            workers.AddWorker(worker3);
+            workers.AddWorker(workerRUS);
 
-            //wr.AddWorker(worker1);
-            //wr.AddWorker(worker2);
-            //wr.AddWorker(worker3);
 
             //wr.AddWorkerI(worker1);
             //wr.AddWorkerI(worker2);
 
-            //wr.Info();
+            workers.Info();
 
+            db.InsertTable(workers);
 
-            //db.CreateTable(wr);
-            //db.InsertTable(wr);
+            workers.Info();
 
             //db.ViewTable(wr);
             //db.InsertTable(wr);

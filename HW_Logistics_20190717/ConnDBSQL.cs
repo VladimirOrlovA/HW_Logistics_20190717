@@ -142,15 +142,17 @@ namespace HW_Logistics_20190717
         // Делает запись в БД получив через интерфейс строку запроса в БД для внесения записи в таблицу
         public void InsertTable(IWorkWithSQL obj)
         {
+            if (obj.InsertTableQuery() == null)
+            {
+                Console.WriteLine("Объект не содержит данных \n");
+                return;
+            }
             try
             {
                 Console.Write("Connecting to SQL Server ... \n");
                 using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
                 {
                     connection.Open();
-                    Console.WriteLine("Done.");
-                    Console.WriteLine("ServerVersion: {0}", connection.ServerVersion);
-                    Console.WriteLine("State: {0}", connection.State);
                     Console.Write("\nInserting data to table...\n");
 
                     using (SqlCommand command = new SqlCommand(obj.InsertTableQuery(), connection))
@@ -312,40 +314,48 @@ namespace HW_Logistics_20190717
         }
 
         // Загружает данные из таблиц SQL в объекты программы
-        public void LoadData(IWorkWithSQL obj)
+        public Workers LoadData(IWorkWithSQL obj)
         {
-            Console.WriteLine("-------------------------------------------------------------------");
+            Console.WriteLine("\n-------------------------------------------------------------------\n");
+
+            Workers wrks = new Workers();
+
             try
             {
-                Console.Write("Connecting to SQL Server ... \n");
                 using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
                 {
                     connection.Open();
-                    Console.WriteLine("Done.");
-                    Console.WriteLine("ServerVersion: {0}", connection.ServerVersion);
-                    Console.WriteLine("State: {0}", connection.State);
 
-                    // READ table
-                    Console.WriteLine("Reading data from table... \n\n");
+                    Console.WriteLine("Load data from table " + Convert.ToString(obj.GetType()).Substring(22) + "... \n");
 
                     using (SqlCommand command = new SqlCommand(obj.ViewTableQuery(), connection))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            Console.WriteLine();
-                            Workers wrks = new Workers();
+                            // проверяем есть ли что считывать из таблицы
+                            if (!reader.HasRows)
+                            {
+                                Console.WriteLine("Table is empty \n");
+                                Console.WriteLine("\n-------------------------------------------------------------------\n");
+
+                                return wrks;
+                            }
+                            
+                            // создаем массив из строк куда запишем данные из полей строки
+                            string[] rowStr = new string[reader.FieldCount];
 
                             //считываем строки таблицы
                             while (reader.Read())
                             {
                                 // считываем поля строки
-                                string[] rowStr = new string[reader.FieldCount];
                                 for (int i = 0; i != reader.FieldCount; i++)
                                 {
                                     rowStr[i] = Convert.ToString(reader.GetValue(i));
                                 }
 
+                                // создаем новый объект на каждой итерации
                                 Worker tmpWorker = new Worker();
+                                // записываем значение полей в сооответсвующее поле объекта 
                                 tmpWorker.workerID = Convert.ToInt32(rowStr[0]);
                                 tmpWorker.LastName = rowStr[1];
                                 tmpWorker.FirstName = rowStr[2];
@@ -355,19 +365,20 @@ namespace HW_Logistics_20190717
                                 tmpWorker.employmentDate = Convert.ToDateTime(rowStr[6]);
                                 tmpWorker.position = rowStr[7];
                                 tmpWorker.solary = Convert.ToInt32(rowStr[8]);
+                                // записываем объект в коллекцию объектов - в лист
+                                wrks.AddWorker(tmpWorker);
                             }
                         }
                     }
                 }
+                return wrks;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                return;
+                return wrks = null;
             }
-            Console.WriteLine("-------------------------------------------------------------------");
         }
-
 
     }
 }
