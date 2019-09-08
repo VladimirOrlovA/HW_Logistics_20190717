@@ -8,7 +8,7 @@ namespace HW_Logistics_20190717
 {
     class Worker : Person
     {
-        private static int workerCount = 0;
+        private static int workersCount = 0;
         public int workerID { get; set; }
         public DateTime employmentDate { get; set; }
         public string position { get; set; }
@@ -20,7 +20,7 @@ namespace HW_Logistics_20190717
                         long inn, DateTime employmentDate, string position, int solary)
             : base(lastName, firstName, middleName, birthday, inn)
         {
-            workerID = ++workerCount;
+            workerID = ++workersCount;
             this.employmentDate = employmentDate;
             this.position = position;
             this.solary = solary;
@@ -76,9 +76,9 @@ namespace HW_Logistics_20190717
             sb.Append("SELECT COUNT(1) FROM Workers");
             string sqlQuery = sb.ToString();
 
-            workerCount = obj.ReadCountRowInTable(sqlQuery);
+            workersCount = obj.ReadCountRowInTable(sqlQuery);
             Console.WriteLine("\n-------------------------------------------------------------------");
-            Console.WriteLine(@"Кол-во строк в tаблице ""Workers"" - " + workerCount);
+            Console.WriteLine(@"Кол-во строк в tаблице ""Workers"" - " + workersCount);
             Console.WriteLine("\n-------------------------------------------------------------------");
         }
     }

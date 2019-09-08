@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace HW_Logistics_20190717
 {
-    class Сarrier
+    class Carrier : Person
     {
-        string carrierName;
+        private static int carriersCount = 0;
+        int carrierID;
         Route[] routeList = new Route[0];
 
-        public Сarrier(string carrierName)
+        public Carrier(string carrierName)
         {
-            this.carrierName = carrierName;
+            carrierID = ++carriersCount;
         }
-
 
         public override bool Equals(object obj)
         {
@@ -51,15 +51,44 @@ namespace HW_Logistics_20190717
             }
         }
 
-        public void InfoCarrier()
+        public override void Info()
         {
             Console.WriteLine("\n----------------- Информация о перевозчике -----------------\n\n");
-            Console.WriteLine("Название перевозчика ----------- " + carrierName);
+            Console.WriteLine("Название перевозчика ----------- " + carriersCount);
             InfoRoutes();
-            //Console.WriteLine("Начало маршрута ---------- " + routeStart);
-            //Console.WriteLine("Конец маршрута ----------- " + routeEnd);
             Console.WriteLine("\n---------------------------------------------------------\n\n");
         }
+
+        // Вставляет данные в таблицу БД
+        public void InsertTable(IConnDataBaseSQL obj)
+        {
+            Console.WriteLine(@"Insert Data to table ""Workers"" about "
+               + Convert.ToString(this.GetType()).Substring(22));
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("USE LogisticsOVA; ");
+            sb.Append("INSERT INTO Carriers (lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
+            sb.Append($"('{lastName}', '{firstName}', '{middleName}', '{birthday.Year}-{birthday.Month}-{birthday.Day}', '{inn}'," +
+                $" '{employmentDate.Year}-{employmentDate.Month}-{employmentDate.Day}', '{position}', '{solary}') ");
+            string sqlQuery = sb.ToString();
+
+            obj.SaveData(sqlQuery);
+        }
+
+
+        public void SetCountObj(IConnDataBaseSQL obj)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("USE LogisticsOVA; ");
+            sb.Append("SELECT COUNT(1) FROM Carriers");
+            string sqlQuery = sb.ToString();
+
+            carriersCount = obj.ReadCountRowInTable(sqlQuery);
+            Console.WriteLine("\n-------------------------------------------------------------------");
+            Console.WriteLine(@"Кол-во строк в tаблице ""Carriers"" - " + carriersCount);
+            Console.WriteLine("\n-------------------------------------------------------------------");
+        }
+
 
     }
 }

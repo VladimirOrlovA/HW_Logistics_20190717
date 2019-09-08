@@ -32,7 +32,7 @@ namespace HW_Logistics_20190717
             customers.CreateTable(db);
             // 1, 2, ...
 
-
+            
             // установка начального значения для счетчика объектов, 
             //чтобы корректно отражать ID вновь созданных объектов в текущей сессии программы
             worker.SetCountObj(db);
@@ -49,7 +49,7 @@ namespace HW_Logistics_20190717
             Customer customer3 = new Customer("Подавайкин", "Иван", "Петрович", new DateTime(2012, 02, 25), 120225300071);
             Customer customer4 = new Customer("Занудов", "Петр", "Алексеевич", new DateTime(2008, 08, 12), 080812300081);
             Customer customer5 = new Customer("Хорошев", "Андрей", "Юрьевич", new DateTime(1985, 03, 21), 850321100091);
-
+            
 
             //workers.AddWorker(worker1);
             workers.AddWorker(worker2);
@@ -63,15 +63,18 @@ namespace HW_Logistics_20190717
             customers.AddCustomer(customer5);
 
 
-            workers.Info();
+            //workers.Info();
             customers.Info();
+
+    
 
             // запись объектов в таблицу SQL
             worker1.InsertTable(db);
             //workers.InsertTable(db);
 
-            customer1.InsertTable(db);
-            //customers.InsertTable(db);
+            //customer1.InsertTable(db);
+            customers.InsertTable(db);
+            
 
             // ----------------------------------------------------------------------------------------
 

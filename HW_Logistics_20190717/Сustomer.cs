@@ -8,17 +8,17 @@ namespace HW_Logistics_20190717
 {
     internal class Customer : Person
     {
-        private static int customerCount = 0;
+        private static int customersCount = 0;
         public int customerID { get; set; }
         public int contractID { get; set; }
+        public DateTime registrationDate = DateTime.Today;
 
         public Customer() { }
 
         public Customer(string lastName, string firstName, string middleName, DateTime birthday, long inn) //, int orderID)
             : base(lastName, firstName, middleName, birthday, inn)
         {
-            customerID = ++customerCount;
-            //this.orderID = orderID;
+            customerID = ++customersCount;
         }
 
         public override bool Equals(object obj)
@@ -40,6 +40,7 @@ namespace HW_Logistics_20190717
         {
             Console.WriteLine("\n----------------- Информация о заказчике -----------------\n\n");
             Console.WriteLine("Номер клиента ----------- " + customerID);
+            Console.WriteLine("Дата регистрации -------- " + registrationDate);
             InfoPerson();
             Console.WriteLine("Номер договора ---------- " + contractID);
             Console.WriteLine("\n---------------------------------------------------------\n\n");
@@ -53,11 +54,12 @@ namespace HW_Logistics_20190717
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("INSERT INTO Customers (lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
-            //sb.Append($"('{lastName}', '{firstName}', '{middleName}', '{birthday.Year}-{birthday.Month}-{birthday.Day}', '{inn}'," +
-            //    $" '{employmentDate.Year}-{employmentDate.Month}-{employmentDate.Day}', '{position}', '{solary}') ");
-            string sqlQuery = sb.ToString();
+            sb.Append("INSERT INTO Customers (lastName, firstName, middleName, " +
+                "birthday, inn, contractID) VALUES ");
+            sb.Append($"('{lastName}', '{firstName}', '{middleName}', " +
+                $"'{birthday.Year}-{birthday.Month}-{birthday.Day}', '{inn}', '{contractID}') ");
 
+            string sqlQuery = sb.ToString();
             obj.SaveData(sqlQuery);
         }
 
@@ -69,9 +71,9 @@ namespace HW_Logistics_20190717
             sb.Append("SELECT COUNT(1) FROM Customers");
             string sqlQuery = sb.ToString();
 
-            customerCount = obj.ReadCountRowInTable(sqlQuery);
+            customersCount = obj.ReadCountRowInTable(sqlQuery);
             Console.WriteLine("\n-------------------------------------------------------------------");
-            Console.WriteLine(@"Кол-во строк в tаблице ""Customers"" - " + customerCount);
+            Console.WriteLine(@"Кол-во строк в tаблице ""Customers"" - " + customersCount);
             Console.WriteLine("\n-------------------------------------------------------------------");
         }
     }

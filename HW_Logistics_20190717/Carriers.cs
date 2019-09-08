@@ -6,42 +6,43 @@ using System.Threading.Tasks;
 
 namespace HW_Logistics_20190717
 {
-    class Customers
+    class Carriers
     {
-        private List<Customer> customersList = new List<Customer>();
+        private List<Carrier> carriersList = new List<Carrier>();
 
-        // Добавление заказчика в список заказчиков
-        public void AddCustomer(Customer obj)
+        // Добавляет работника в список работников
+        public void AddCarrier(Carrier obj)
         {
-            customersList.Add(obj);
+            carriersList.Add(obj);
         }
 
         // Выводит информацию в консоль по содержимому каждого объекта листа
         public void Info()
         {
-            for (int i = 0; i != customersList.Count; i++)
-                customersList[i].Info();
+            for (int i = 0; i != carriersList.Count; i++)
+                carriersList[i].Info();
 
-            //foreach (var worker in workersList)
-            //    worker.Info();
+            //foreach (var carrier in carriersList)
+            //    carrier.Info();
         }
 
         // Создает таблицу в БД
         public void CreateTable(IConnDataBaseSQL obj)
         {
-            Console.WriteLine(@"Creating Table --- ""Customers""");
+            Console.WriteLine(@"Creating Table --- ""Workers""");
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("CREATE TABLE Customers (");
-            sb.Append(" customerID INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ");
+            sb.Append("CREATE TABLE Carriers (");
+            sb.Append(" carrierID INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ");
             sb.Append(" lastName NVARCHAR(50), ");
             sb.Append(" firstName NVARCHAR(50), ");
             sb.Append(" middleName NVARCHAR(50), ");
             sb.Append(" birthday DATE, ");
             sb.Append(" inn DECIMAL, ");
-            sb.Append(" contractID INT, ");
-            sb.Append(" registrationDate DATE NOT NULL DEFAULT CONVERT(DATE, GETDATE()) ");
+            //sb.Append(" employmentDate DATE, ");
+            //sb.Append(" position NVARCHAR(50), ");
+            //sb.Append(" solary INT ");
             sb.Append("); ");
             string sqlQuery = sb.ToString();
 
@@ -53,24 +54,23 @@ namespace HW_Logistics_20190717
         // Вставляет данные в таблицу БД
         public void InsertTable(IConnDataBaseSQL obj)
         {
-            Console.WriteLine(@"Insert Data to table ""Workers"" about "
+            Console.WriteLine(@"Insert Data to table ""Carriers"" about "
                     + Convert.ToString(this.GetType()).Substring(22));
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("INSERT INTO Customers (lastName, firstName, middleName, " +
-                "birthday, inn, contractID) VALUES ");
+            sb.Append("INSERT INTO Carriers (lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
 
             // объявляем переменную счетчика для подсчета кол-ва итерации, чтобы в запросе на последний
             // ввод строки в таблицу не ставить "," (обеспечение правильности синтаксиса запроса SQL)
             int count = 0;
             string sqlQuery = null;
-            foreach (Customer i in customersList)
+            foreach (Carrier i in carriersList)
             {
                 count++;
-                sb.Append($"('{i.LastName}', '{i.FirstName}', '{i.MiddleName}', " +
-                    $"'{i.birthday.Year}-{i.birthday.Month}-{i.birthday.Day}', '{i.inn}', '{i.contractID}') ");
-                if (customersList.Count != count) sb.Append(", ");
+                sb.Append($"('{i.LastName}', '{i.FirstName}', '{i.MiddleName}', '{i.birthday.Year}-{i.birthday.Month}-{i.birthday.Day}', '{i.inn}'," +
+                    $" '{i.employmentDate.Year}-{i.employmentDate.Month}-{i.employmentDate.Day}', '{i.position}', '{i.solary}')");
+                if (workersList.Count != count) sb.Append(", ");
             }
 
             sqlQuery = sb.ToString();
@@ -83,10 +83,11 @@ namespace HW_Logistics_20190717
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("SELECT * FROM Workers p ");
+            sb.Append("SELECT * FROM Carriers ");
             string sqlQuery = sb.ToString();
             obj.ReadData(sqlQuery);
             //throw new NotImplementedException();
         }
+
     }
 }
