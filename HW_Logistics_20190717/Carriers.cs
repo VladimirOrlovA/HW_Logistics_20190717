@@ -29,7 +29,7 @@ namespace HW_Logistics_20190717
         // Создает таблицу в БД
         public void CreateTable(IConnDataBaseSQL obj)
         {
-            Console.WriteLine(@"Creating Table --- ""Workers""");
+            Console.WriteLine(@"Creating Table --- ""Carriers""");
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
@@ -40,9 +40,8 @@ namespace HW_Logistics_20190717
             sb.Append(" middleName NVARCHAR(50), ");
             sb.Append(" birthday DATE, ");
             sb.Append(" inn DECIMAL, ");
-            //sb.Append(" employmentDate DATE, ");
-            //sb.Append(" position NVARCHAR(50), ");
-            //sb.Append(" solary INT ");
+            sb.Append(" carrierID INT, ");
+            sb.Append(" routesID INT ");
             sb.Append("); ");
             string sqlQuery = sb.ToString();
 
@@ -59,7 +58,8 @@ namespace HW_Logistics_20190717
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("INSERT INTO Carriers (lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
+            sb.Append("INSERT INTO Carriers (lastName, firstName, middleName, birthday, inn, " +
+                "carrierID, routesID) VALUES ");
 
             // объявляем переменную счетчика для подсчета кол-ва итерации, чтобы в запросе на последний
             // ввод строки в таблицу не ставить "," (обеспечение правильности синтаксиса запроса SQL)
@@ -69,8 +69,8 @@ namespace HW_Logistics_20190717
             {
                 count++;
                 sb.Append($"('{i.LastName}', '{i.FirstName}', '{i.MiddleName}', '{i.birthday.Year}-{i.birthday.Month}-{i.birthday.Day}', '{i.inn}'," +
-                    $" '{i.employmentDate.Year}-{i.employmentDate.Month}-{i.employmentDate.Day}', '{i.position}', '{i.solary}')");
-                if (workersList.Count != count) sb.Append(", ");
+                    $" '{i.carrierID}', '{i.carrierRoutesID}') ");
+                if (carriersList.Count != count) sb.Append(", ");
             }
 
             sqlQuery = sb.ToString();

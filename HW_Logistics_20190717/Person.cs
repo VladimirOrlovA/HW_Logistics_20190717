@@ -72,7 +72,7 @@ namespace HW_Logistics_20190717
         // Проверка ввода - условие первый символ - прописная/заглавная буква
         public bool InputCheckUppercaseLetter(string value)
         {
-            if (Convert.ToInt16(value[0]) <= 65 || Convert.ToInt16(value[0]) >= 91 
+            if (Convert.ToInt16(value[0]) <= 65 || Convert.ToInt16(value[0]) >= 91
                     && Convert.ToInt16(value[0]) < 1040 || Convert.ToInt16(value[0]) > 1071)
             {
                 Console.WriteLine("Неверный ввод.");

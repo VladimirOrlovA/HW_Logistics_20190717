@@ -55,7 +55,7 @@ namespace HW_Logistics_20190717
         // Вставляет данные в таблицу БД
         public void InsertTable(IConnDataBaseSQL obj)
         {
-            Console.WriteLine(@"Insert Data to table ""Workers"" about " 
+            Console.WriteLine(@"Insert Data to table ""Workers"" about "
                + Convert.ToString(this.GetType()).Substring(22));
 
             StringBuilder sb = new StringBuilder();
@@ -68,7 +68,7 @@ namespace HW_Logistics_20190717
             obj.SaveData(sqlQuery);
         }
 
-        //устнавливает счетчик на цифру кол-ва ранее созданных объектов
+        // Устнавливает счетчик на цифру кол-ва ранее созданных объектов
         public void SetCountObj(IConnDataBaseSQL obj)
         {
             StringBuilder sb = new StringBuilder();

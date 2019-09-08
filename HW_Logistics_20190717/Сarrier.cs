@@ -9,10 +9,12 @@ namespace HW_Logistics_20190717
     class Carrier : Person
     {
         private static int carriersCount = 0;
-        int carrierID;
-        Route[] routeList = new Route[0];
+        public int carrierID { get; }
+        public int carrierRoutesID { get; set; }
 
-        public Carrier(string carrierName)
+        public Carrier(string lastName, string firstName, string middleName, DateTime birthday, long inn,
+            int carrierID, int routsID)
+            : base(lastName, firstName, middleName, birthday, inn)
         {
             carrierID = ++carriersCount;
         }
@@ -32,50 +34,33 @@ namespace HW_Logistics_20190717
             return base.ToString();
         }
 
-        public void addRoute(Route addRoute)
-        {
-            Route[] tmp = new Route[routeList.Length + 1];
-            Array.Copy(routeList, tmp, routeList.Length);
-            Array.Resize(ref routeList, (routeList.Length + 1));
-            Array.Copy(tmp, routeList, routeList.Length);
-            routeList[routeList.Length-1] = addRoute;
-        }
-
-        public void InfoRoutes()
-        {
-            Console.WriteLine("\nИмеющиеся маршруты:");
-
-            foreach (Route i in routeList)
-            {
-                Console.WriteLine(i.routeID + " - " + i.routeStart + " - " + i.routeEnd);
-            }
-        }
-
         public override void Info()
         {
             Console.WriteLine("\n----------------- Информация о перевозчике -----------------\n\n");
-            Console.WriteLine("Название перевозчика ----------- " + carriersCount);
-            InfoRoutes();
+            Console.WriteLine("Номер перевозчика ------- " + carrierID);
+            Console.WriteLine("Номер маршрута ---------- " + carrierRoutesID);
+            //InfoRoutes(carrierID);
             Console.WriteLine("\n---------------------------------------------------------\n\n");
         }
 
         // Вставляет данные в таблицу БД
         public void InsertTable(IConnDataBaseSQL obj)
         {
-            Console.WriteLine(@"Insert Data to table ""Workers"" about "
+            Console.WriteLine(@"Insert Data to table ""Carriers"" about "
                + Convert.ToString(this.GetType()).Substring(22));
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("INSERT INTO Carriers (lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
+            sb.Append("INSERT INTO Carriers (lastName, firstName, middleName, birthday, inn, " +
+                "carrierID, routesID) VALUES ");
             sb.Append($"('{lastName}', '{firstName}', '{middleName}', '{birthday.Year}-{birthday.Month}-{birthday.Day}', '{inn}'," +
-                $" '{employmentDate.Year}-{employmentDate.Month}-{employmentDate.Day}', '{position}', '{solary}') ");
+                $" '{carrierID}', '{carrierRoutesID}') ");
             string sqlQuery = sb.ToString();
 
             obj.SaveData(sqlQuery);
         }
 
-
+        // Устнавливает счетчик на цифру кол-ва ранее созданных объектов
         public void SetCountObj(IConnDataBaseSQL obj)
         {
             StringBuilder sb = new StringBuilder();

@@ -8,7 +8,7 @@ SELECT COUNT(1) FROM Workers
 USE Master
 DROP DATABASE LogisticsOVA
 
-DROP TABLE Workers
+DROP TABLE Customers
 
 SELECT * FROM Persons p 
 JOIN Workers w ON p.id = w.workerID

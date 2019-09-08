@@ -9,7 +9,7 @@ namespace HW_Logistics_20190717
     internal class Customer : Person
     {
         private static int customersCount = 0;
-        public int customerID { get; set; }
+        public int customerID { get; }
         public int contractID { get; set; }
         public DateTime registrationDate = DateTime.Today;
 
@@ -63,7 +63,7 @@ namespace HW_Logistics_20190717
             obj.SaveData(sqlQuery);
         }
 
-        //устнавливает счетчик на цифру кол-ва ранее созданных объектов
+        // Устнавливает счетчик на цифру кол-ва ранее созданных объектов
         public void SetCountObj(IConnDataBaseSQL obj)
         {
             StringBuilder sb = new StringBuilder();

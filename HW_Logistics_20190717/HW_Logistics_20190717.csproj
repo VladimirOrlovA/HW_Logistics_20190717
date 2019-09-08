@@ -55,6 +55,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Route.cs" />
+    <Compile Include="Routes.cs" />
     <Compile Include="Worker.cs" />
     <Compile Include="Workers.cs" />
     <Compile Include="Сarrier.cs" />
