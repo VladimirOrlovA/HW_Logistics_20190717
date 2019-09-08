@@ -7,14 +7,14 @@ using System.Data.SqlClient;
 
 namespace HW_Logistics_20190717
 {
-    class ConnDataBaseSQL: IConnDataBaseSQL
+    class ConnDataBaseSQL : IConnDataBaseSQL
     {
-        
+
         public static SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
         // создаем строку с данными для подключения к БД SQL
         public ConnDataBaseSQL()
         {
-            builder.DataSource = "ASUS_P52F\\SQLEXPRESS";
+            builder.DataSource = @"ASUS_P52F\SQLEXPRESS";
             builder.UserID = "OVA";
             builder.Password = "123";
             builder.InitialCatalog = "master";
@@ -26,7 +26,7 @@ namespace HW_Logistics_20190717
             Console.WriteLine("\n-------------------------------------------------------------------\n\n");
             try
             {
-                Console.Write("Connecting to SQL Server ... \n");
+                Console.WriteLine("Connecting to SQL Server ...");
                 using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
                 {
                     connection.Open();
@@ -45,8 +45,10 @@ namespace HW_Logistics_20190717
                     using (SqlCommand command = new SqlCommand(strSqlQuery, connection))
                     {
                         command.ExecuteNonQuery();
-                        Console.Write("Creating DataBase --- LogisticsOVA");
+                        Console.WriteLine("Creating DataBase --- LogisticsOVA");
                         Console.WriteLine("Done. DataBase is created");
+                        Console.WriteLine("\n-------------------------------------------------------------------\n");
+
                     }
                 }
             }
@@ -57,34 +59,8 @@ namespace HW_Logistics_20190717
             }
         }
 
-        // Создаем таблицу
-        public void CreateTable(string sqlQuery)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
-                {
-                    connection.Open();
-                    //Console.WriteLine(Convert.ToString(obj.GetType()).Substring(22));
-
-                    using (SqlCommand command = new SqlCommand(sqlQuery, connection))
-                    {
-                        command.ExecuteNonQuery();
-                        Console.Write("Creating table...  ");
-                        Console.WriteLine("Done. Table is created");
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.Write(e.ToString().Substring(48, 46));
-                //Console.Write(Convert.ToString(obj.GetType()).Substring(22));
-                Console.WriteLine("\n\n-------------------------------------------------------------------\n");
-            }
-        }
-
-        // Вставляем данные в таблицу
-        public void InsertTable(string sqlQuery)
+        // Вносим данные в БД
+        public void SaveData(string sqlQuery)
         {
             if (sqlQuery == null)
             {
@@ -93,16 +69,15 @@ namespace HW_Logistics_20190717
             }
             try
             {
-                Console.Write("Connecting to SQL Server ... \n");
                 using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
                 {
                     connection.Open();
-                    Console.Write("\nInserting data to table...\n");
 
                     using (SqlCommand command = new SqlCommand(sqlQuery, connection))
                     {
-                        Console.Write("\nRecords Processed - ");
-                        Console.WriteLine(command.ExecuteNonQuery());
+                        Console.Write("\nResult: ");
+                        Console.Write(command.ExecuteNonQuery());
+                        Console.WriteLine(" records");
                         Console.WriteLine("Done.");
                         Console.WriteLine("\n-------------------------------------------------------------------\n\n");
                     }
@@ -110,14 +85,14 @@ namespace HW_Logistics_20190717
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+
+                Console.WriteLine(e.ToString().Substring(0, e.ToString().IndexOf("\n")));
                 Console.WriteLine("\n-------------------------------------------------------------------\n\n");
             }
         }
 
-
-        // Выводит все записи из таблицы БД
-        public void ViewTable(string sqlQuery)
+        // Получаем данные из БД
+        public void ReadData(string sqlQuery)
         {
             Console.WriteLine("-------------------------------------------------------------------");
             try
@@ -159,55 +134,6 @@ namespace HW_Logistics_20190717
             {
                 Console.WriteLine(e.ToString());
                 Console.WriteLine("\n-------------------------------------------------------------------\n\n");
-            }
-        }
-
-        // метод из примера
-        public void ViewTableDEMO()
-        {
-            try
-            {
-                Console.Write("Connecting to SQL Server ... \n");
-                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
-                {
-                    connection.Open();
-                    Console.WriteLine("Done.");
-                    Console.WriteLine("ServerVersion: {0}", connection.ServerVersion);
-                    Console.WriteLine("State: {0}", connection.State);
-
-                    String sql = null;
-
-                    // READ demo
-                    Console.WriteLine("Reading data from table, press any key to continue...");
-                    Console.ReadKey(true);
-                    StringBuilder sb = new StringBuilder();
-                    sb.Append("USE Logistics; ");
-                    sb.Append("SELECT * FROM Person;");
-                    sql = sb.ToString();
-                    using (SqlCommand command = new SqlCommand(sql, connection))
-                    {
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            Console.WriteLine();
-                            while (reader.Read())
-                            {
-                                Console.WriteLine("{0} \t {1} \t {2} \t {3} \t {4} \t {5}",
-                                    reader.GetInt32(0),
-                                    reader.GetString(1),
-                                    reader.GetString(2),
-                                    reader.GetString(3),
-                                    reader.GetValue(4),
-                                    reader.GetValue(5));
-                            }
-                            Console.WriteLine(reader.FieldCount);
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-                return;
             }
         }
 
@@ -275,6 +201,32 @@ namespace HW_Logistics_20190717
             {
                 Console.WriteLine(e.ToString());
                 //return wrks = null;
+            }
+        }
+
+        public int ReadCountRowInTable(string sqlQuery)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(sqlQuery, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            reader.Read();
+                            int count = Convert.ToInt32(reader.GetValue(0));
+                            return count;
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                Console.WriteLine("\n-------------------------------------------------------------------\n\n");
+                return -1;
             }
         }
 

@@ -8,9 +8,9 @@ namespace HW_Logistics_20190717
 {
     interface IConnDataBaseSQL
     {
-        void CreateTable(string sqlQuery);
-        void InsertTable(string sqlQuery);
-        void ViewTable(string sqlQuery);
+        void SaveData(string sqlQuery);
+        void ReadData(string sqlQuery);
         void LoadData(string sqlQuery);
+        int ReadCountRowInTable(string sqlQuery);
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HW_Logistics_20190717
 {
-    internal abstract class Person: IWorkWithSQL
+    internal abstract class Person
     {
         protected string lastName;
         // сеттер геттер для lastName
@@ -135,15 +135,6 @@ namespace HW_Logistics_20190717
 
         // для обязательного переопределения метода вывода информации в дочерних классах
         abstract public void Info();
-
-        // Создание таблицы в БД
-        abstract public void CreateTable(IConnDataBaseSQL obj);
-
-        // Вставка данных в таблицу БД
-        abstract public void InsertTable(IConnDataBaseSQL obj);
-
-        // Чтение содержимого таблицы
-        abstract public void ViewTable(IConnDataBaseSQL obj);
 
         // Возвращает строку с полным ФИО
         public string GetLFM()

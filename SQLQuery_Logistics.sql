@@ -1,9 +1,12 @@
-USE Logistics
+USE LogisticsOVA
 
-SELECT * FROM Persons
-SELECT * FROM Worker
 SELECT * FROM Workers
 SELECT * FROM Customers
+
+SELECT COUNT(1) FROM Workers
+
+USE Master
+DROP DATABASE LogisticsOVA
 
 DROP TABLE Workers
 

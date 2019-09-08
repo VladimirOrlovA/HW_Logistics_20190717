@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace HW_Logistics_20190717
 {
-    class Worker : Person, IWorkWithSQL, IAddWorkerToWorkers
+    class Worker : Person
     {
-        public static int workerCount = 0;
+        private static int workerCount = 0;
         public int workerID { get; set; }
         public DateTime employmentDate { get; set; }
         public string position { get; set; }
         public int solary { get; set; }
 
+        public Worker() { }
 
         public Worker(string lastName, string firstName, string middleName, DateTime birthday,
                         long inn, DateTime employmentDate, string position, int solary)
@@ -24,8 +25,6 @@ namespace HW_Logistics_20190717
             this.position = position;
             this.solary = solary;
         }
-
-        public Worker() { }
 
         public override bool Equals(object obj)
         {
@@ -53,64 +52,34 @@ namespace HW_Logistics_20190717
             Console.WriteLine("\n---------------------------------------------------------\n\n");
         }
 
-        // Формирует строку запроса в БД для создания таблицы
-        public override void CreateTable(IConnDataBaseSQL obj)
+        // Вставляет данные в таблицу БД
+        public void InsertTable(IConnDataBaseSQL obj)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("USE LogisticsOVA; ");
-            sb.Append("CREATE TABLE Worker (");
-            sb.Append(" workerID INT NOT NULL, ");
-            sb.Append(" lastName NVARCHAR(50), ");
-            sb.Append(" firstName NVARCHAR(50), ");
-            sb.Append(" middleName NVARCHAR(50), ");
-            sb.Append(" birthday DATE, ");
-            sb.Append(" inn DECIMAL, ");
-            sb.Append(" employmentDate DATE, ");
-            sb.Append(" position NVARCHAR(50), ");
-            sb.Append(" solary INT ");
-            sb.Append("); ");
-            string sqlQuery = sb.ToString();
-            obj.CreateTable(sqlQuery);
-        }
-
-        // Формирует строку запроса в БД для вставки данных в таблицу
-        public override void InsertTable(IConnDataBaseSQL obj)
-        {
-
-            // проверка на случай передачи в строку данных объекта с пустыми полями,
-            // чтобы исключить ошибки в программе - проблемы с циклами и таблицы - внесение неверных данных
+            Console.WriteLine(@"Insert Data to table ""Workers"" about " 
+               + Convert.ToString(this.GetType()).Substring(22));
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("INSERT INTO Workers (workerID, lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
-            sb.Append($"('{workerID}', '{lastName}', '{firstName}', '{middleName}', '{birthday.Year}-{birthday.Month}-{birthday.Day}', '{inn}'," +
+            sb.Append("INSERT INTO Workers (lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
+            sb.Append($"('{lastName}', '{firstName}', '{middleName}', '{birthday.Year}-{birthday.Month}-{birthday.Day}', '{inn}'," +
                 $" '{employmentDate.Year}-{employmentDate.Month}-{employmentDate.Day}', '{position}', '{solary}') ");
             string sqlQuery = sb.ToString();
 
-            obj.CreateTable(sqlQuery);
+            obj.SaveData(sqlQuery);
         }
 
-        // Формирует строку запроса в БД для чтения данных из таблицы
-        public override void ViewTable(IConnDataBaseSQL obj)
+        //устнавливает счетчик на цифру кол-ва ранее созданных объектов
+        public void SetCountObj(IConnDataBaseSQL obj)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("SELECT * FROM Worker p ");
+            sb.Append("SELECT COUNT(1) FROM Workers");
             string sqlQuery = sb.ToString();
-            obj.ViewTable(sqlQuery);
-        }
 
-        // Отправляет через интерфейс объект класса Worker
-        Worker IAddWorkerToWorkers.ThisWorker()
-        {
-            return this;
-            //throw new NotImplementedException();
-        }
-
-        // устнавливает счетчик на цифру кол-ва ранее созданных объектов 
-        public void SetCountObj(ICountObj obj)
-        {
-            workerCount = obj.CountObj();
+            workerCount = obj.ReadCountRowInTable(sqlQuery);
+            Console.WriteLine("\n-------------------------------------------------------------------");
+            Console.WriteLine(@"Кол-во строк в tаблице ""Workers"" - " + workerCount);
+            Console.WriteLine("\n-------------------------------------------------------------------");
         }
     }
 }
