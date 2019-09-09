@@ -56,8 +56,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Route.cs" />
     <Compile Include="Routes.cs" />
-    <Compile Include="Worker.cs" />
-    <Compile Include="Workers.cs" />
+    <Compile Include="Employee.cs" />
+    <Compile Include="Employees.cs" />
+    <Compile Include="Transport.cs" />
+    <Compile Include="Transports.cs" />
     <Compile Include="Сarrier.cs" />
     <Compile Include="Сustomer.cs" />
   </ItemGroup>

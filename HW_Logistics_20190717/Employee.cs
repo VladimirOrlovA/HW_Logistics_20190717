@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace HW_Logistics_20190717
 {
-    class Worker : Person
+    class Employee : Person
     {
-        private static int workersCount = 0;
-        public int workerID { get; set; }
+        private static int employeesCount = 0;
+        public int employeeID { get; set; }
         public DateTime employmentDate { get; set; }
         public string position { get; set; }
         public int solary { get; set; }
 
-        public Worker() { }
+        public Employee() { }
 
-        public Worker(string lastName, string firstName, string middleName, DateTime birthday,
+        public Employee(string lastName, string firstName, string middleName, DateTime birthday,
                         long inn, DateTime employmentDate, string position, int solary)
             : base(lastName, firstName, middleName, birthday, inn)
         {
-            workerID = ++workersCount;
+            employeeID = ++employeesCount;
             this.employmentDate = employmentDate;
             this.position = position;
             this.solary = solary;
@@ -43,24 +43,24 @@ namespace HW_Logistics_20190717
 
         public override void Info()
         {
-            Console.WriteLine("\n----------------- Информация о работнике -----------------\n\n");
-            Console.WriteLine("Номер работника --------- " + workerID);
+            Console.WriteLine("\n----------------- Информация о сотруднике -----------------\n\n");
+            Console.WriteLine("Номер работника --------- " + employeeID);
             InfoPerson();
             Console.WriteLine("Дата приема на работу --- " + employmentDate);
             Console.WriteLine("Должность --------------- " + position);
             Console.WriteLine("Оклад ------------------- " + solary);
-            Console.WriteLine("\n---------------------------------------------------------\n\n");
+            Console.WriteLine("\n-----------------------------------------------------------\n\n");
         }
 
         // Вставляет данные в таблицу БД
         public void InsertTable(IConnDataBaseSQL obj)
         {
-            Console.WriteLine(@"Insert Data to table ""Workers"" about "
+            Console.WriteLine(@"Insert Data to table ""Employees"" about "
                + Convert.ToString(this.GetType()).Substring(22));
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("INSERT INTO Workers (lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
+            sb.Append("INSERT INTO Employees (lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
             sb.Append($"('{lastName}', '{firstName}', '{middleName}', '{birthday.Year}-{birthday.Month}-{birthday.Day}', '{inn}'," +
                 $" '{employmentDate.Year}-{employmentDate.Month}-{employmentDate.Day}', '{position}', '{solary}') ");
             string sqlQuery = sb.ToString();
@@ -73,12 +73,12 @@ namespace HW_Logistics_20190717
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("SELECT COUNT(1) FROM Workers");
+            sb.Append("SELECT COUNT(1) FROM Employees");
             string sqlQuery = sb.ToString();
 
-            workersCount = obj.ReadCountRowInTable(sqlQuery);
+            employeesCount = obj.ReadCountRowInTable(sqlQuery);
             Console.WriteLine("\n-------------------------------------------------------------------");
-            Console.WriteLine(@"Кол-во строк в tаблице ""Workers"" - " + workersCount);
+            Console.WriteLine(@"Кол-во строк в tаблице ""Employees"" - " + employeesCount);
             Console.WriteLine("\n-------------------------------------------------------------------");
         }
     }

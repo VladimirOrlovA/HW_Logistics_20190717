@@ -142,7 +142,7 @@ namespace HW_Logistics_20190717
         {
             Console.WriteLine("\n-------------------------------------------------------------------\n");
 
-            Workers wrks = new Workers();
+            Employees employees = new Employees();
 
             try
             {
@@ -162,7 +162,7 @@ namespace HW_Logistics_20190717
                                 Console.WriteLine("Table is empty \n");
                                 Console.WriteLine("\n-------------------------------------------------------------------\n");
 
-                                //return wrks;
+                                //return employees;
                             }
 
                             // создаем массив из строк куда запишем данные из полей строки
@@ -178,19 +178,19 @@ namespace HW_Logistics_20190717
                                 }
 
                                 // создаем новый объект на каждой итерации
-                                Worker tmpWorker = new Worker();
+                                Employee tmpEmployee = new Employee();
                                 // записываем значение полей в сооответсвующее поле объекта 
-                                tmpWorker.workerID = Convert.ToInt32(rowStr[0]);
-                                tmpWorker.LastName = rowStr[1];
-                                tmpWorker.FirstName = rowStr[2];
-                                tmpWorker.MiddleName = rowStr[3];
-                                tmpWorker.birthday = Convert.ToDateTime(rowStr[4]);
-                                tmpWorker.inn = Convert.ToInt64(rowStr[5]);
-                                tmpWorker.employmentDate = Convert.ToDateTime(rowStr[6]);
-                                tmpWorker.position = rowStr[7];
-                                tmpWorker.solary = Convert.ToInt32(rowStr[8]);
+                                tmpEmployee.employeeID = Convert.ToInt32(rowStr[0]);
+                                tmpEmployee.LastName = rowStr[1];
+                                tmpEmployee.FirstName = rowStr[2];
+                                tmpEmployee.MiddleName = rowStr[3];
+                                tmpEmployee.birthday = Convert.ToDateTime(rowStr[4]);
+                                tmpEmployee.inn = Convert.ToInt64(rowStr[5]);
+                                tmpEmployee.employmentDate = Convert.ToDateTime(rowStr[6]);
+                                tmpEmployee.position = rowStr[7];
+                                tmpEmployee.solary = Convert.ToInt32(rowStr[8]);
                                 // записываем объект в коллекцию объектов - в лист
-                                wrks.AddWorker(tmpWorker);
+                                employees.AddEmployee(tmpEmployee);
                             }
                         }
                     }

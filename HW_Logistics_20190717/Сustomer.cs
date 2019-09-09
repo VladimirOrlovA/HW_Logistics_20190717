@@ -38,12 +38,12 @@ namespace HW_Logistics_20190717
 
         public override void Info()
         {
-            Console.WriteLine("\n----------------- Информация о заказчике -----------------\n\n");
+            Console.WriteLine("\n----------------- Информация о заказчике ------------------\n\n");
             Console.WriteLine("Номер клиента ----------- " + customerID);
             Console.WriteLine("Дата регистрации -------- " + registrationDate);
             InfoPerson();
             Console.WriteLine("Номер договора ---------- " + contractID);
-            Console.WriteLine("\n---------------------------------------------------------\n\n");
+            Console.WriteLine("\n-----------------------------------------------------------\n\n");
         }
 
         // Вставляет данные в таблицу БД

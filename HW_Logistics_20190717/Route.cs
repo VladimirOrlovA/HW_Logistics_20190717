@@ -12,12 +12,17 @@ namespace HW_Logistics_20190717
         public int routeID { get; }
         public string routeStart { get; set; }
         public string routeEnd { get; set; }
+        public int routeLength { get; set; }
+        public int carrierRouteID { get; set; }
 
-        public Route(string routeStart, string routeEnd)
+        public Route() { }
+
+        public Route(string routeStart, string routeEnd, int routeLength)
         {
             this.routeID = ++routesCount;
             this.routeStart = routeStart;
             this.routeEnd = routeEnd;
+            this.routeLength = routeLength;
         }
 
         public override bool Equals(object obj)
@@ -35,13 +40,15 @@ namespace HW_Logistics_20190717
             return base.ToString();
         }
 
-        public void InfoRoute()
+        public void Info()
         {
-            Console.WriteLine("\n----------------- Информация о маршруте -----------------\n\n");
+            Console.WriteLine("\n----------------- Информация о маршруте -------------------\n\n");
             Console.WriteLine("Номер маршрута ----------- " + routeID);
             Console.WriteLine("Начало маршрута ---------- " + routeStart);
             Console.WriteLine("Конец маршрута ----------- " + routeEnd);
-            Console.WriteLine("\n---------------------------------------------------------\n\n");
+            Console.WriteLine("Расстояние --------------- " + routeLength + " км");
+            Console.WriteLine("Номер перевозчика -------- " + carrierRouteID);
+            Console.WriteLine("\n-----------------------------------------------------------\n\n");
         }
 
         // Вставляет данные в таблицу БД

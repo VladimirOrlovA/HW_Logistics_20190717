@@ -10,10 +10,12 @@ namespace HW_Logistics_20190717
     {
         private static int carriersCount = 0;
         public int carrierID { get; }
-        public int carrierRoutesID { get; set; }
+        public int carrierRouteID { get; set; }
+        public int carrierTransportId { get; set; }
 
-        public Carrier(string lastName, string firstName, string middleName, DateTime birthday, long inn,
-            int carrierID, int routsID)
+        public Carrier() { }
+
+        public Carrier(string lastName, string firstName, string middleName, DateTime birthday, long inn)
             : base(lastName, firstName, middleName, birthday, inn)
         {
             carrierID = ++carriersCount;
@@ -36,11 +38,12 @@ namespace HW_Logistics_20190717
 
         public override void Info()
         {
-            Console.WriteLine("\n----------------- Информация о перевозчике -----------------\n\n");
+            Console.WriteLine("\n----------------- Информация о перевозчике ----------------\n\n");
             Console.WriteLine("Номер перевозчика ------- " + carrierID);
-            Console.WriteLine("Номер маршрута ---------- " + carrierRoutesID);
+            InfoPerson();
+            Console.WriteLine("Номер маршрута ---------- " + carrierRouteID);
             //InfoRoutes(carrierID);
-            Console.WriteLine("\n---------------------------------------------------------\n\n");
+            Console.WriteLine("\n-----------------------------------------------------------\n\n");
         }
 
         // Вставляет данные в таблицу БД
@@ -54,7 +57,7 @@ namespace HW_Logistics_20190717
             sb.Append("INSERT INTO Carriers (lastName, firstName, middleName, birthday, inn, " +
                 "carrierID, routesID) VALUES ");
             sb.Append($"('{lastName}', '{firstName}', '{middleName}', '{birthday.Year}-{birthday.Month}-{birthday.Day}', '{inn}'," +
-                $" '{carrierID}', '{carrierRoutesID}') ");
+                $" '{carrierID}', '{carrierRouteID}') ");
             string sqlQuery = sb.ToString();
 
             obj.SaveData(sqlQuery);
@@ -73,7 +76,6 @@ namespace HW_Logistics_20190717
             Console.WriteLine(@"Кол-во строк в tаблице ""Carriers"" - " + carriersCount);
             Console.WriteLine("\n-------------------------------------------------------------------");
         }
-
 
     }
 }

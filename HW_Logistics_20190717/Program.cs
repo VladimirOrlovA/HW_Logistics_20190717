@@ -19,61 +19,106 @@ namespace HW_Logistics_20190717
 
             // создаем основные объекты для работы программы
             //Worker worker = new Worker();
-            Worker worker = new Worker();
-            Workers workers = new Workers();
+            Employee employee = new Employee();
+            Employees employees = new Employees();
 
             Customer customer = new Customer();
             Customers customers = new Customers();
+
+            Carrier carrier = new Carrier();
+            Carriers carriers = new Carriers();
+
+            Transport transport = new Transport();
+            Transports transports = new Transports();
+
+            Route route = new Route();
+            Routes routes = new Routes();
             // 1, 2, ...
 
 
             // создаем необходимые таблицы в БД
-            workers.CreateTable(db);
+            employees.CreateTable(db);
             customers.CreateTable(db);
+            carriers.CreateTable(db);
+            transports.CreateTable(db);
+            routes.CreateTable(db);
             // 1, 2, ...
 
 
             // установка начального значения для счетчика объектов, 
             //чтобы корректно отражать ID вновь созданных объектов в текущей сессии программы
-            worker.SetCountObj(db);
+            employee.SetCountObj(db);
             customer.SetCountObj(db);
+            carrier.SetCountObj(db);
+            transport.SetCountObj(db);
+            route.SetCountObj(db);
 
             // создание объектов, а затем их запись в объект со списком объектов
-            Worker worker1 = new Worker("Селезнев", "Павел", "Федорович", new DateTime(1981, 01, 08), 810108100011, new DateTime(2010, 01, 23), "менеджер", 180000);
-            Worker worker2 = new Worker("Подорогин", "Семен", "Петрович", new DateTime(1992, 08, 25), 920825100021, new DateTime(2010, 01, 23), "экспедитор", 120000);
-            Worker worker3 = new Worker("Синицына", "Анна", "Дмитриевна", new DateTime(1994, 03, 18), 940318200031, new DateTime(2010, 01, 23), "техник", 80000);
-            Worker worker4 = new Worker("Нестеров", "Павел", "Николаевич", new DateTime(2003, 10, 12), 031012300041, new DateTime(2010, 01, 23), "экспедитор", 180000);
+            //Employee employee1 = new Employee("Селезнев", "Павел", "Федорович", new DateTime(1981, 01, 08), 810108100011, new DateTime(2010, 01, 23), "менеджер", 180000);
+            //Employee employee2 = new Employee("Подорогин", "Семен", "Петрович", new DateTime(1992, 08, 25), 920825100021, new DateTime(2010, 01, 23), "экспедитор", 120000);
+            //Employee employee3 = new Employee("Синицына", "Анна", "Дмитриевна", new DateTime(1994, 03, 18), 940318200031, new DateTime(2010, 01, 23), "техник", 80000);
+            //Employee employee4 = new Employee("Нестеров", "Павел", "Николаевич", new DateTime(2003, 10, 12), 031012300041, new DateTime(2010, 01, 23), "экспедитор", 180000);
 
-            Customer customer1 = new Customer("Быстров", "Олег", "Васильевич", new DateTime(2001, 01, 01), 010101300051);
-            Customer customer2 = new Customer("Хотелов", "Василий", "Генадьевич", new DateTime(2003, 12, 01), 031201300061);
-            Customer customer3 = new Customer("Подавайкин", "Иван", "Петрович", new DateTime(2012, 02, 25), 120225300071);
-            Customer customer4 = new Customer("Занудов", "Петр", "Алексеевич", new DateTime(2008, 08, 12), 080812300081);
-            Customer customer5 = new Customer("Хорошев", "Андрей", "Юрьевич", new DateTime(1985, 03, 21), 850321100091);
+            //Customer customer1 = new Customer("Быстров", "Олег", "Васильевич", new DateTime(2001, 01, 01), 010101300051);
+            //Customer customer2 = new Customer("Хотелов", "Василий", "Генадьевич", new DateTime(2003, 12, 01), 031201300061);
+            //Customer customer3 = new Customer("Подавайкин", "Иван", "Петрович", new DateTime(2012, 02, 25), 120225300071);
+            //Customer customer4 = new Customer("Занудов", "Петр", "Алексеевич", new DateTime(2008, 08, 12), 080812300081);
+            //Customer customer5 = new Customer("Хорошев", "Андрей", "Юрьевич", new DateTime(1985, 03, 21), 850321100091);
 
+            Carrier carrier1 = new Carrier("Скороходов", "Павел", "Васильевич", new DateTime(1985, 01, 01), 850101100051);
+            Carrier carrier2 = new Carrier("Тяжеловесов", "Григорий", "Генадьевич", new DateTime(1991, 12, 01), 911201100061);
+            Carrier carrier3 = new Carrier("Далеков", "Валентин", "Петрович", new DateTime(1987, 02, 25), 870225100071);
 
-            //workers.AddWorker(worker1);
-            workers.AddWorker(worker2);
-            workers.AddWorker(worker3);
-            workers.AddWorker(worker4);
+            Transport transport1 = new Transport("Volkswagen_Caddy", 815, 3);
+            Transport transport2 = new Transport("Газель-Фургон", 1500, 9);
+            Transport transport3 = new Transport("Камаз-Автофургон", 10200, 35);
+            
+
+            Route route1 = new Route("Алматы", "Шымкент", 845);
+            Route route2 = new Route("Алматы", "Тараз", 499);
+            Route route3 = new Route("Алматы", "Нур-Султан", 1217);
+
+            route1.carrierRouteID = 1;
+            route2.carrierRouteID = 2;
+            route3.carrierRouteID = 3;
+
+            //employees.AddEmployee(employee1);
+            //employees.AddEmployee(employee2);
+            //employees.AddEmployee(employee3);
+            //employees.AddEmployee(employee4);
 
             //customers.AddCustomer(customer1);
-            customers.AddCustomer(customer2);
-            customers.AddCustomer(customer3);
-            customers.AddCustomer(customer4);
-            customers.AddCustomer(customer5);
+            //customers.AddCustomer(customer2);
+            //customers.AddCustomer(customer3);
+            //customers.AddCustomer(customer4);
+            //customers.AddCustomer(customer5);
 
+            carriers.AddCarrier(carrier1);
+            carriers.AddCarrier(carrier2);
+            carriers.AddCarrier(carrier3);
 
-            //workers.Info();
-            customers.Info();
+            transports.AddTransport(transport1);
+            transports.AddTransport(transport2);
+            transports.AddTransport(transport3);
+
+            routes.addRoute(route1);
+            routes.addRoute(route2);
+            routes.addRoute(route3);
+
+            //employees.Info();
+            //customers.Info();
+           // carriers.Info();
+            transports.Info();
+            //routes.Info();
 
 
 
             // запись объектов в таблицу SQL
-            worker1.InsertTable(db);
+            //worker1.InsertTable(db);
             //workers.InsertTable(db);
 
             //customer1.InsertTable(db);
-            customers.InsertTable(db);
+            //customers.InsertTable(db);
 
 
             // ----------------------------------------------------------------------------------------

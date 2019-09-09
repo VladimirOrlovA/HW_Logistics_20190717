@@ -6,48 +6,45 @@ using System.Threading.Tasks;
 
 namespace HW_Logistics_20190717
 {
-    class Routes
+    class Transports
     {
-        Route[] routesList = new Route[0];
-        public int routesID { get;}
-        public Routes() { }
-
-        public void addRoute(Route route)
+        Transport[] transportsList = new Transport[0];
+        // Добавление заказчика в список заказчиков
+        public void AddTransport(Transport transport)
         {
-            Route[] tmp = new Route[routesList.Length + 1];
-            Array.Copy(routesList, tmp, routesList.Length);
-            Array.Resize(ref routesList, (routesList.Length + 1));
-            Array.Copy(tmp, routesList, routesList.Length);
-            routesList[routesList.Length - 1] = route;
+            Transport[] tmp = new Transport[transportsList.Length + 1];
+            Array.Copy(transportsList, tmp, transportsList.Length);
+            Array.Resize(ref transportsList, (transportsList.Length + 1));
+            Array.Copy(tmp, transportsList, transportsList.Length);
+            transportsList[transportsList.Length - 1] = transport;
         }
 
+        // Выводит информацию в консоль по содержимому каждого объекта листа
         public void Info()
         {
-            Console.WriteLine("\nИмеющиеся маршруты:");
+            for (int i = 0; i != transportsList.Length; i++)
+                transportsList[i].Info();
 
-            foreach (Route i in routesList)
-            {
-                //Console.WriteLine(i.routeID + " - " + i.routeStart + " - " + i.routeEnd);
-                i.Info();
-            }
+            //foreach (var transport in transportsList)
+            //    worker.Info();
         }
 
         // Создает таблицу в БД
         public void CreateTable(IConnDataBaseSQL obj)
         {
-            Console.WriteLine(@"Creating Table --- ""Routes""");
+            Console.WriteLine(@"Creating Table --- ""Transports""");
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("CREATE TABLE Routes (");
-            sb.Append(" routeID INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ");
-            sb.Append(" routeStart NVARCHAR(50), ");
-            sb.Append(" routeEnd NVARCHAR(50), ");
-            sb.Append(" routeLength INT DEFAULT NULL, ");
-            sb.Append(" carrierRouteID INT ");
+            sb.Append("CREATE TABLE Transports (");
+            sb.Append(" transportID INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ");
+            sb.Append(" transportType NVARCHAR(50), ");
+            sb.Append(" carryingСapacity INT, ");
+            sb.Append(" bodyVolume INT, ");
+            sb.Append(" carrierTransportID INT DEFAULT NULL ");
             sb.Append("); ");
             string sqlQuery = sb.ToString();
-            
+
             obj.SaveData(sqlQuery);
 
             //throw new NotImplementedException();
@@ -56,22 +53,24 @@ namespace HW_Logistics_20190717
         // Вставляет данные в таблицу БД
         public void InsertTable(IConnDataBaseSQL obj)
         {
-            Console.WriteLine(@"Insert Data to table ""Routes"" about "
+            Console.WriteLine(@"Insert Data to table ""Transports"" about "
                     + Convert.ToString(this.GetType()).Substring(22));
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("INSERT INTO Routes (routeID, routeStart, routeEnd, routeLength, carrierRouteID) VALUES ");
+            sb.Append("INSERT INTO Transports (transportID, transportType, carryingСapacity, " +
+                "bodyVolume, carrierTransportID ) VALUES ");
 
             // объявляем переменную счетчика для подсчета кол-ва итерации, чтобы в запросе на последний
             // ввод строки в таблицу не ставить "," (обеспечение правильности синтаксиса запроса SQL)
             int count = 0;
             string sqlQuery = null;
-            foreach (Route i in routesList)
+            foreach (Transport i in transportsList)
             {
                 count++;
-                sb.Append($"('{i.routeID}', '{i.routeStart}', '{i.routeEnd}', '{i.routeLength}') ");
-                if (routesList.Length != count) sb.Append(", ");
+                sb.Append($"('{i.transportID}', '{i.transportType}', '{i.carryingСapacity}', " +
+                    $"'{i.bodyVolume}, '{i.carrierTransportID}') ");
+                if (transportsList.Length != count) sb.Append(", ");
             }
 
             sqlQuery = sb.ToString();
@@ -84,11 +83,10 @@ namespace HW_Logistics_20190717
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("SELECT * FROM Routes ");
+            sb.Append("SELECT * FROM Transports ");
             string sqlQuery = sb.ToString();
             obj.ReadData(sqlQuery);
             //throw new NotImplementedException();
         }
-
     }
 }
