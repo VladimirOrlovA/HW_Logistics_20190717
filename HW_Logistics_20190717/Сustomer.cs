@@ -10,7 +10,7 @@ namespace HW_Logistics_20190717
     {
         private static int customersCount = 0;
         public int customerID { get; }
-        public int contractID { get; set; }
+        public int orderID { get; set; }
         public DateTime registrationDate = DateTime.Today;
 
         public Customer() { }
@@ -42,7 +42,7 @@ namespace HW_Logistics_20190717
             Console.WriteLine("Номер клиента ----------- " + customerID);
             Console.WriteLine("Дата регистрации -------- " + registrationDate);
             InfoPerson();
-            Console.WriteLine("Номер договора ---------- " + contractID);
+            Console.WriteLine("Номер договора ---------- " + orderID);
             Console.WriteLine("\n-----------------------------------------------------------\n\n");
         }
 
@@ -55,9 +55,9 @@ namespace HW_Logistics_20190717
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
             sb.Append("INSERT INTO Customers (lastName, firstName, middleName, " +
-                "birthday, iin, contractID) VALUES ");
+                "birthday, iin, orderID) VALUES ");
             sb.Append($"('{lastName}', '{firstName}', '{middleName}', " +
-                $"'{birthday.Year}-{birthday.Month}-{birthday.Day}', '{iin}', '{contractID}') ");
+                $"'{birthday.Year}-{birthday.Month}-{birthday.Day}', '{iin}', '{orderID}') ");
 
             string sqlQuery = sb.ToString();
             obj.SaveData(sqlQuery);

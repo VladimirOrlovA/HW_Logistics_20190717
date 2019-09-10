@@ -12,12 +12,12 @@ namespace HW_Logistics_20190717
         public int transportID { get; }
         public string transportType { get; set; }
         public int carryingСapacity { get; set; }
-        public int bodyVolume { get; set; }
+        public double bodyVolume { get; set; }
         public int carrierTransportID { get; set; }
 
         public Transport() { }
 
-        public Transport(string transportType, int carryingСapacity, int bodyVolume)
+        public Transport(string transportType, int carryingСapacity, double bodyVolume)
         {
             this.transportID = ++transportCount;
             this.transportType = transportType;

@@ -136,21 +136,33 @@ namespace HW_Logistics_20190717
         // Вставляет данные в таблицу БД
         public void InsertTable(IConnDataBaseSQL obj)
         {
-            Console.WriteLine(@"Insert Data to table ""Routes"" about "
+            Console.WriteLine(@"Insert Data to table ""Orders"" about "
                + Convert.ToString(this.GetType()).Substring(22));
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("INSERT INTO Routes (routeStart, routeEnd, routeLength, carrierRouteID) VALUES ");
-            sb.Append($"('{customerID}', '{weight}', '{volume}', '{from}', '{to}', '{startDate}', '{endDate}') ");
+            sb.Append("INSERT INTO Orders (customerID, weight, volume, from, to, " +
+                "startDate, endDate, orderStatus) VALUES ");
+            sb.Append($"('{customerID}', '{weight}', '{volume}', '{from}', '{to}'," +
+                $" '{startDate}', '{endDate}', '{orderStatus}') ");
+
             string sqlQuery = sb.ToString();
 
             obj.SaveData(sqlQuery);
-        }
 
+        //public int customerID { get; set; }
+        //public double weight { get; set; }
+        //public double volume { get; set; }
+        //public string from { get; set; }
+        //public string to { get; set; }
+        //public string startDate { get; set; }
+        //public string endDate { get; set; }
+        //public int orderStatus { get; set; }
 
-        // Устнавливает счетчик на цифру кол-ва ранее созданных объектов
-        public void SetCountObj(IConnDataBaseSQL obj)
+    }
+
+    // Устнавливает счетчик на цифру кол-ва ранее созданных объектов
+    public void SetCountObj(IConnDataBaseSQL obj)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");

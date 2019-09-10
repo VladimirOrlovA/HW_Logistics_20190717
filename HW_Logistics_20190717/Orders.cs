@@ -6,34 +6,31 @@ using System.Threading.Tasks;
 
 namespace HW_Logistics_20190717
 {
-    class Customers
+    class Orders
     {
-        private List<Customer> customersList = new List<Customer>();
+        private List<Order> ordersList = new List<Order>();
 
         // Добавление заказчика в список заказчиков
-        public void AddCustomer(Customer obj)
+        public void AddOrder(Order obj)
         {
-            customersList.Add(obj);
+            ordersList.Add(obj);
         }
 
         // Выводит информацию в консоль по содержимому каждого объекта листа
         public void Info()
         {
-            for (int i = 0; i != customersList.Count; i++)
-                customersList[i].Info();
-
-            //foreach (var worker in workersList)
-            //    worker.Info();
+            for (int i = 0; i != ordersList.Count; i++)
+                ordersList[i].Info();
         }
 
         // Создает таблицу в БД
         public void CreateTable(IConnDataBaseSQL obj)
         {
-            Console.WriteLine(@"Creating Table --- ""Customers""");
+            Console.WriteLine(@"Creating Table --- ""Orders""");
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("CREATE TABLE Customers (");
+            sb.Append("CREATE TABLE Orders (");
             sb.Append(" customerID INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ");
             sb.Append(" lastName NVARCHAR(50), ");
             sb.Append(" firstName NVARCHAR(50), ");
@@ -53,24 +50,25 @@ namespace HW_Logistics_20190717
         // Вставляет данные в таблицу БД
         public void InsertTable(IConnDataBaseSQL obj)
         {
-            Console.WriteLine(@"Insert Data to table ""Workers"" about "
+            Console.WriteLine(@"Insert Data to table ""Orders"" about "
                     + Convert.ToString(this.GetType()).Substring(22));
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("INSERT INTO Customers (lastName, firstName, middleName, " +
-                "birthday, iin, orderID) VALUES ");
+            sb.Append("INSERT INTO Orders (customerID, weight, volume, from, to, " +
+                "startDate, endDate, orderStatus) VALUES ");
+  
 
             // объявляем переменную счетчика для подсчета кол-ва итерации, чтобы в запросе на последний
             // ввод строки в таблицу не ставить "," (обеспечение правильности синтаксиса запроса SQL)
             int count = 0;
             string sqlQuery = null;
-            foreach (Customer i in customersList)
+            foreach (Order i in ordersList)
             {
                 count++;
-                sb.Append($"('{i.LastName}', '{i.FirstName}', '{i.MiddleName}', " +
-                    $"'{i.birthday.Year}-{i.birthday.Month}-{i.birthday.Day}', '{i.iin}', '{i.orderID}') ");
-                if (customersList.Count != count) sb.Append(", ");
+                sb.Append($"('{i.customerID}', '{i.weight}', '{i.volume}', '{i.from}', '{i.to}'," +
+                      $" '{i.startDate}', '{i.endDate}', '{i.orderStatus}') ");
+                if (ordersList.Count != count) sb.Append(", ");
             }
 
             sqlQuery = sb.ToString();
@@ -83,7 +81,7 @@ namespace HW_Logistics_20190717
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("SELECT * FROM Customers");
+            sb.Append("SELECT * FROM Orders");
             string sqlQuery = sb.ToString();
             obj.ReadData(sqlQuery);
             //throw new NotImplementedException();
