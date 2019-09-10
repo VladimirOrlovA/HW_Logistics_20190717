@@ -11,12 +11,12 @@ namespace HW_Logistics_20190717
         private static int carriersCount = 0;
         public int carrierID { get; }
         public int carrierRouteID { get; set; }
-        public int carrierTransportId { get; set; }
+        public int carrierTransportID { get; set; }
 
         public Carrier() { }
 
-        public Carrier(string lastName, string firstName, string middleName, DateTime birthday, long inn)
-            : base(lastName, firstName, middleName, birthday, inn)
+        public Carrier(string lastName, string firstName, string middleName, DateTime birthday, long iin)
+            : base(lastName, firstName, middleName, birthday, iin)
         {
             carrierID = ++carriersCount;
         }
@@ -54,10 +54,10 @@ namespace HW_Logistics_20190717
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("INSERT INTO Carriers (lastName, firstName, middleName, birthday, inn, " +
-                "carrierID, routesID) VALUES ");
-            sb.Append($"('{lastName}', '{firstName}', '{middleName}', '{birthday.Year}-{birthday.Month}-{birthday.Day}', '{inn}'," +
-                $" '{carrierID}', '{carrierRouteID}') ");
+            sb.Append("INSERT INTO Carriers (lastName, firstName, middleName, birthday, iin, " +
+                "carrierRouteID, carrierTransportID) VALUES ");
+            sb.Append($"('{lastName}', '{firstName}', '{middleName}', '{birthday.Year}-{birthday.Month}-{birthday.Day}', '{iin}'," +
+                $" '{carrierRouteID}', '{carrierTransportID}') ");
             string sqlQuery = sb.ToString();
 
             obj.SaveData(sqlQuery);

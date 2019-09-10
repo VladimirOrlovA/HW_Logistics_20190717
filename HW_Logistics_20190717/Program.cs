@@ -33,6 +33,8 @@ namespace HW_Logistics_20190717
 
             Route route = new Route();
             Routes routes = new Routes();
+
+            Order order = new Order();
             // 1, 2, ...
 
 
@@ -53,17 +55,17 @@ namespace HW_Logistics_20190717
             transport.SetCountObj(db);
             route.SetCountObj(db);
 
-            // создание объектов, а затем их запись в объект со списком объектов
-            //Employee employee1 = new Employee("Селезнев", "Павел", "Федорович", new DateTime(1981, 01, 08), 810108100011, new DateTime(2010, 01, 23), "менеджер", 180000);
-            //Employee employee2 = new Employee("Подорогин", "Семен", "Петрович", new DateTime(1992, 08, 25), 920825100021, new DateTime(2010, 01, 23), "экспедитор", 120000);
-            //Employee employee3 = new Employee("Синицына", "Анна", "Дмитриевна", new DateTime(1994, 03, 18), 940318200031, new DateTime(2010, 01, 23), "техник", 80000);
-            //Employee employee4 = new Employee("Нестеров", "Павел", "Николаевич", new DateTime(2003, 10, 12), 031012300041, new DateTime(2010, 01, 23), "экспедитор", 180000);
+            // Создаем объекты
+            Employee employee1 = new Employee("Селезнев", "Павел", "Федорович", new DateTime(1981, 01, 08), 810108100011, new DateTime(2010, 01, 23), "менеджер", 180000);
+            Employee employee2 = new Employee("Подорогин", "Семен", "Петрович", new DateTime(1992, 08, 25), 920825100021, new DateTime(2010, 01, 23), "экспедитор", 120000);
+            Employee employee3 = new Employee("Синицына", "Анна", "Дмитриевна", new DateTime(1994, 03, 18), 940318200031, new DateTime(2010, 01, 23), "техник", 80000);
+            Employee employee4 = new Employee("Нестеров", "Павел", "Николаевич", new DateTime(2003, 10, 12), 031012300041, new DateTime(2010, 01, 23), "экспедитор", 180000);
 
-            //Customer customer1 = new Customer("Быстров", "Олег", "Васильевич", new DateTime(2001, 01, 01), 010101300051);
-            //Customer customer2 = new Customer("Хотелов", "Василий", "Генадьевич", new DateTime(2003, 12, 01), 031201300061);
-            //Customer customer3 = new Customer("Подавайкин", "Иван", "Петрович", new DateTime(2012, 02, 25), 120225300071);
-            //Customer customer4 = new Customer("Занудов", "Петр", "Алексеевич", new DateTime(2008, 08, 12), 080812300081);
-            //Customer customer5 = new Customer("Хорошев", "Андрей", "Юрьевич", new DateTime(1985, 03, 21), 850321100091);
+            Customer customer1 = new Customer("Быстров", "Олег", "Васильевич", new DateTime(2001, 01, 01), 010101300051);
+            Customer customer2 = new Customer("Хотелов", "Василий", "Генадьевич", new DateTime(2003, 12, 01), 031201300061);
+            Customer customer3 = new Customer("Подавайкин", "Иван", "Петрович", new DateTime(2012, 02, 25), 120225300071);
+            Customer customer4 = new Customer("Занудов", "Петр", "Алексеевич", new DateTime(2008, 08, 12), 080812300081);
+            Customer customer5 = new Customer("Хорошев", "Андрей", "Юрьевич", new DateTime(1985, 03, 21), 850321100091);
 
             Carrier carrier1 = new Carrier("Скороходов", "Павел", "Васильевич", new DateTime(1985, 01, 01), 850101100051);
             Carrier carrier2 = new Carrier("Тяжеловесов", "Григорий", "Генадьевич", new DateTime(1991, 12, 01), 911201100061);
@@ -78,20 +80,21 @@ namespace HW_Logistics_20190717
             Route route2 = new Route("Алматы", "Тараз", 499);
             Route route3 = new Route("Алматы", "Нур-Султан", 1217);
 
-            route1.carrierRouteID = 1;
-            route2.carrierRouteID = 2;
-            route3.carrierRouteID = 3;
+            Order order1 = new Order(1, 100, 0.5, "Алматы", "Шымкент", Order.OrderStatuses.newOrder);
 
-            //employees.AddEmployee(employee1);
-            //employees.AddEmployee(employee2);
-            //employees.AddEmployee(employee3);
-            //employees.AddEmployee(employee4);
 
-            //customers.AddCustomer(customer1);
-            //customers.AddCustomer(customer2);
-            //customers.AddCustomer(customer3);
-            //customers.AddCustomer(customer4);
-            //customers.AddCustomer(customer5);
+            // Создаем списки объектов
+
+            employees.AddEmployee(employee1);
+            employees.AddEmployee(employee2);
+            employees.AddEmployee(employee3);
+            employees.AddEmployee(employee4);
+
+            customers.AddCustomer(customer1);
+            customers.AddCustomer(customer2);
+            customers.AddCustomer(customer3);
+            customers.AddCustomer(customer4);
+            customers.AddCustomer(customer5);
 
             carriers.AddCarrier(carrier1);
             carriers.AddCarrier(carrier2);
@@ -105,12 +108,32 @@ namespace HW_Logistics_20190717
             routes.addRoute(route2);
             routes.addRoute(route3);
 
+            // Назначаем транспорт перевозчику
+            //transport1.carrierTransportID = 1;  // при назначении сделать UpDate данных в таблице !!!
+            //transport1.carrierTransportID = 2;
+            //transport1.carrierTransportID = 3;
+
+            // Назначаем маршрут перевозчику
+            //route1.carrierRouteID = 1;
+            //route2.carrierRouteID = 2;
+            //route3.carrierRouteID = 3;
+
+            // Запись одиночных объектов в таблицу SQL
+            //employee1.InsertTable(db);
+            //carrier1.InsertTable(db);
+            //transport1.InsertTable(db);
+            //route1.InsertTable(db);
+
+
+
             //employees.Info();
             //customers.Info();
-           // carriers.Info();
-            transports.Info();
+            // carriers.Info();
+            //transports.Info();
             //routes.Info();
-
+            order1.Info();
+            order1.ChangeOrderStatus(Order.OrderStatuses.closeOrder);
+            order1.Info();
 
 
             // запись объектов в таблицу SQL

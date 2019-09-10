@@ -57,16 +57,16 @@ namespace HW_Logistics_20190717
         }
 
         public DateTime birthday { get; set; }
-        public long inn { get; set; }
+        public long iin { get; set; }
 
         public Person() { }
-        public Person(string lastName, string firstName, string middleName, DateTime birthday, long inn)
+        public Person(string lastName, string firstName, string middleName, DateTime birthday, long iin)
         {
             LastName = lastName;
             FirstName = firstName;
             MiddleName = middleName;
             this.birthday = birthday;
-            this.inn = inn;
+            this.iin = iin;
         }
 
         // Проверка ввода - условие первый символ - прописная/заглавная буква
@@ -129,7 +129,7 @@ namespace HW_Logistics_20190717
             Console.WriteLine("ФИО полностью ----------- " + GetLFM());
             Console.WriteLine("Дата рождения ----------- " + birthday);
             Console.WriteLine("Возраст ----------------- " + Age());
-            Console.WriteLine("ИНН --------------------- " + inn);
+            Console.WriteLine("ИНН --------------------- " + iin);
             //Console.WriteLine("\n---------------------------------------------------------\n\n");
         }
 

@@ -59,8 +59,8 @@ namespace HW_Logistics_20190717
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("INSERT INTO Routes (routeID, routeStart, routeEnd) VALUES ");
-            sb.Append($"('{routeID}', '{routeStart}', '{routeEnd}') ");
+            sb.Append("INSERT INTO Routes (routeStart, routeEnd, routeLength, carrierRouteID) VALUES ");
+            sb.Append($"('{routeStart}', '{routeEnd}', '{routeLength}', '{carrierRouteID}') ");
             string sqlQuery = sb.ToString();
 
             obj.SaveData(sqlQuery);

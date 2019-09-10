@@ -39,7 +39,7 @@ namespace HW_Logistics_20190717
             sb.Append(" firstName NVARCHAR(50), ");
             sb.Append(" middleName NVARCHAR(50), ");
             sb.Append(" birthday DATE, ");
-            sb.Append(" inn DECIMAL, ");
+            sb.Append(" iin DECIMAL, ");
             sb.Append(" employmentDate DATE, ");
             sb.Append(" position NVARCHAR(50), ");
             sb.Append(" solary INT ");
@@ -59,7 +59,7 @@ namespace HW_Logistics_20190717
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("INSERT INTO Employees (lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
+            sb.Append("INSERT INTO Employees (lastName, firstName, middleName, birthday, iin, employmentDate, position, solary) VALUES ");
 
             // объявляем переменную счетчика для подсчета кол-ва итерации, чтобы в запросе на последний
             // ввод строки в таблицу не ставить "," (обеспечение правильности синтаксиса запроса SQL)
@@ -68,7 +68,7 @@ namespace HW_Logistics_20190717
             foreach (Employee i in employeesList)
             {
                 count++;
-                sb.Append($"('{i.LastName}', '{i.FirstName}', '{i.MiddleName}', '{i.birthday.Year}-{i.birthday.Month}-{i.birthday.Day}', '{i.inn}'," +
+                sb.Append($"('{i.LastName}', '{i.FirstName}', '{i.MiddleName}', '{i.birthday.Year}-{i.birthday.Month}-{i.birthday.Day}', '{i.iin}'," +
                     $" '{i.employmentDate.Year}-{i.employmentDate.Month}-{i.employmentDate.Day}', '{i.position}', '{i.solary}')");
                 if (employeesList.Count != count) sb.Append(", ");
             }

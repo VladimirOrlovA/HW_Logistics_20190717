@@ -185,7 +185,7 @@ namespace HW_Logistics_20190717
                                 tmpEmployee.FirstName = rowStr[2];
                                 tmpEmployee.MiddleName = rowStr[3];
                                 tmpEmployee.birthday = Convert.ToDateTime(rowStr[4]);
-                                tmpEmployee.inn = Convert.ToInt64(rowStr[5]);
+                                tmpEmployee.iin = Convert.ToInt64(rowStr[5]);
                                 tmpEmployee.employmentDate = Convert.ToDateTime(rowStr[6]);
                                 tmpEmployee.position = rowStr[7];
                                 tmpEmployee.solary = Convert.ToInt32(rowStr[8]);

@@ -15,8 +15,8 @@ namespace HW_Logistics_20190717
 
         public Customer() { }
 
-        public Customer(string lastName, string firstName, string middleName, DateTime birthday, long inn) //, int orderID)
-            : base(lastName, firstName, middleName, birthday, inn)
+        public Customer(string lastName, string firstName, string middleName, DateTime birthday, long iin) //, int orderID)
+            : base(lastName, firstName, middleName, birthday, iin)
         {
             customerID = ++customersCount;
         }
@@ -55,9 +55,9 @@ namespace HW_Logistics_20190717
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
             sb.Append("INSERT INTO Customers (lastName, firstName, middleName, " +
-                "birthday, inn, contractID) VALUES ");
+                "birthday, iin, contractID) VALUES ");
             sb.Append($"('{lastName}', '{firstName}', '{middleName}', " +
-                $"'{birthday.Year}-{birthday.Month}-{birthday.Day}', '{inn}', '{contractID}') ");
+                $"'{birthday.Year}-{birthday.Month}-{birthday.Day}', '{iin}', '{contractID}') ");
 
             string sqlQuery = sb.ToString();
             obj.SaveData(sqlQuery);

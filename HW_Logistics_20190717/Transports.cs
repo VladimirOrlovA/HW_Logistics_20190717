@@ -58,7 +58,7 @@ namespace HW_Logistics_20190717
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("INSERT INTO Transports (transportID, transportType, carryingСapacity, " +
+            sb.Append("INSERT INTO Transports (transportType, carryingСapacity, " +
                 "bodyVolume, carrierTransportID ) VALUES ");
 
             // объявляем переменную счетчика для подсчета кол-ва итерации, чтобы в запросе на последний
@@ -68,7 +68,7 @@ namespace HW_Logistics_20190717
             foreach (Transport i in transportsList)
             {
                 count++;
-                sb.Append($"('{i.transportID}', '{i.transportType}', '{i.carryingСapacity}', " +
+                sb.Append($"('{i.transportType}', '{i.carryingСapacity}', " +
                     $"'{i.bodyVolume}, '{i.carrierTransportID}') ");
                 if (transportsList.Length != count) sb.Append(", ");
             }

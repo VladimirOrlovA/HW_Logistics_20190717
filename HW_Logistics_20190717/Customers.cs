@@ -39,7 +39,7 @@ namespace HW_Logistics_20190717
             sb.Append(" firstName NVARCHAR(50), ");
             sb.Append(" middleName NVARCHAR(50), ");
             sb.Append(" birthday DATE, ");
-            sb.Append(" inn DECIMAL, ");
+            sb.Append(" iin DECIMAL, ");
             sb.Append(" contractID INT, ");
             sb.Append(" registrationDate DATE NOT NULL DEFAULT CONVERT(DATE, GETDATE()) ");
             sb.Append("); ");
@@ -59,7 +59,7 @@ namespace HW_Logistics_20190717
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
             sb.Append("INSERT INTO Customers (lastName, firstName, middleName, " +
-                "birthday, inn, contractID) VALUES ");
+                "birthday, iin, contractID) VALUES ");
 
             // объявляем переменную счетчика для подсчета кол-ва итерации, чтобы в запросе на последний
             // ввод строки в таблицу не ставить "," (обеспечение правильности синтаксиса запроса SQL)
@@ -69,7 +69,7 @@ namespace HW_Logistics_20190717
             {
                 count++;
                 sb.Append($"('{i.LastName}', '{i.FirstName}', '{i.MiddleName}', " +
-                    $"'{i.birthday.Year}-{i.birthday.Month}-{i.birthday.Day}', '{i.inn}', '{i.contractID}') ");
+                    $"'{i.birthday.Year}-{i.birthday.Month}-{i.birthday.Day}', '{i.iin}', '{i.contractID}') ");
                 if (customersList.Count != count) sb.Append(", ");
             }
 

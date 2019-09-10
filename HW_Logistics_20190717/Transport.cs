@@ -59,10 +59,10 @@ namespace HW_Logistics_20190717
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("INSERT INTO Transports (transportID, transportType, carryingСapacity, " +
-                "bodyVolume, carrierTransportID ) VALUES ");
-            sb.Append($"('{transportID}', '{transportType}', '{carryingСapacity}', " +
-                $"'{bodyVolume}, '{carrierTransportID}') ");
+            sb.Append("INSERT INTO Transports (transportType, carryingСapacity, " +
+                "bodyVolume, carrierTransportID) VALUES ");
+            sb.Append($"('{transportType}', '{carryingСapacity}', " +
+                $"'{bodyVolume}', '{carrierTransportID}') ");
 
             string sqlQuery = sb.ToString();
 

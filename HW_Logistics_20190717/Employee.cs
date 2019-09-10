@@ -17,8 +17,8 @@ namespace HW_Logistics_20190717
         public Employee() { }
 
         public Employee(string lastName, string firstName, string middleName, DateTime birthday,
-                        long inn, DateTime employmentDate, string position, int solary)
-            : base(lastName, firstName, middleName, birthday, inn)
+                        long iin, DateTime employmentDate, string position, int solary)
+            : base(lastName, firstName, middleName, birthday, iin)
         {
             employeeID = ++employeesCount;
             this.employmentDate = employmentDate;
@@ -60,8 +60,8 @@ namespace HW_Logistics_20190717
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("INSERT INTO Employees (lastName, firstName, middleName, birthday, inn, employmentDate, position, solary) VALUES ");
-            sb.Append($"('{lastName}', '{firstName}', '{middleName}', '{birthday.Year}-{birthday.Month}-{birthday.Day}', '{inn}'," +
+            sb.Append("INSERT INTO Employees (lastName, firstName, middleName, birthday, iin, employmentDate, position, solary) VALUES ");
+            sb.Append($"('{lastName}', '{firstName}', '{middleName}', '{birthday.Year}-{birthday.Month}-{birthday.Day}', '{iin}'," +
                 $" '{employmentDate.Year}-{employmentDate.Month}-{employmentDate.Day}', '{position}', '{solary}') ");
             string sqlQuery = sb.ToString();
 

@@ -44,7 +44,7 @@ namespace HW_Logistics_20190717
             sb.Append(" routeStart NVARCHAR(50), ");
             sb.Append(" routeEnd NVARCHAR(50), ");
             sb.Append(" routeLength INT DEFAULT NULL, ");
-            sb.Append(" carrierRouteID INT ");
+            sb.Append(" carrierRouteID INT DEFAULT NULL ");
             sb.Append("); ");
             string sqlQuery = sb.ToString();
             
@@ -61,7 +61,7 @@ namespace HW_Logistics_20190717
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("INSERT INTO Routes (routeID, routeStart, routeEnd, routeLength, carrierRouteID) VALUES ");
+            sb.Append("INSERT INTO Routes (routeStart, routeEnd, routeLength, carrierRouteID) VALUES ");
 
             // объявляем переменную счетчика для подсчета кол-ва итерации, чтобы в запросе на последний
             // ввод строки в таблицу не ставить "," (обеспечение правильности синтаксиса запроса SQL)
@@ -70,7 +70,7 @@ namespace HW_Logistics_20190717
             foreach (Route i in routesList)
             {
                 count++;
-                sb.Append($"('{i.routeID}', '{i.routeStart}', '{i.routeEnd}', '{i.routeLength}') ");
+                sb.Append($"('{i.routeStart}', '{i.routeEnd}', '{i.routeLength}', '{i.carrierRouteID}') ");
                 if (routesList.Length != count) sb.Append(", ");
             }
 
