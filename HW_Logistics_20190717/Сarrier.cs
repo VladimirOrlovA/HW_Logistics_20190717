@@ -36,10 +36,15 @@ namespace HW_Logistics_20190717
             //который мы хотим добавить перевозчику
             try
             {
+                //foreach (string i in rowsStr)
+                //    Console.WriteLine((Convert.ToInt32(i.Substring(0, i.IndexOf(';')))));
 
+                int countMatch = 0;
                 foreach (string i in rowsStr)
-                    if ((Convert.ToInt32(i.Substring(0, i.IndexOf(';'))) == routeID))
-                        throw new Exception("Ошибка: маршрут с заданым номером не существует.");
+                    if ((Convert.ToInt32(i.Substring(0, i.IndexOf(';')))) == routeID)
+                        countMatch++;
+                if (countMatch == 0)
+                    throw new Exception("Ошибка: маршрут с заданым номером не существует.");
 
             }
             catch (Exception ex)
@@ -48,7 +53,7 @@ namespace HW_Logistics_20190717
                 return;
             }
 
-            Console.WriteLine("маршрут добавлен");
+            Console.WriteLine($"маршрут за номером {routeID} добавлен");
 
             int[] tmp = new int[carrierRouteList.Length + 1];
             Array.Copy(carrierRouteList, tmp, carrierRouteList.Length);
@@ -77,7 +82,11 @@ namespace HW_Logistics_20190717
             Console.WriteLine("\n----------------- Информация о перевозчике ----------------\n\n");
             Console.WriteLine("Номер перевозчика ------- " + carrierID);
             InfoPerson();
-            Console.WriteLine("Номера маршрутов ---------- ");
+            Console.Write("Номера маршрутов ---------- ");
+
+            foreach (int i in carrierRouteList)
+                Console.Write(i + " ");
+            Console.WriteLine();
 
             Routes routes = new Routes();
             foreach (int i in carrierRouteList)

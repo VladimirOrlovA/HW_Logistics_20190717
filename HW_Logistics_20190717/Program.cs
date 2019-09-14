@@ -148,8 +148,23 @@ namespace HW_Logistics_20190717
 
 
             // Собираем маршрут перевозчику
-            //////////////////////carrier1.AddRouteToСarrierRouteList(db, 1);
+            carrier1.AddRouteToСarrierRouteList(db, 1);
+            carrier1.AddRouteToСarrierRouteList(db, 1);
+            carrier1.AddRouteToСarrierRouteList(db, 1);
+            carrier1.AddRouteToСarrierRouteList(db, 1);
+            carrier1.AddRouteToСarrierRouteList(db, 1);
 
+            carrier2.AddRouteToСarrierRouteList(db, 1);
+            carrier2.AddRouteToСarrierRouteList(db, 1);
+            carrier2.AddRouteToСarrierRouteList(db, 1);
+            carrier2.AddRouteToСarrierRouteList(db, 1);
+            carrier2.AddRouteToСarrierRouteList(db, 1);
+
+            carrier3.AddRouteToСarrierRouteList(db, 1);
+            carrier3.AddRouteToСarrierRouteList(db, 1);
+            carrier3.AddRouteToСarrierRouteList(db, 1);
+            carrier3.AddRouteToСarrierRouteList(db, 1);
+            carrier3.AddRouteToСarrierRouteList(db, 1);
 
             // Назначаем транспорт перевозчику
             //transport1.carrierTransportID = 1;  // при назначении сделать UpDate данных в таблице !!!
@@ -175,14 +190,13 @@ namespace HW_Logistics_20190717
             // Вывод информации об объекте
             //employees.Info();
             //customers.Info();
-            // carriers.Info();
+             carriers.Info();
             //transports.Info();
             //routes.Info();
-            //routes.InfoFromSQLtable();
-
-            carrier1.AddRouteToСarrierRouteList(db, 1);
+            routes.InfoFromSQLtable();
 
             
+
 
             ///////////////////////////////////////////////////////////
             //order1.Info();

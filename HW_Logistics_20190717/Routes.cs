@@ -118,7 +118,10 @@ namespace HW_Logistics_20190717
             sb.Append("SELECT * FROM Routes ");
             sb.Append("WHERE routeID=" + routeID);
             string sqlQuery = sb.ToString();
-            obj.ReadData(sqlQuery);
+
+            List<string> rowsStr = obj.ReadData(sqlQuery);
+            foreach (string i in rowsStr)
+                Console.WriteLine(i);
             //throw new NotImplementedException();
         }
 
