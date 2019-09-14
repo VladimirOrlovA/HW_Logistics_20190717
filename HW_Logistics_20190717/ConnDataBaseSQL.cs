@@ -9,7 +9,6 @@ namespace HW_Logistics_20190717
 {
     class ConnDataBaseSQL : IConnDataBaseSQL
     {
-
         public static SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
         // создаем строку с данными для подключения к БД SQL
         public ConnDataBaseSQL()
@@ -92,21 +91,22 @@ namespace HW_Logistics_20190717
         }
 
         // Получаем данные из БД
-        public void ReadData(string sqlQuery)
+        public List<string> ReadData(string sqlQuery)
         {
-            Console.WriteLine("-------------------------------------------------------------------");
+            //Console.WriteLine("-------------------------------------------------------------------");
+            List<string> rowsStr = new List<string>();
             try
             {
-                Console.Write("Connecting to SQL Server ... \n");
+                //Console.Write("Connecting to SQL Server ... \n");
                 using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
                 {
                     connection.Open();
-                    Console.WriteLine("Done.");
-                    Console.WriteLine("ServerVersion: {0}", connection.ServerVersion);
-                    Console.WriteLine("State: {0}", connection.State);
+                    //Console.WriteLine("Done.");
+                    //Console.WriteLine("ServerVersion: {0}", connection.ServerVersion);
+                    //Console.WriteLine("State: {0}", connection.State);
 
                     // READ table
-                    Console.WriteLine("Reading data from table... \n\n");
+                    //Console.WriteLine("Reading data from table... \n\n");
 
                     using (SqlCommand command = new SqlCommand(sqlQuery, connection))
                     {
@@ -117,24 +117,27 @@ namespace HW_Logistics_20190717
                             //считываем строки таблицы
                             while (reader.Read())
                             {
-                                // считываем поля строки
-                                string rowStr = null;
+                                // создаем переменную для записи одной строки.
+                                // обнуляем эту строку на каждой итерации цикла
+                                string oneRowStr = null;
+                                // считываем все имеющиеся поля каждой строки таблицы
                                 for (int i = 0; i != reader.FieldCount; i++)
                                 {
-                                    rowStr += reader.GetValue(i) + " || ";
+                                    // считали строку таблицы - записали в строку
+                                    oneRowStr += reader.GetValue(i) + "; ";
                                 }
-                                Console.WriteLine(rowStr);
+                                rowsStr.Add(oneRowStr);
                             }
                         }
                     }
                 }
-                Console.WriteLine("\n-------------------------------------------------------------------\n\n");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
                 Console.WriteLine("\n-------------------------------------------------------------------\n\n");
             }
+            return rowsStr;
         }
 
         // Загружает данные из таблиц SQL в объекты программы

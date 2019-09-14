@@ -59,7 +59,7 @@ namespace HW_Logistics_20190717
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
             sb.Append("INSERT INTO Carriers (lastName, firstName, middleName, birthday, iin, " +
-                "carrierID, carrierRouteID, carrierTransportID ) VALUES ");
+                "carrierID, carrierRouteFromIDs, carrierTransportID ) VALUES ");
 
             // объявляем переменную счетчика для подсчета кол-ва итерации, чтобы в запросе на последний
             // ввод строки в таблицу не ставить "," (обеспечение правильности синтаксиса запроса SQL)
@@ -69,7 +69,7 @@ namespace HW_Logistics_20190717
             {
                 count++;
                 sb.Append($"('{i.LastName}', '{i.FirstName}', '{i.MiddleName}', '{i.birthday.Year}-{i.birthday.Month}-{i.birthday.Day}', '{i.iin}'," +
-                    $" '{i.carrierID}', '{i.carrierRouteID}', '{i.carrierTransportID}') ");
+                    $" '{i.carrierID}', '{i.carrierRouteList}', '{i.carrierTransportID}') ");
                 if (carriersList.Count != count) sb.Append(", ");
             }
 

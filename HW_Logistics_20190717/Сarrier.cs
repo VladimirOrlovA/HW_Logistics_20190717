@@ -10,7 +10,7 @@ namespace HW_Logistics_20190717
     {
         private static int carriersCount = 0;
         public int carrierID { get; }
-        public int carrierRouteID { get; set; }
+        public int[] carrierRouteList = new int[0];
         public int carrierTransportID { get; set; }
 
         public Carrier() { }
@@ -19,6 +19,42 @@ namespace HW_Logistics_20190717
             : base(lastName, firstName, middleName, birthday, iin)
         {
             carrierID = ++carriersCount;
+        }
+
+        // Реализовать в первую очредь
+        public void AddRouteToСarrierRouteList(IConnDataBaseSQL obj, int routeID)
+        {
+
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("USE LogisticsOVA; ");
+            sb.Append("SELECT routeID FROM Routes");
+            string sqlQuery = sb.ToString();
+            List<string> rowsStr = obj.ReadData(sqlQuery);
+
+            //проверяем есть ли в списках маршрутов маршрут под номером,
+            //который мы хотим добавить перевозчику
+            try
+            {
+
+                foreach (string i in rowsStr)
+                    if ((Convert.ToInt32(i.Substring(0, i.IndexOf(';'))) == routeID))
+                        throw new Exception("Ошибка: маршрут с заданым номером не существует.");
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return;
+            }
+
+            Console.WriteLine("маршрут добавлен");
+
+            int[] tmp = new int[carrierRouteList.Length + 1];
+            Array.Copy(carrierRouteList, tmp, carrierRouteList.Length);
+            Array.Resize(ref carrierRouteList, (carrierRouteList.Length + 1));
+            Array.Copy(tmp, carrierRouteList, carrierRouteList.Length);
+            carrierRouteList[carrierRouteList.Length - 1] = routeID;
         }
 
         public override bool Equals(object obj)
@@ -41,8 +77,11 @@ namespace HW_Logistics_20190717
             Console.WriteLine("\n----------------- Информация о перевозчике ----------------\n\n");
             Console.WriteLine("Номер перевозчика ------- " + carrierID);
             InfoPerson();
-            Console.WriteLine("Номер маршрута ---------- " + carrierRouteID);
-            //InfoRoutes(carrierID);
+            Console.WriteLine("Номера маршрутов ---------- ");
+
+            Routes routes = new Routes();
+            foreach (int i in carrierRouteList)
+                routes.InfoFromSQLtableOnRouteID(i);
             Console.WriteLine("\n-----------------------------------------------------------\n\n");
         }
 
@@ -57,7 +96,7 @@ namespace HW_Logistics_20190717
             sb.Append("INSERT INTO Carriers (lastName, firstName, middleName, birthday, iin, " +
                 "carrierRouteID, carrierTransportID) VALUES ");
             sb.Append($"('{lastName}', '{firstName}', '{middleName}', '{birthday.Year}-{birthday.Month}-{birthday.Day}', '{iin}'," +
-                $" '{carrierRouteID}', '{carrierTransportID}') ");
+                $" '{carrierRouteList}', '{carrierTransportID}') ");
             string sqlQuery = sb.ToString();
 
             obj.SaveData(sqlQuery);

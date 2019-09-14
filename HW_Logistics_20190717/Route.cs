@@ -13,7 +13,6 @@ namespace HW_Logistics_20190717
         public string routeStart { get; set; }
         public string routeEnd { get; set; }
         public int routeLength { get; set; }
-        public int carrierRouteID { get; set; }
 
         public Route() { }
 
@@ -47,7 +46,6 @@ namespace HW_Logistics_20190717
             Console.WriteLine("Начало маршрута ---------- " + routeStart);
             Console.WriteLine("Конец маршрута ----------- " + routeEnd);
             Console.WriteLine("Расстояние --------------- " + routeLength + " км");
-            Console.WriteLine("Номер перевозчика -------- " + carrierRouteID);
             Console.WriteLine("\n-----------------------------------------------------------\n\n");
         }
 
@@ -59,13 +57,12 @@ namespace HW_Logistics_20190717
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("INSERT INTO Routes (routeStart, routeEnd, routeLength, carrierRouteID) VALUES ");
-            sb.Append($"('{routeStart}', '{routeEnd}', '{routeLength}', '{carrierRouteID}') ");
+            sb.Append("INSERT INTO Routes (routeStart, routeEnd, routeLength) VALUES ");
+            sb.Append($"('{routeStart}', '{routeEnd}', '{routeLength}') ");
             string sqlQuery = sb.ToString();
 
             obj.SaveData(sqlQuery);
         }
-
 
         // Устнавливает счетчик на цифру кол-ва ранее созданных объектов
         public void SetCountObj(IConnDataBaseSQL obj)

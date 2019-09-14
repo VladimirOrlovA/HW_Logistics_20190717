@@ -74,13 +74,34 @@ namespace HW_Logistics_20190717
             Transport transport1 = new Transport("Volkswagen_Caddy", 815, 3);
             Transport transport2 = new Transport("Газель-Фургон", 1500, 9);
             Transport transport3 = new Transport("Камаз-Автофургон", 10200, 35);
-            
 
-            Route route1 = new Route("Алматы", "Шымкент", 845);
-            Route route2 = new Route("Алматы", "Тараз", 499);
-            Route route3 = new Route("Алматы", "Нур-Султан", 1217);
 
-            Order order1 = new Order(1, 100, 0.5, "Алматы", "Шымкент", Order.OrderStatuses.newOrder);
+            //Route route1 = new Route("Алматы", "Талдыкорган", 268);
+            //Route route2 = new Route("Алматы", "Балхаш", 640);
+            //Route route3 = new Route("Алматы", "Караганда", 1018);
+            //Route route4 = new Route("Алматы", "Нур-Султан", 1225);
+
+            //Route route5 = new Route("Талдыкорган", "Ушарал", 231);
+            //Route route6 = new Route("Ушарал", "Аягоз", 230);
+            //Route route7 = new Route("Аягоз", "Колбатау", 196);
+            //Route route8 = new Route("Колбатау", "Усть-Каменогорск", 115);
+
+            //Route route9 = new Route("Балхаш", "Караганда", 387);
+            //Route route10 = new Route("Караганда", "Павлодар", 432);
+            //Route route11 = new Route("Павлодар", "Семей", 337);
+            //Route route12 = new Route("Семей", "Усть-Каменогорск", 223);
+
+            //Route route13 = new Route("Караганда", "Павлодар", 432);
+            //Route route14 = new Route("Павлодар", "Семей", 337);
+            //Route route15 = new Route("Семей", "Колбатау", 167);
+            //Route route16 = new Route("Колбатау", "Усть-Каменогорск", 115);
+
+            //Route route17 = new Route("Нур-Султан", "Павлодар", 438);
+            //Route route18 = new Route("Павлодар", "Курчатов", 237);
+            //Route route19 = new Route("Курчатов", "Семей", 144);
+            //Route route20 = new Route("Семей", "Усть-Каменогорск", 223);
+
+            Order order1 = new Order(1, 100, 0.5, "Алматы", "Усть-Каменогорск", Order.OrderStatuses.newOrder);
 
 
             // Создаем списки объектов
@@ -104,9 +125,31 @@ namespace HW_Logistics_20190717
             transports.AddTransport(transport2);
             transports.AddTransport(transport3);
 
-            routes.addRoute(route1);
-            routes.addRoute(route2);
-            routes.addRoute(route3);
+            //routes.addRoute(route1);
+            //routes.addRoute(route2);
+            //routes.addRoute(route3);
+            //routes.addRoute(route4);
+            //routes.addRoute(route5);
+            //routes.addRoute(route6);
+            //routes.addRoute(route7);
+            //routes.addRoute(route8);
+            //routes.addRoute(route9);
+            //routes.addRoute(route10);
+            //routes.addRoute(route11);
+            //routes.addRoute(route12);
+            //routes.addRoute(route13);
+            //routes.addRoute(route14);
+            //routes.addRoute(route15);
+            //routes.addRoute(route16);
+            //routes.addRoute(route17);
+            //routes.addRoute(route18);
+            //routes.addRoute(route19);
+            //routes.addRoute(route20);
+
+
+            // Собираем маршрут перевозчику
+            //////////////////////carrier1.AddRouteToСarrierRouteList(db, 1);
+
 
             // Назначаем транспорт перевозчику
             //transport1.carrierTransportID = 1;  // при назначении сделать UpDate данных в таблице !!!
@@ -124,37 +167,33 @@ namespace HW_Logistics_20190717
             //transport1.InsertTable(db);
             //route1.InsertTable(db);
 
+            // запись коллекции объектов в таблицу SQL
+            //employees.InsertTable(db);
+            //customers.InsertTable(db);
+            //routes.InsertTable(db);
 
-
+            // Вывод информации об объекте
             //employees.Info();
             //customers.Info();
             // carriers.Info();
             //transports.Info();
             //routes.Info();
-            order1.Info();
-            order1.ChangeOrderStatus(Order.OrderStatuses.closeOrder);
-            order1.Info();
+            //routes.InfoFromSQLtable();
 
+            carrier1.AddRouteToСarrierRouteList(db, 1);
 
-            // запись объектов в таблицу SQL
-            //worker1.InsertTable(db);
-            //workers.InsertTable(db);
+            
 
-            //customer1.InsertTable(db);
-            //customers.InsertTable(db);
-
+            ///////////////////////////////////////////////////////////
+            //order1.Info();
+            //order1.ChangeOrderStatus(Order.OrderStatuses.closeOrder);
+            //order1.Info();
 
             // ----------------------------------------------------------------------------------------
 
 
             // загрузка данных из таблиц БД в объекты программы
             //workers = db.LoadData(workers);
-
-
-
-
-
-
 
             //Worker worker1 = new Worker("Нестеров", "Павел", "Николаевич", new DateTime(1994, 10, 12), 2586556655, 1, new DateTime(2010, 01, 23), "экспедитор", 180000);
 
@@ -186,34 +225,8 @@ namespace HW_Logistics_20190717
             //Сustomer customer1 = new Сustomer("Быстров", "Олег", "Васильевич", new DateTime(2001, 01, 12), 2586556586, 2);
 
 
-
-            //workers.AddWorker(worker1);
-            //workers.AddWorker(worker2);
-            //workers.AddWorker(worker3);
-            //workers.AddWorker(workerRUS);
-
-
-            //wr.AddWorkerI(worker1);
-            //wr.AddWorkerI(worker2);
-
-            //workers.Info();
-
-            //db.InsertTable(workers);
-
-            //workers.Info();
-
-            //db.ViewTable(wr);
-            //db.InsertTable(wr);
-            //db.ViewTable(wr);
-            //Console.WriteLine("----------------------------------------------------");
-            //db.InsertTable(worker1);
-            //db.ViewTable(worker1);
-
             // ====== Реализовать загрузку данных из таблиц при запуске программы
 
-
-            //db.CreateTable(wr);
-            //db.CreateTable(worker1);
 
             //Console.WriteLine(workerUS.LastName);
 

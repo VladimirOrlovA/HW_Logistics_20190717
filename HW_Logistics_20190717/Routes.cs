@@ -8,8 +8,8 @@ namespace HW_Logistics_20190717
 {
     class Routes
     {
-        Route[] routesList = new Route[0];
-        public int routesID { get;}
+        public Route[] routesList = new Route[0];
+        public int routesID { get; }
         public Routes() { }
 
         public void addRoute(Route route)
@@ -21,6 +21,7 @@ namespace HW_Logistics_20190717
             routesList[routesList.Length - 1] = route;
         }
 
+        // вывод списка маршрутов из объекта Routes
         public void Info()
         {
             Console.WriteLine("\nИмеющиеся маршруты:");
@@ -31,6 +32,23 @@ namespace HW_Logistics_20190717
                 i.Info();
             }
         }
+
+        // вывод списка маршрутов из таблицы Routes БД SQL
+        public void InfoFromSQLtable()
+        {
+            Console.WriteLine("\nИмеющиеся маршруты в базе данных:");
+            ConnDataBaseSQL db = new ConnDataBaseSQL();
+            ViewTable(db);
+        }
+
+        // вывод списка маршрутов из таблицы Routes БД SQL с заданным routeID
+        public void InfoFromSQLtableOnRouteID(int routeID)
+        {
+            ConnDataBaseSQL db = new ConnDataBaseSQL();
+            ViewTableOnRouteID(db, routeID);
+        }
+
+
 
         // Создает таблицу в БД
         public void CreateTable(IConnDataBaseSQL obj)
@@ -43,11 +61,10 @@ namespace HW_Logistics_20190717
             sb.Append(" routeID INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ");
             sb.Append(" routeStart NVARCHAR(50), ");
             sb.Append(" routeEnd NVARCHAR(50), ");
-            sb.Append(" routeLength INT DEFAULT NULL, ");
-            sb.Append(" carrierRouteID INT DEFAULT NULL ");
+            sb.Append(" routeLength INT DEFAULT NULL ");
             sb.Append("); ");
             string sqlQuery = sb.ToString();
-            
+
             obj.SaveData(sqlQuery);
 
             //throw new NotImplementedException();
@@ -61,7 +78,7 @@ namespace HW_Logistics_20190717
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("INSERT INTO Routes (routeStart, routeEnd, routeLength, carrierRouteID) VALUES ");
+            sb.Append("INSERT INTO Routes (routeStart, routeEnd, routeLength) VALUES ");
 
             // объявляем переменную счетчика для подсчета кол-ва итерации, чтобы в запросе на последний
             // ввод строки в таблицу не ставить "," (обеспечение правильности синтаксиса запроса SQL)
@@ -70,7 +87,7 @@ namespace HW_Logistics_20190717
             foreach (Route i in routesList)
             {
                 count++;
-                sb.Append($"('{i.routeStart}', '{i.routeEnd}', '{i.routeLength}', '{i.carrierRouteID}') ");
+                sb.Append($"('{i.routeStart}', '{i.routeEnd}', '{i.routeLength}') ");
                 if (routesList.Length != count) sb.Append(", ");
             }
 
@@ -86,9 +103,25 @@ namespace HW_Logistics_20190717
             sb.Append("USE LogisticsOVA; ");
             sb.Append("SELECT * FROM Routes ");
             string sqlQuery = sb.ToString();
+
+            // получаем массив из строк считанный из таблицы и выводим в консоль
+            List<string> rowsStr = obj.ReadData(sqlQuery);
+            foreach (string i in rowsStr)
+                Console.WriteLine(i);
+            //throw new NotImplementedException();
+        }
+
+        public void ViewTableOnRouteID(IConnDataBaseSQL obj, int routeID)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("USE LogisticsOVA; ");
+            sb.Append("SELECT * FROM Routes ");
+            sb.Append("WHERE routeID=" + routeID);
+            string sqlQuery = sb.ToString();
             obj.ReadData(sqlQuery);
             //throw new NotImplementedException();
         }
+
 
     }
 }
