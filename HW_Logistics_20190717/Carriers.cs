@@ -69,7 +69,7 @@ namespace HW_Logistics_20190717
             {
                 count++;
                 sb.Append($"('{i.LastName}', '{i.FirstName}', '{i.MiddleName}', '{i.birthday.Year}-{i.birthday.Month}-{i.birthday.Day}', '{i.iin}'," +
-                    $" '{i.carrierID}', '{i.carrierRouteList}', '{i.carrierTransportID}') ");
+                    $" '{i.carrierID}', '{i.carrierRoutesIdList}', '{i.carrierTransportsIdList}') ");
                 if (carriersList.Count != count) sb.Append(", ");
             }
 

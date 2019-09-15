@@ -21,16 +21,13 @@ namespace HW_Logistics_20190717
             routesList[routesList.Length - 1] = route;
         }
 
-        // вывод списка маршрутов из объекта Routes
+        // вывод информации в консоль по содержимому каждого объекта листа
         public void Info()
         {
             Console.WriteLine("\nИмеющиеся маршруты:");
 
             foreach (Route i in routesList)
-            {
-                //Console.WriteLine(i.routeID + " - " + i.routeStart + " - " + i.routeEnd);
                 i.Info();
-            }
         }
 
         // вывод списка маршрутов из таблицы Routes БД SQL
@@ -41,14 +38,12 @@ namespace HW_Logistics_20190717
             ViewTable(db);
         }
 
-        // вывод списка маршрутов из таблицы Routes БД SQL с заданным routeID
+        // вывод списка маршрутов из таблицы Routes БД SQL по заданному routeID
         public void InfoFromSQLtableOnRouteID(int routeID)
         {
             ConnDataBaseSQL db = new ConnDataBaseSQL();
             ViewTableOnRouteID(db, routeID);
         }
-
-
 
         // Создает таблицу в БД
         public void CreateTable(IConnDataBaseSQL obj)

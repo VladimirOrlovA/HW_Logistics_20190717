@@ -19,14 +19,43 @@ namespace HW_Logistics_20190717
             transportsList[transportsList.Length - 1] = transport;
         }
 
-        // Выводит информацию в консоль по содержимому каждого объекта листа
+        // вывод информации в консоль по содержимому каждого объекта листа
         public void Info()
         {
-            for (int i = 0; i != transportsList.Length; i++)
-                transportsList[i].Info();
+            Console.WriteLine("\nСписок транспортных средств:");
+            
+            foreach (var transport in transportsList)
+                transport.Info();
+        }
 
-            //foreach (var transport in transportsList)
-            //    worker.Info();
+        // вывод списка транспорта из таблицы Transports БД SQL
+        public void InfoFromSQLtable()
+        {
+            Console.WriteLine("\nСписок транспортных средств в базе данных:");
+            ConnDataBaseSQL db = new ConnDataBaseSQL();
+            ViewTable(db);
+        }
+
+        // вывод списка маршрутов из таблицы Transports БД SQL по заданному transportID
+        public void InfoFromSQLtableOnRouteID(int transportID)
+        {
+            ConnDataBaseSQL db = new ConnDataBaseSQL();
+            ViewTableOnTransportID(db, transportID);
+        }
+
+        // вывод списка транспорта из таблицы Transports БД SQL по заданному transportID
+        public void ViewTableOnTransportID(IConnDataBaseSQL obj, int transportID)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("USE LogisticsOVA; ");
+            sb.Append("SELECT * FROM Transports ");
+            sb.Append("WHERE transportID=" + transportID);
+            string sqlQuery = sb.ToString();
+
+            List<string> rowsStr = obj.ReadData(sqlQuery);
+            foreach (string i in rowsStr)
+                Console.WriteLine(i);
+            //throw new NotImplementedException();
         }
 
         // Создает таблицу в БД
@@ -40,8 +69,7 @@ namespace HW_Logistics_20190717
             sb.Append(" transportID INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ");
             sb.Append(" transportType NVARCHAR(50), ");
             sb.Append(" carryingСapacity INT, ");
-            sb.Append(" bodyVolume INT, ");
-            sb.Append(" carrierTransportID INT DEFAULT NULL ");
+            sb.Append(" bodyVolume INT ");
             sb.Append("); ");
             string sqlQuery = sb.ToString();
 
@@ -59,7 +87,7 @@ namespace HW_Logistics_20190717
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
             sb.Append("INSERT INTO Transports (transportType, carryingСapacity, " +
-                "bodyVolume, carrierTransportID ) VALUES ");
+                "bodyVolume) VALUES ");
 
             // объявляем переменную счетчика для подсчета кол-ва итерации, чтобы в запросе на последний
             // ввод строки в таблицу не ставить "," (обеспечение правильности синтаксиса запроса SQL)
@@ -69,7 +97,7 @@ namespace HW_Logistics_20190717
             {
                 count++;
                 sb.Append($"('{i.transportType}', '{i.carryingСapacity}', " +
-                    $"'{i.bodyVolume}, '{i.carrierTransportID}') ");
+                    $"'{i.bodyVolume}') ");
                 if (transportsList.Length != count) sb.Append(", ");
             }
 
@@ -88,5 +116,7 @@ namespace HW_Logistics_20190717
             obj.ReadData(sqlQuery);
             //throw new NotImplementedException();
         }
+
+
     }
 }

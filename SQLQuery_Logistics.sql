@@ -6,6 +6,10 @@ SELECT * FROM [Transports]
 SELECT * FROM [Routes]
 SELECT * FROM [Customers]
 
+SELECT * FROM [Routes]
+WHERE routeID=15
+
+SELECT routeID FROM Routes
 
 SELECT COUNT(1) FROM Employees
 

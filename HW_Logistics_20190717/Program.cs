@@ -70,6 +70,7 @@ namespace HW_Logistics_20190717
             Carrier carrier1 = new Carrier("Скороходов", "Павел", "Васильевич", new DateTime(1985, 01, 01), 850101100051);
             Carrier carrier2 = new Carrier("Тяжеловесов", "Григорий", "Генадьевич", new DateTime(1991, 12, 01), 911201100061);
             Carrier carrier3 = new Carrier("Далеков", "Валентин", "Петрович", new DateTime(1987, 02, 25), 870225100071);
+            Carrier carrier4 = new Carrier("Запасов", "Тарас", "Олегович", new DateTime(1985, 05, 15), 850515100093);
 
             Transport transport1 = new Transport("Volkswagen_Caddy", 815, 3);
             Transport transport2 = new Transport("Газель-Фургон", 1500, 9);
@@ -120,6 +121,7 @@ namespace HW_Logistics_20190717
             carriers.AddCarrier(carrier1);
             carriers.AddCarrier(carrier2);
             carriers.AddCarrier(carrier3);
+            carriers.AddCarrier(carrier4);
 
             transports.AddTransport(transport1);
             transports.AddTransport(transport2);
@@ -146,35 +148,40 @@ namespace HW_Logistics_20190717
             //routes.addRoute(route19);
             //routes.addRoute(route20);
 
-
-            // Собираем маршрут перевозчику
+            // Собираем маршрут перевозчику - формируем реальный маршрут
             carrier1.AddRouteToСarrierRouteList(db, 1);
-            carrier1.AddRouteToСarrierRouteList(db, 1);
-            carrier1.AddRouteToСarrierRouteList(db, 1);
-            carrier1.AddRouteToСarrierRouteList(db, 1);
-            carrier1.AddRouteToСarrierRouteList(db, 1);
+            carrier1.AddRouteToСarrierRouteList(db, 5);
+            carrier1.AddRouteToСarrierRouteList(db, 6);
+            carrier1.AddRouteToСarrierRouteList(db, 7);
+            carrier1.AddRouteToСarrierRouteList(db, 8);
 
-            carrier2.AddRouteToСarrierRouteList(db, 1);
-            carrier2.AddRouteToСarrierRouteList(db, 1);
-            carrier2.AddRouteToСarrierRouteList(db, 1);
-            carrier2.AddRouteToСarrierRouteList(db, 1);
-            carrier2.AddRouteToСarrierRouteList(db, 1);
+            carrier2.AddRouteToСarrierRouteList(db, 2);
+            carrier2.AddRouteToСarrierRouteList(db, 9);
+            carrier2.AddRouteToСarrierRouteList(db, 10);
+            carrier2.AddRouteToСarrierRouteList(db, 11);
+            carrier2.AddRouteToСarrierRouteList(db, 12);
 
-            carrier3.AddRouteToСarrierRouteList(db, 1);
-            carrier3.AddRouteToСarrierRouteList(db, 1);
-            carrier3.AddRouteToСarrierRouteList(db, 1);
-            carrier3.AddRouteToСarrierRouteList(db, 1);
-            carrier3.AddRouteToСarrierRouteList(db, 1);
+            carrier3.AddRouteToСarrierRouteList(db, 3);
+            carrier3.AddRouteToСarrierRouteList(db, 10);
+            carrier3.AddRouteToСarrierRouteList(db, 11);
+            carrier3.AddRouteToСarrierRouteList(db, 15);
+            carrier3.AddRouteToСarrierRouteList(db, 16);
 
-            // Назначаем транспорт перевозчику
-            //transport1.carrierTransportID = 1;  // при назначении сделать UpDate данных в таблице !!!
-            //transport1.carrierTransportID = 2;
-            //transport1.carrierTransportID = 3;
+            carrier4.AddRouteToСarrierRouteList(db, 4);
+            carrier4.AddRouteToСarrierRouteList(db, 17);
+            carrier4.AddRouteToСarrierRouteList(db, 18);
+            carrier4.AddRouteToСarrierRouteList(db, 19);
+            carrier4.AddRouteToСarrierRouteList(db, 20);
 
-            // Назначаем маршрут перевозчику
-            //route1.carrierRouteID = 1;
-            //route2.carrierRouteID = 2;
-            //route3.carrierRouteID = 3;
+            // Закрепляем транспорт за перевозчиком
+            carrier1.AddTransportToTransportsList(db, 1);
+            carrier2.AddTransportToTransportsList(db, 2);
+            carrier3.AddTransportToTransportsList(db, 3);
+            carrier4.AddTransportToTransportsList(db, 1);
+
+
+            // !!!!!!!!!!!!!! Реализовать алгоритм Дейкстры !!!!!!!!!!!!
+
 
             // Запись одиночных объектов в таблицу SQL
             //employee1.InsertTable(db);
@@ -186,16 +193,18 @@ namespace HW_Logistics_20190717
             //employees.InsertTable(db);
             //customers.InsertTable(db);
             //routes.InsertTable(db);
-
+            //transports.InsertTable(db);
+            
             // Вывод информации об объекте
             //employees.Info();
             //customers.Info();
-             carriers.Info();
+            carriers.Info();
             //transports.Info();
             //routes.Info();
-            routes.InfoFromSQLtable();
+            //routes.InfoFromSQLtable();
+            //transports.InfoFromSQLtable();
 
-            
+
 
 
             ///////////////////////////////////////////////////////////

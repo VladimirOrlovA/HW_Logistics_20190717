@@ -13,7 +13,6 @@ namespace HW_Logistics_20190717
         public string transportType { get; set; }
         public int carryingСapacity { get; set; }
         public double bodyVolume { get; set; }
-        public int carrierTransportID { get; set; }
 
         public Transport() { }
 
@@ -47,7 +46,6 @@ namespace HW_Logistics_20190717
             Console.WriteLine("Тип машины --------------- " + transportType);
             Console.WriteLine("Грузоподъемность --------- " + carryingСapacity + " кг");
             Console.WriteLine("Расстояние --------------- " + bodyVolume + " куб.м");
-            Console.WriteLine("Номер перевозчика -------- " + carrierTransportID);
             Console.WriteLine("\n-----------------------------------------------------------\n\n");
         }
 
@@ -60,9 +58,9 @@ namespace HW_Logistics_20190717
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
             sb.Append("INSERT INTO Transports (transportType, carryingСapacity, " +
-                "bodyVolume, carrierTransportID) VALUES ");
+                "bodyVolume) VALUES ");
             sb.Append($"('{transportType}', '{carryingСapacity}', " +
-                $"'{bodyVolume}', '{carrierTransportID}') ");
+                $"'{bodyVolume}') ");
 
             string sqlQuery = sb.ToString();
 
