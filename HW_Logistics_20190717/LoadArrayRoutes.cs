@@ -10,13 +10,13 @@ namespace HW_Logistics_20190717
 {
     class LoadArrayRoutes
     {
+        public static int rowNum = 1;
         public static int columnNum = 1;
-        public static int rowNum = 0;
         public string[] fileStr = new string[0];
 
-        public int[,] arrRoutes = new int[columnNum, rowNum];
+        public int[,] arrRoutes = new int[rowNum, columnNum];
 
-        void ResizeArray<T>(ref T[,] original, int newColumnNum, int newRowNum)
+        void ResizeArray<T>(ref T[,] original, int newRowNum, int newColumnNum)
         {
             var newArray = new T[newColumnNum, newRowNum];
             int columnCount = original.GetLength(1);
@@ -55,24 +55,52 @@ namespace HW_Logistics_20190717
                 Console.WriteLine(e.Message);
             }
 
-            foreach (string i in fileStr)
-                Console.WriteLine(i);
+            //foreach (string i in fileStr)
+            //    Console.WriteLine(i);
 
             // ===== перепишем данные дистанций между городами из строк в массив =====
 
-            // получим размер массива и запишем его новые размеры
+            // получим размер массива в файле csv и запишем его новые размеры
+            rowNum = fileStr.Length;
+
             for (int i = 0; i < fileStr[0].Length; i++)
                 if (fileStr[0][i] == ',')
                     columnNum++;
 
-            rowNum = fileStr.Length;
+            Console.WriteLine($"Строк - {rowNum}");
+            Console.WriteLine($"Колонок - {columnNum}");
+            
+
+            // изменяем размер массива для приема данных с файла
             ResizeArray<int>(ref arrRoutes, columnNum, rowNum);
 
-            for (int i = 1; i < rowNum; i++)
-                for (int j = 1; j < columnNum; j++)
+            // запись данных в массив
+            string rowStr = null;
+
+            for (int i = 0; i < rowNum; i++)
+            {
+                rowStr = fileStr[i];
+
+                int startIndex = 0;
+                string valueStr = null;
+                for (int j = 0; j < columnNum; j++)
                 {
-                    arrRoutes[i, j]= fileStr[i][j];
+                    rowStr = rowStr.Substring(startIndex);
+                    startIndex = 0;
+                    if (rowStr.IndexOf(',') > 0)
+                    {
+                        valueStr = rowStr.Substring(startIndex, rowStr.IndexOf(','));
+                        startIndex = rowStr.IndexOf(',') + 1;
+                    }
+                    else valueStr = rowStr;
+                    
+                    //Console.Write($"({i}.{j})" + valueStr + "\n");
+                    arrRoutes[i, j] =Convert.ToInt32(valueStr);
+
+                    valueStr = null;
                 }
+                rowStr = null;
+            }
         }
 
         public void PrintArray()
