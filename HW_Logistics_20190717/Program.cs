@@ -10,7 +10,7 @@ namespace HW_Logistics_20190717
     {
         static void Main(string[] args)
         {
-
+/*
             // создаем строку с данными для подключения к БД SQL
             ConnDataBaseSQL db = new ConnDataBaseSQL();
 
@@ -38,7 +38,7 @@ namespace HW_Logistics_20190717
             // 1, 2, ...
 
 
-            // создаем необходимые таблицы в БД
+            // ==================== создаем необходимые таблицы в БД ====================
             employees.CreateTable(db);
             customers.CreateTable(db);
             carriers.CreateTable(db);
@@ -46,7 +46,7 @@ namespace HW_Logistics_20190717
             routes.CreateTable(db);
             // 1, 2, ...
 
-
+            // ==================== Счетчики объектов ====================
             // установка начального значения для счетчика объектов, 
             //чтобы корректно отражать ID вновь созданных объектов в текущей сессии программы
             employee.SetCountObj(db);
@@ -55,7 +55,7 @@ namespace HW_Logistics_20190717
             transport.SetCountObj(db);
             route.SetCountObj(db);
 
-            // Создаем объекты
+            // ==================== Создаем объекты ====================
             Employee employee1 = new Employee("Селезнев", "Павел", "Федорович", new DateTime(1981, 01, 08), 810108100011, new DateTime(2010, 01, 23), "менеджер", 180000);
             Employee employee2 = new Employee("Подорогин", "Семен", "Петрович", new DateTime(1992, 08, 25), 920825100021, new DateTime(2010, 01, 23), "экспедитор", 120000);
             Employee employee3 = new Employee("Синицына", "Анна", "Дмитриевна", new DateTime(1994, 03, 18), 940318200031, new DateTime(2010, 01, 23), "техник", 80000);
@@ -76,7 +76,7 @@ namespace HW_Logistics_20190717
             Transport transport2 = new Transport("Газель-Фургон", 1500, 9);
             Transport transport3 = new Transport("Камаз-Автофургон", 10200, 35);
 
-
+            // ==================== создаем маршруты ====================
             //Route route1 = new Route("Алматы", "Талдыкорган", 268);
             //Route route2 = new Route("Алматы", "Балхаш", 640);
             //Route route3 = new Route("Алматы", "Караганда", 1018);
@@ -105,7 +105,7 @@ namespace HW_Logistics_20190717
             Order order1 = new Order(1, 100, 0.5, "Алматы", "Усть-Каменогорск", Order.OrderStatuses.newOrder);
 
 
-            // Создаем списки объектов
+            // ==================== Создаем списки объектов ====================
 
             employees.AddEmployee(employee1);
             employees.AddEmployee(employee2);
@@ -148,7 +148,7 @@ namespace HW_Logistics_20190717
             //routes.addRoute(route19);
             //routes.addRoute(route20);
 
-            // Собираем маршрут перевозчику - формируем реальный маршрут
+            // ==================== Собираем маршрут перевозчику - формируем реальный маршрут ====================
             carrier1.AddRouteToСarrierRouteList(db, 1);
             carrier1.AddRouteToСarrierRouteList(db, 5);
             carrier1.AddRouteToСarrierRouteList(db, 6);
@@ -173,15 +173,11 @@ namespace HW_Logistics_20190717
             carrier4.AddRouteToСarrierRouteList(db, 19);
             carrier4.AddRouteToСarrierRouteList(db, 20);
 
-            // Закрепляем транспорт за перевозчиком
+            // ==================== Закрепляем транспорт за перевозчиком ====================
             carrier1.AddTransportToTransportsList(db, 1);
             carrier2.AddTransportToTransportsList(db, 2);
             carrier3.AddTransportToTransportsList(db, 3);
             carrier4.AddTransportToTransportsList(db, 1);
-
-
-            // !!!!!!!!!!!!!! Реализовать алгоритм Дейкстры !!!!!!!!!!!!
-
 
             // Запись одиночных объектов в таблицу SQL
             //employee1.InsertTable(db);
@@ -194,24 +190,30 @@ namespace HW_Logistics_20190717
             //customers.InsertTable(db);
             //routes.InsertTable(db);
             //transports.InsertTable(db);
-            
+
             // Вывод информации об объекте
             //employees.Info();
             //customers.Info();
-            carriers.Info();
+            //carriers.Info();
             //transports.Info();
             //routes.Info();
             //routes.InfoFromSQLtable();
             //transports.InfoFromSQLtable();
-
-
-
 
             ///////////////////////////////////////////////////////////
             //order1.Info();
             //order1.ChangeOrderStatus(Order.OrderStatuses.closeOrder);
             //order1.Info();
 
+
+            // !!!!!!!!!!!!!! Реализовать алгоритм Дейкстры !!!!!!!!!!!!
+*/
+            // создать матрицу маршрутов и заполнить ее - чтение данных из файла
+
+            LoadArrayRoutes arrayRoutes = new LoadArrayRoutes();
+
+            arrayRoutes.FillArray();
+            arrayRoutes.PrintArray();
 
             Console.ReadKey();
         }

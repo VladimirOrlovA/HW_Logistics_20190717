@@ -16,7 +16,7 @@ SELECT COUNT(1) FROM Employees
 USE Master
 DROP DATABASE LogisticsOVA
 
-DROP TABLE [Routes]
+DROP TABLE [Transports]
 
 SELECT * FROM Persons p 
 JOIN Workers w ON p.id = w.workerID

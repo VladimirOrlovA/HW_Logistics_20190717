@@ -131,13 +131,13 @@ namespace HW_Logistics_20190717
                 Console.Write(i + " ");
             Console.WriteLine("\n");
 
-
-
+            // выводим список маршрутов
             Routes routes = new Routes();
             foreach (int i in carrierRoutesIdList)
                 routes.InfoFromSQLtableOnRouteID(i);
 
-
+            Console.WriteLine("\n");
+            // выводим список транспорта
             Transports transports = new Transports();
             foreach (int i in carrierTransportsIdList)
                 transports.InfoFromSQLtableOnRouteID(i);
