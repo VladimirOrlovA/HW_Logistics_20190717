@@ -8,21 +8,12 @@ namespace HW_Logistics_20190717
 {
     class Route
     {
-        private static int routesCount = 0;
-        public int routeID { get; }
+        public string routeID { get; set; }
         public string routeStart { get; set; }
         public string routeEnd { get; set; }
-        public int routeLength { get; set; }
+        public int routeDistance { get; set; }
 
         public Route() { }
-
-        public Route(string routeStart, string routeEnd, int routeLength)
-        {
-            this.routeID = ++routesCount;
-            this.routeStart = routeStart;
-            this.routeEnd = routeEnd;
-            this.routeLength = routeLength;
-        }
 
         public override bool Equals(object obj)
         {
@@ -45,7 +36,7 @@ namespace HW_Logistics_20190717
             Console.WriteLine("Номер маршрута ----------- " + routeID);
             Console.WriteLine("Начало маршрута ---------- " + routeStart);
             Console.WriteLine("Конец маршрута ----------- " + routeEnd);
-            Console.WriteLine("Расстояние --------------- " + routeLength + " км");
+            Console.WriteLine("Расстояние --------------- " + routeDistance + " км");
             Console.WriteLine("\n-----------------------------------------------------------\n\n");
         }
 
@@ -57,25 +48,11 @@ namespace HW_Logistics_20190717
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("INSERT INTO Routes (routeStart, routeEnd, routeLength) VALUES ");
-            sb.Append($"('{routeStart}', '{routeEnd}', '{routeLength}') ");
+            sb.Append("INSERT INTO Routes (routeID, routeDistance) VALUES ");
+            sb.Append($"('{routeID}', '{routeDistance}') ");
             string sqlQuery = sb.ToString();
 
             obj.SaveData(sqlQuery);
-        }
-
-        // Устнавливает счетчик на цифру кол-ва ранее созданных объектов
-        public void SetCountObj(IConnDataBaseSQL obj)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("USE LogisticsOVA; ");
-            sb.Append("SELECT COUNT(1) FROM Routes");
-            string sqlQuery = sb.ToString();
-
-            routesCount = obj.ReadCountRowInTable(sqlQuery);
-            Console.WriteLine("\n-------------------------------------------------------------------");
-            Console.WriteLine(@"Кол-во строк в tаблице ""Routes"" - " + routesCount);
-            Console.WriteLine("\n-------------------------------------------------------------------");
         }
     }
 }

@@ -18,7 +18,7 @@ namespace HW_Logistics_20190717
 
         void ResizeArray<T>(ref T[,] original, int newRowNum, int newColumnNum)
         {
-            var newArray = new T[newColumnNum, newRowNum];
+            var newArray = new T[newRowNum,newColumnNum];
             int columnCount = original.GetLength(1);
             int columnCount2 = newRowNum;
             int columns = original.GetUpperBound(0);
@@ -72,7 +72,7 @@ namespace HW_Logistics_20190717
             
 
             // изменяем размер массива для приема данных с файла
-            ResizeArray<int>(ref arrRoutes, columnNum, rowNum);
+            ResizeArray<int>(ref arrRoutes, rowNum, columnNum);
 
             // запись данных в массив
             string rowStr = null;

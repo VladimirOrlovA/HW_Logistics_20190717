@@ -10,7 +10,7 @@ namespace HW_Logistics_20190717
     {
         static void Main(string[] args)
         {
-/*
+
             // создаем строку с данными для подключения к БД SQL
             ConnDataBaseSQL db = new ConnDataBaseSQL();
 
@@ -53,7 +53,6 @@ namespace HW_Logistics_20190717
             customer.SetCountObj(db);
             carrier.SetCountObj(db);
             transport.SetCountObj(db);
-            route.SetCountObj(db);
 
             // ==================== Создаем объекты ====================
             Employee employee1 = new Employee("Селезнев", "Павел", "Федорович", new DateTime(1981, 01, 08), 810108100011, new DateTime(2010, 01, 23), "менеджер", 180000);
@@ -76,7 +75,7 @@ namespace HW_Logistics_20190717
             Transport transport2 = new Transport("Газель-Фургон", 1500, 9);
             Transport transport3 = new Transport("Камаз-Автофургон", 10200, 35);
 
-            // ==================== создаем маршруты ====================
+         /*   // ==================== создаем маршруты ====================
             //Route route1 = new Route("Алматы", "Талдыкорган", 268);
             //Route route2 = new Route("Алматы", "Балхаш", 640);
             //Route route3 = new Route("Алматы", "Караганда", 1018);
@@ -101,7 +100,7 @@ namespace HW_Logistics_20190717
             //Route route18 = new Route("Павлодар", "Курчатов", 237);
             //Route route19 = new Route("Курчатов", "Семей", 144);
             //Route route20 = new Route("Семей", "Усть-Каменогорск", 223);
-
+*/
             Order order1 = new Order(1, 100, 0.5, "Алматы", "Усть-Каменогорск", Order.OrderStatuses.newOrder);
 
 
@@ -127,52 +126,37 @@ namespace HW_Logistics_20190717
             transports.AddTransport(transport2);
             transports.AddTransport(transport3);
 
-            //routes.addRoute(route1);
-            //routes.addRoute(route2);
-            //routes.addRoute(route3);
-            //routes.addRoute(route4);
-            //routes.addRoute(route5);
-            //routes.addRoute(route6);
-            //routes.addRoute(route7);
-            //routes.addRoute(route8);
-            //routes.addRoute(route9);
-            //routes.addRoute(route10);
-            //routes.addRoute(route11);
-            //routes.addRoute(route12);
-            //routes.addRoute(route13);
-            //routes.addRoute(route14);
-            //routes.addRoute(route15);
-            //routes.addRoute(route16);
-            //routes.addRoute(route17);
-            //routes.addRoute(route18);
-            //routes.addRoute(route19);
-            //routes.addRoute(route20);
+            // создать матрицу маршрутов и заполнить ее - чтение данных из файла
+
+            routes.FillArray();
+            //routes.PrintArray();
 
             // ==================== Собираем маршрут перевозчику - формируем реальный маршрут ====================
-            carrier1.AddRouteToСarrierRouteList(db, 1);
-            carrier1.AddRouteToСarrierRouteList(db, 5);
-            carrier1.AddRouteToСarrierRouteList(db, 6);
-            carrier1.AddRouteToСarrierRouteList(db, 7);
-            carrier1.AddRouteToСarrierRouteList(db, 8);
+            /*
+                        carrier1.AddRouteToСarrierRouteList(db, "");
+                        carrier1.AddRouteToСarrierRouteList(db, "");
+                        carrier1.AddRouteToСarrierRouteList(db, "");
+                        carrier1.AddRouteToСarrierRouteList(db, "");
+                        carrier1.AddRouteToСarrierRouteList(db, "");
 
-            carrier2.AddRouteToСarrierRouteList(db, 2);
-            carrier2.AddRouteToСarrierRouteList(db, 9);
-            carrier2.AddRouteToСarrierRouteList(db, 10);
-            carrier2.AddRouteToСarrierRouteList(db, 11);
-            carrier2.AddRouteToСarrierRouteList(db, 12);
+                        carrier2.AddRouteToСarrierRouteList(db, "");
+                        carrier2.AddRouteToСarrierRouteList(db, "");
+                        carrier2.AddRouteToСarrierRouteList(db, "");
+                        carrier2.AddRouteToСarrierRouteList(db, "");
+                        carrier2.AddRouteToСarrierRouteList(db, "");
 
-            carrier3.AddRouteToСarrierRouteList(db, 3);
-            carrier3.AddRouteToСarrierRouteList(db, 10);
-            carrier3.AddRouteToСarrierRouteList(db, 11);
-            carrier3.AddRouteToСarrierRouteList(db, 15);
-            carrier3.AddRouteToСarrierRouteList(db, 16);
+                        carrier3.AddRouteToСarrierRouteList(db, "");
+                        carrier3.AddRouteToСarrierRouteList(db, "");
+                        carrier3.AddRouteToСarrierRouteList(db, "");
+                        carrier3.AddRouteToСarrierRouteList(db, "");
+                        carrier3.AddRouteToСarrierRouteList(db, "");
 
-            carrier4.AddRouteToСarrierRouteList(db, 4);
-            carrier4.AddRouteToСarrierRouteList(db, 17);
-            carrier4.AddRouteToСarrierRouteList(db, 18);
-            carrier4.AddRouteToСarrierRouteList(db, 19);
-            carrier4.AddRouteToСarrierRouteList(db, 20);
-
+                        carrier4.AddRouteToСarrierRouteList(db, "");
+                        carrier4.AddRouteToСarrierRouteList(db, "");
+                        carrier4.AddRouteToСarrierRouteList(db, "");
+                        carrier4.AddRouteToСarrierRouteList(db, "");
+                        carrier4.AddRouteToСarrierRouteList(db, "");
+            */
             // ==================== Закрепляем транспорт за перевозчиком ====================
             carrier1.AddTransportToTransportsList(db, 1);
             carrier2.AddTransportToTransportsList(db, 2);
@@ -188,7 +172,7 @@ namespace HW_Logistics_20190717
             // запись коллекции объектов в таблицу SQL
             //employees.InsertTable(db);
             //customers.InsertTable(db);
-            //routes.InsertTable(db);
+            routes.InsertTable(db);
             //transports.InsertTable(db);
 
             // Вывод информации об объекте
@@ -207,13 +191,10 @@ namespace HW_Logistics_20190717
 
 
             // !!!!!!!!!!!!!! Реализовать алгоритм Дейкстры !!!!!!!!!!!!
-*/
-            // создать матрицу маршрутов и заполнить ее - чтение данных из файла
 
-            LoadArrayRoutes arrayRoutes = new LoadArrayRoutes();
+            //DijkstraAlgorithm da = new DijkstraAlgorithm();
 
-            arrayRoutes.FillArray();
-            arrayRoutes.PrintArray();
+            //da.Algorithm();
 
             Console.ReadKey();
         }

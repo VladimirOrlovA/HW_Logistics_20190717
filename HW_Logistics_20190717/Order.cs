@@ -133,7 +133,7 @@ namespace HW_Logistics_20190717
             Console.WriteLine("\n---------------------------------------------------------\n\n");
         }
 
-        // Вставляет данные в таблицу БД
+        // Вносит данные в таблицу БД
         public void InsertTable(IConnDataBaseSQL obj)
         {
             Console.WriteLine(@"Insert Data to table ""Orders"" about "

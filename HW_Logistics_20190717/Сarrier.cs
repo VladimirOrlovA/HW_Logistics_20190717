@@ -10,7 +10,7 @@ namespace HW_Logistics_20190717
     {
         private static int carriersCount = 0;
         public int carrierID { get; }
-        public int[] carrierRoutesIdList = new int[0];
+        public string[] carrierRoutesIdList = new string[0];
         public int[] carrierTransportsIdList = new int[0];
 
         public Carrier() { }
@@ -22,7 +22,7 @@ namespace HW_Logistics_20190717
         }
 
         // Создание маршрутного листа перевозчику
-        public void AddRouteToСarrierRouteList(IConnDataBaseSQL obj, int routeID)
+        public void AddRouteToСarrierRouteList(IConnDataBaseSQL obj, string routeID)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
@@ -34,12 +34,9 @@ namespace HW_Logistics_20190717
             //который мы хотим добавить перевозчику
             try
             {
-                //foreach (string i in rowsStr)
-                //    Console.WriteLine((Convert.ToInt32(i.Substring(0, i.IndexOf(';')))));
-
                 int countMatch = 0;
                 foreach (string i in rowsStr)
-                    if ((Convert.ToInt32(i.Substring(0, i.IndexOf(';')))) == routeID)
+                    if (i.Substring(0, i.IndexOf(';')) == routeID)
                         countMatch++;
                 if (countMatch == 0)
                     throw new Exception("Ошибка: маршрут с заданым номером не существует.");
@@ -121,7 +118,7 @@ namespace HW_Logistics_20190717
             InfoPerson();
             Console.Write("Номера маршрутов -------- ");
 
-            foreach (int i in carrierRoutesIdList)
+            foreach (string i in carrierRoutesIdList)
                 Console.Write(i + " ");
             Console.WriteLine();
 
@@ -133,7 +130,7 @@ namespace HW_Logistics_20190717
 
             // выводим список маршрутов
             Routes routes = new Routes();
-            foreach (int i in carrierRoutesIdList)
+            foreach (string i in carrierRoutesIdList)
                 routes.InfoFromSQLtableOnRouteID(i);
 
             Console.WriteLine("\n");
@@ -145,7 +142,7 @@ namespace HW_Logistics_20190717
             Console.WriteLine("\n-----------------------------------------------------------\n\n");
         }
 
-        // Вставляет данные в таблицу БД
+        // Вносит данные в таблицу БД
         public void InsertTable(IConnDataBaseSQL obj)
         {
             Console.WriteLine(@"Insert Data to table ""Carriers"" about "

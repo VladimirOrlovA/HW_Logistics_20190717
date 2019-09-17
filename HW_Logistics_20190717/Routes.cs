@@ -3,31 +3,120 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace HW_Logistics_20190717
 {
     class Routes
     {
-        public Route[] routesList = new Route[0];
-        public int routesID { get; }
-        public Routes() { }
+        public static int rowNum = 1;
+        public static int columnNum = 1;
+        public string[] fileStr = new string[0];
 
-        public void addRoute(Route route)
+        public Route[,] arrRoutes = new Route[rowNum, columnNum];
+
+        // изменение размера двумерного массива
+        void ResizeArray<T>(ref T[,] original, int newRowNum, int newColumnNum)
         {
-            Route[] tmp = new Route[routesList.Length + 1];
-            Array.Copy(routesList, tmp, routesList.Length);
-            Array.Resize(ref routesList, (routesList.Length + 1));
-            Array.Copy(tmp, routesList, routesList.Length);
-            routesList[routesList.Length - 1] = route;
+            var newArray = new T[newRowNum, newColumnNum];
+            int columnCount = original.GetLength(1);
+            int columnCount2 = newRowNum;
+            int columns = original.GetUpperBound(0);
+            for (int co = 0; co <= columns; co++)
+                Array.Copy(original, co * columnCount, newArray, co * columnCount2, columnCount);
+            original = newArray;
         }
 
-        // вывод информации в консоль по содержимому каждого объекта листа
-        public void Info()
+        // заполнение массива из файла 
+        public void FillArray()
         {
-            Console.WriteLine("\nИмеющиеся маршруты:");
+            try
+            {
+                // Create an instance of StreamReader to read from a file.
+                // The using statement also closes the StreamReader.
+                using (StreamReader sr = new StreamReader(@"C:\Users\Orlov\source\repos\HW_Logistics_20190717\Carriers routes\DistancesBetweenCitiesOfKazakhstan.csv"))
+                {
+                    string line;
+                    // Read and display lines from the file until the end of 
+                    // the file is reached.
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        string[] tmp = new string[fileStr.Length + 1];
+                        Array.Copy(fileStr, tmp, fileStr.Length);
+                        Array.Resize(ref fileStr, (fileStr.Length + 1));
+                        Array.Copy(tmp, fileStr, fileStr.Length);
+                        fileStr[fileStr.Length - 1] = line;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                // Let the user know what went wrong.
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
 
-            foreach (Route i in routesList)
-                i.Info();
+            //foreach (string i in fileStr)
+            //    Console.WriteLine(i);
+
+            // ===== перепишем данные дистанций между городами из строк в массив =====
+
+            // получим размер массива в файле csv и запишем его новые размеры
+            rowNum = fileStr.Length;
+
+            for (int i = 0; i < fileStr[0].Length; i++)
+                if (fileStr[0][i] == ',')
+                    columnNum++;
+
+            Console.WriteLine($"Строк - {rowNum}");
+            Console.WriteLine($"Колонок - {columnNum}");
+
+
+            // изменяем размер массива для приема данных с файла
+            ResizeArray<Route>(ref arrRoutes, rowNum, columnNum);
+
+            // запись данных в массив
+            string rowStr = null;
+
+            for (int i = 0; i < rowNum; i++)
+            {
+                rowStr = fileStr[i];
+
+                int startIndex = 0;
+                string valueStr = null;
+                for (int j = 0; j < columnNum; j++)
+                {
+                    rowStr = rowStr.Substring(startIndex);
+                    startIndex = 0;
+                    if (rowStr.IndexOf(',') > 0)
+                    {
+                        valueStr = rowStr.Substring(startIndex, rowStr.IndexOf(','));
+                        startIndex = rowStr.IndexOf(',') + 1;
+                    }
+                    else valueStr = rowStr;
+
+                    Route route = new Route();
+                    route.routeDistance = Convert.ToInt32(valueStr);
+                    route.routeID = Convert.ToString(i) + "-" + Convert.ToString(j);
+
+                    arrRoutes[i, j] = route;
+
+                    valueStr = null;
+                }
+                rowStr = null;
+            }
+        }
+
+        public void PrintArray()
+        {
+            for (int i = 0; i < rowNum; i++)
+            {
+                for (int j = 0; j < columnNum; j++)
+                {
+                    Console.Write(arrRoutes[i, j].routeID + " = " + arrRoutes[i, j].routeDistance + "км \n");
+                }
+            }
+
         }
 
         // вывод списка маршрутов из таблицы Routes БД SQL
@@ -39,7 +128,7 @@ namespace HW_Logistics_20190717
         }
 
         // вывод списка маршрутов из таблицы Routes БД SQL по заданному routeID
-        public void InfoFromSQLtableOnRouteID(int routeID)
+        public void InfoFromSQLtableOnRouteID(string routeID)
         {
             ConnDataBaseSQL db = new ConnDataBaseSQL();
             ViewTableOnRouteID(db, routeID);
@@ -53,10 +142,8 @@ namespace HW_Logistics_20190717
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
             sb.Append("CREATE TABLE Routes (");
-            sb.Append(" routeID INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ");
-            sb.Append(" routeStart NVARCHAR(50), ");
-            sb.Append(" routeEnd NVARCHAR(50), ");
-            sb.Append(" routeLength INT DEFAULT NULL ");
+            sb.Append(" routeID NVARCHAR(10) NOT NULL PRIMARY KEY, ");
+            sb.Append(" routeDistance INT DEFAULT NULL ");
             sb.Append("); ");
             string sqlQuery = sb.ToString();
 
@@ -65,7 +152,7 @@ namespace HW_Logistics_20190717
             //throw new NotImplementedException();
         }
 
-        // Вставляет данные в таблицу БД
+        // Вносит данные в таблицу БД
         public void InsertTable(IConnDataBaseSQL obj)
         {
             Console.WriteLine(@"Insert Data to table ""Routes"" about "
@@ -73,18 +160,31 @@ namespace HW_Logistics_20190717
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("INSERT INTO Routes (routeStart, routeEnd, routeLength) VALUES ");
+            sb.Append("INSERT INTO Routes (routeID, routeDistance) VALUES ");
 
             // объявляем переменную счетчика для подсчета кол-ва итерации, чтобы в запросе на последний
             // ввод строки в таблицу не ставить "," (обеспечение правильности синтаксиса запроса SQL)
             int count = 0;
             string sqlQuery = null;
-            foreach (Route i in routesList)
+
+            // === вариант через цикл foreach ===
+            foreach (Route i in arrRoutes)
             {
                 count++;
-                sb.Append($"('{i.routeStart}', '{i.routeEnd}', '{i.routeLength}') ");
-                if (routesList.Length != count) sb.Append(", ");
+                sb.Append($"('{i.routeID}', '{i.routeDistance}') ");
+                if (arrRoutes.Length != count) sb.Append(", ");
             }
+
+            // === вариант через цикл for ===
+            //for (int i = 0; i < rowNum; i++)
+            //{
+            //    for (int j = 0; j < columnNum; j++)
+            //    {
+            //        count++;
+            //        sb.Append($"('{arrRoutes[i, j].routeID}', '{arrRoutes[i, j].routeDistance}') ");
+            //        if (arrRoutes.Length != count) sb.Append(", ");
+            //    }
+            //}
 
             sqlQuery = sb.ToString();
             obj.SaveData(sqlQuery);
@@ -106,7 +206,7 @@ namespace HW_Logistics_20190717
             //throw new NotImplementedException();
         }
 
-        public void ViewTableOnRouteID(IConnDataBaseSQL obj, int routeID)
+        public void ViewTableOnRouteID(IConnDataBaseSQL obj, string routeID)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
@@ -120,6 +220,6 @@ namespace HW_Logistics_20190717
             //throw new NotImplementedException();
         }
 
-
     }
 }
+
