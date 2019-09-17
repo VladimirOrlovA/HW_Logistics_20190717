@@ -27,8 +27,8 @@ namespace HW_Logistics_20190717
             original = newArray;
         }
 
-        // заполнение массива из файла 
-        public void FillArray()
+        // заполнение строкового массива из файла 
+        void ReadFileToArrString()
         {
             try
             {
@@ -58,11 +58,17 @@ namespace HW_Logistics_20190717
 
             //foreach (string i in fileStr)
             //    Console.WriteLine(i);
+        }
 
-            // ===== перепишем данные дистанций между городами из строк в массив =====
+        public void FillArray()
+        {
+            // заполненяем строковый массив строками из файла
+            ReadFileToArrString();
 
-            // получим размер массива в файле csv и запишем его новые размеры
-            rowNum = fileStr.Length;
+            // ===== переписываем данные дистанций между городами из строк в массив =====
+
+            // последнюю строку не учитываем, т.к. в ней внесены названия городов
+            rowNum = fileStr.Length - 1;
 
             for (int i = 0; i < fileStr[0].Length; i++)
                 if (fileStr[0][i] == ',')
@@ -71,9 +77,11 @@ namespace HW_Logistics_20190717
             Console.WriteLine($"Строк - {rowNum}");
             Console.WriteLine($"Колонок - {columnNum}");
 
-
             // изменяем размер массива для приема данных с файла
             ResizeArray<Route>(ref arrRoutes, rowNum, columnNum);
+
+            // получаем массив из названий городов
+            string[] arrayCityName = ArrayCityName();
 
             // запись данных в массив
             string rowStr = null;
@@ -98,13 +106,40 @@ namespace HW_Logistics_20190717
                     Route route = new Route();
                     route.routeDistance = Convert.ToInt32(valueStr);
                     route.routeID = Convert.ToString(i) + "-" + Convert.ToString(j);
+                   
+                    // заполнить routeStart и routeEnd
+                    route.routeStart = arrayCityName[i];
+                    route.routeEnd = arrayCityName[j];
 
                     arrRoutes[i, j] = route;
-
+                    route.Info();
                     valueStr = null;
                 }
                 rowStr = null;
             }
+        }
+
+        string[] ArrayCityName()
+        {
+            string[] arrayCityName = new string[columnNum];
+            string CityNameStr = fileStr[rowNum];
+            int startIndex = 0;
+            string valueStr = null;
+            for (int i = 0; i < columnNum; i++)
+            {
+                CityNameStr = CityNameStr.Substring(startIndex);
+                startIndex = 0;
+                if (CityNameStr.IndexOf(',') > 0)
+                {
+                    valueStr = CityNameStr.Substring(startIndex, CityNameStr.IndexOf(','));
+                    startIndex = CityNameStr.IndexOf(',') + 1;
+                }
+                else valueStr = CityNameStr;
+
+                arrayCityName[i] = valueStr;
+                Console.WriteLine(valueStr);
+            }
+            return arrayCityName;
         }
 
         public void PrintArray()
@@ -143,6 +178,8 @@ namespace HW_Logistics_20190717
             sb.Append("USE LogisticsOVA; ");
             sb.Append("CREATE TABLE Routes (");
             sb.Append(" routeID NVARCHAR(10) NOT NULL PRIMARY KEY, ");
+            sb.Append(" routeStart NVARCHAR(25), ");
+            sb.Append(" routeEnd NVARCHAR(25), ");
             sb.Append(" routeDistance INT DEFAULT NULL ");
             sb.Append("); ");
             string sqlQuery = sb.ToString();

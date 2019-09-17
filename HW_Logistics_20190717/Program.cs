@@ -172,8 +172,12 @@ namespace HW_Logistics_20190717
             // запись коллекции объектов в таблицу SQL
             //employees.InsertTable(db);
             //customers.InsertTable(db);
-            routes.InsertTable(db);
+            
+            //routes.InsertTable(db);
+            
             //transports.InsertTable(db);
+
+            
 
             // Вывод информации об объекте
             //employees.Info();
