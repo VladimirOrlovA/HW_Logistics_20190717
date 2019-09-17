@@ -197,7 +197,7 @@ namespace HW_Logistics_20190717
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("INSERT INTO Routes (routeID, routeDistance) VALUES ");
+            sb.Append("INSERT INTO Routes (routeID, routeStart, routeEnd, routeDistance) VALUES ");
 
             // объявляем переменную счетчика для подсчета кол-ва итерации, чтобы в запросе на последний
             // ввод строки в таблицу не ставить "," (обеспечение правильности синтаксиса запроса SQL)
@@ -208,20 +208,20 @@ namespace HW_Logistics_20190717
             foreach (Route i in arrRoutes)
             {
                 count++;
-                sb.Append($"('{i.routeID}', '{i.routeDistance}') ");
+                sb.Append($"('{i.routeID}', '{i.routeStart}', '{i.routeEnd}', '{i.routeDistance}') ");
                 if (arrRoutes.Length != count) sb.Append(", ");
             }
 
             // === вариант через цикл for ===
             //for (int i = 0; i < rowNum; i++)
-            //{
-            //    for (int j = 0; j < columnNum; j++)
             //    {
-            //        count++;
-            //        sb.Append($"('{arrRoutes[i, j].routeID}', '{arrRoutes[i, j].routeDistance}') ");
-            //        if (arrRoutes.Length != count) sb.Append(", ");
+            //        for (int j = 0; j < columnNum; j++)
+            //        {
+            //            count++;
+            //            sb.Append($"('{arrRoutes[i, j].routeID}', '{arrRoutes[i, j].routeStart}', '{arrRoutes[i, j].routeEnd}', '{arrRoutes[i, j].routeDistance}') ");
+            //            if (arrRoutes.Length != count) sb.Append(", ");
+            //        }
             //    }
-            //}
 
             sqlQuery = sb.ToString();
             obj.SaveData(sqlQuery);
