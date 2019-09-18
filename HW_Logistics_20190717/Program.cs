@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -128,7 +129,7 @@ namespace HW_Logistics_20190717
 
             // создать матрицу маршрутов и заполнить ее - чтение данных из файла
 
-            routes.FillArray();
+            //routes.FillArray();
             //routes.PrintArray();
 
             // ==================== Собираем маршрут перевозчику - формируем реальный маршрут ====================
@@ -172,12 +173,12 @@ namespace HW_Logistics_20190717
             // запись коллекции объектов в таблицу SQL
             //employees.InsertTable(db);
             //customers.InsertTable(db);
-            
+
             //routes.InsertTable(db);
-            
+
             //transports.InsertTable(db);
 
-            
+
 
             // Вывод информации об объекте
             //employees.Info();
@@ -199,6 +200,26 @@ namespace HW_Logistics_20190717
             //DijkstraAlgorithm da = new DijkstraAlgorithm();
 
             //da.Algorithm();
+
+
+            // ========= Перегрузка базовых методов =========
+            //Console.WriteLine($"Hash code for object {employee.GetType()} : {employee1.GetHashCode()}");
+            //Console.WriteLine($"Hash code for object {employee.GetType()} : {employee2.GetHashCode()}");
+            //Console.WriteLine($"Hash code for object {employee.GetType()} : {employee3.GetHashCode()}");
+            //Console.WriteLine($"Hash code for object {employee.GetType()} : {employee4.GetHashCode()}");
+
+            //Console.WriteLine("----------------------------------------------------------------");
+            //Console.WriteLine(employee1.Equals(employee1));
+            //Console.WriteLine("----------------------------------------------------------------");
+            //Console.WriteLine(employee1.ToString());
+
+            employees.Show();
+            employees.employeesList.Sort();
+            employees.Show();
+
+            employees.Show();
+            employees.employeesList.Sort(new Employee.SortByName());
+            employees.Show();
 
             Console.ReadKey();
         }

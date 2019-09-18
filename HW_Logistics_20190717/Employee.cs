@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HW_Logistics_20190717
 {
-    class Employee : Person
+    class Employee : Person, IComparable
     {
         private static int employeesCount = 0;
         public int employeeID { get; set; }
@@ -26,19 +27,93 @@ namespace HW_Logistics_20190717
             this.solary = solary;
         }
 
+        // Перегрузка базовых методов
         public override bool Equals(object obj)
         {
-            return base.Equals(obj);
+            Employee empl = (Employee)obj; // as Employee;
+
+            //Check for null and compare run-time types.
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+
+            return 
+                (lastName == empl.lastName) && (firstName == empl.firstName) && (middleName == empl.middleName)
+                && (birthday == empl.birthday) && (employmentDate == empl.employmentDate)
+                && (position == empl.position && solary == empl.solary);
+
         }
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            // создаем временную строку для вычисления hash кода для отличных типов данных
+            string tmp = null;
+
+            // Для операндов целочисленного типа Оператор ^ вычисляет побитовое логическое 
+            //исключающее ИЛИ, также известное как побитовое логическое XOR, своих операндов
+
+            int hash = 0;
+            for (int i = 0; i < lastName.Length; i++)
+                hash ^= lastName[i];
+            for (int i = 0; i < firstName.Length; i++)
+                hash ^= firstName[i];
+            for (int i = 0; i < middleName.Length; i++)
+                hash ^= middleName[i];
+
+            tmp = Convert.ToString(birthday);
+            for (int i = 0; i < tmp.Length; i++)
+                hash ^= tmp[i];
+
+            tmp = Convert.ToString(iin);
+            for (int i = 0; i < tmp.Length; i++)
+                hash ^= tmp[i];
+
+            tmp = Convert.ToString(employmentDate);
+            for (int i = 0; i < tmp.Length; i++)
+                hash ^= tmp[i];
+
+            for (int i = 0; i < position.Length; i++)
+                hash ^= position[i];
+
+            tmp = Convert.ToString(solary);
+            for (int i = 0; i < tmp.Length; i++)
+                hash ^= tmp[i];
+
+            // возвращаем сгенерированный hash code в результате побитовго сравнения 
+            return hash;
         }
 
         public override string ToString()
         {
-            return base.ToString();
+            return $"Объект хэш \'{GetHashCode()}\' класса Employee со значениями: " +
+                $"{lastName}, {firstName}, {middleName}, {middleName}, {birthday}, " +
+                $"{employmentDate}, {position}, {solary}";
+            //return base.ToString();
+        }
+
+        // Сортировка по умолчанию
+        public int CompareTo(object obj)
+        {
+            return String.Compare(this.lastName, (obj as Employee).lastName);
+        }
+
+        // Сортировка по имени, через реализацию предопределенного интерфейса.
+        public class SortByName : IComparer
+        {
+            int IComparer.Compare(object x, object y)
+            {
+                return String.Compare((x as Employee).firstName, (y as Employee).firstName);
+            }
+        }
+        // Сортировка по возрасту, через реализацию предопределенного интерфейса.
+        public class SortByAge : IComparer
+        {
+            int IComparer.Compare(object x, object y)
+            {
+
+                return Convert.ToInt32( (x as Employee).Age() - (y as Employee).Age());
+            }
         }
 
         public override void Info()

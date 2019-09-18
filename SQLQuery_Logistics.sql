@@ -9,7 +9,7 @@ SELECT * FROM [Customers]
 SELECT * FROM [Routes]
 WHERE routeID like '0-1'
 
-DROP TABLE CityName
+DROP TABLE [Routes]
 
 CREATE TABLE CityName
 (

@@ -8,7 +8,7 @@ namespace HW_Logistics_20190717
 {
     class Employees
     {
-        private List<Employee> employeesList = new List<Employee>();
+        public List<Employee> employeesList = new List<Employee>();
 
         // Добавляет работника в список работников
         public void AddEmployee(Employee obj)
@@ -26,6 +26,12 @@ namespace HW_Logistics_20190717
             //    employee.Info();
         }
 
+        public void Show()
+        {
+            foreach (Person obj in employeesList)
+                Console.WriteLine(obj);
+            Console.WriteLine("---");
+        }
         // Создает таблицу в БД
         public void CreateTable(IConnDataBaseSQL obj)
         {
