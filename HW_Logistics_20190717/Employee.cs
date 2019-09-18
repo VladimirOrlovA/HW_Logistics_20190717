@@ -54,33 +54,16 @@ namespace HW_Logistics_20190717
             //исключающее ИЛИ, также известное как побитовое логическое XOR, своих операндов
 
             int hash = 0;
-            for (int i = 0; i < lastName.Length; i++)
-                hash ^= lastName[i];
-            for (int i = 0; i < firstName.Length; i++)
-                hash ^= firstName[i];
-            for (int i = 0; i < middleName.Length; i++)
-                hash ^= middleName[i];
+            hash ^= lastName.GetHashCode();
+            hash ^= firstName.GetHashCode();
+            hash ^= middleName.GetHashCode();
+            hash ^= iin.GetHashCode();
+            hash ^= employmentDate.GetHashCode();
+            hash ^= position.GetHashCode();
+            hash ^= employmentDate.GetHashCode();
+            hash ^= solary.GetHashCode();
 
-            tmp = Convert.ToString(birthday);
-            for (int i = 0; i < tmp.Length; i++)
-                hash ^= tmp[i];
-
-            tmp = Convert.ToString(iin);
-            for (int i = 0; i < tmp.Length; i++)
-                hash ^= tmp[i];
-
-            tmp = Convert.ToString(employmentDate);
-            for (int i = 0; i < tmp.Length; i++)
-                hash ^= tmp[i];
-
-            for (int i = 0; i < position.Length; i++)
-                hash ^= position[i];
-
-            tmp = Convert.ToString(solary);
-            for (int i = 0; i < tmp.Length; i++)
-                hash ^= tmp[i];
-
-            // возвращаем сгенерированный hash code в результате побитовго сравнения 
+            // возвращаем сгенерированный hash code в результате побитовго XOR 
             return hash;
         }
 
@@ -88,7 +71,7 @@ namespace HW_Logistics_20190717
         {
             return $"Объект хэш \'{GetHashCode()}\' класса Employee со значениями: " +
                 $"{lastName}, {firstName}, {middleName}, {middleName}, {birthday}, " +
-                $"{employmentDate}, {position}, {solary}";
+                $"{employmentDate}, {position}, {solary}, {Age()}";
             //return base.ToString();
         }
 
@@ -99,20 +82,19 @@ namespace HW_Logistics_20190717
         }
 
         // Сортировка по имени, через реализацию предопределенного интерфейса.
-        public class SortByName : IComparer
+        public class SortByName : IComparer<Employee>
         {
-            int IComparer.Compare(object x, object y)
+            int IComparer<Employee>.Compare(Employee x, Employee y)
             {
-                return String.Compare((x as Employee).firstName, (y as Employee).firstName);
+                return String.Compare(x.firstName, y.firstName);
             }
         }
         // Сортировка по возрасту, через реализацию предопределенного интерфейса.
-        public class SortByAge : IComparer
+        public class SortByAge : IComparer<Employee>
         {
-            int IComparer.Compare(object x, object y)
+            int IComparer<Employee>.Compare(Employee x, Employee y)
             {
-
-                return Convert.ToInt32( (x as Employee).Age() - (y as Employee).Age());
+                return Convert.ToInt32( x.Age() - y.Age());
             }
         }
 
