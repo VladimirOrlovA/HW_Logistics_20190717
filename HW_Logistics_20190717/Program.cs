@@ -13,10 +13,10 @@ namespace HW_Logistics_20190717
         {
 
             // создаем строку с данными для подключения к БД SQL
-            ConnDataBaseSQL db = new ConnDataBaseSQL();
+            //ConnDataBaseSQL db = new ConnDataBaseSQL();
 
             // создаем базу данных если не существует
-            db.CreareDataBase();
+            //db.CreareDataBase();
 
             // создаем основные объекты для работы программы
             //Worker worker = new Worker();
@@ -40,20 +40,20 @@ namespace HW_Logistics_20190717
 
 
             // ==================== создаем необходимые таблицы в БД ====================
-            employees.CreateTable(db);
-            customers.CreateTable(db);
-            carriers.CreateTable(db);
-            transports.CreateTable(db);
-            routes.CreateTable(db);
+            //employees.CreateTable(db);
+            //customers.CreateTable(db);
+            //carriers.CreateTable(db);
+            //transports.CreateTable(db);
+            //routes.CreateTable(db);
             // 1, 2, ...
 
             // ==================== Счетчики объектов ====================
             // установка начального значения для счетчика объектов, 
             //чтобы корректно отражать ID вновь созданных объектов в текущей сессии программы
-            employee.SetCountObj(db);
-            customer.SetCountObj(db);
-            carrier.SetCountObj(db);
-            transport.SetCountObj(db);
+            //employee.SetCountObj(db);
+            //customer.SetCountObj(db);
+            //carrier.SetCountObj(db);
+            //transport.SetCountObj(db);
 
             // ==================== Создаем объекты ====================
             Employee employee1 = new Employee("Селезнев", "Павел", "Федорович", new DateTime(1981, 01, 08), 810108100011, new DateTime(2010, 01, 23), "менеджер", 180000);
@@ -159,10 +159,10 @@ namespace HW_Logistics_20190717
                         carrier4.AddRouteToСarrierRouteList(db, "");
             */
             // ==================== Закрепляем транспорт за перевозчиком ====================
-            carrier1.AddTransportToTransportsList(db, 1);
-            carrier2.AddTransportToTransportsList(db, 2);
-            carrier3.AddTransportToTransportsList(db, 3);
-            carrier4.AddTransportToTransportsList(db, 1);
+            //carrier1.AddTransportToTransportsList(db, 1);
+            //carrier2.AddTransportToTransportsList(db, 2);
+            //carrier3.AddTransportToTransportsList(db, 3);
+            //carrier4.AddTransportToTransportsList(db, 1);
 
             // Запись одиночных объектов в таблицу SQL
             //employee1.InsertTable(db);
@@ -215,10 +215,17 @@ namespace HW_Logistics_20190717
 
             employees.Show();
             employees.employeesList.Sort();
+            Console.WriteLine("===== сортировка фамилии =====");
             employees.Show();
 
             employees.Show();
+            Console.WriteLine("===== сортировка по имени =====");
             employees.employeesList.Sort(new Employee.SortByName());
+            employees.Show();
+
+            employees.Show();
+            Console.WriteLine("===== сортировка по возрасту =====");
+            employees.employeesList.Sort(new Employee.SortByAge());
             employees.Show();
 
             Console.ReadKey();
