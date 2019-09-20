@@ -10,10 +10,17 @@ namespace HW_Logistics_20190717
     {
         private List<Carrier> carriersList = new List<Carrier>();
 
+        // Событие, возникающее при добавлении перевозчика
+        public event ObjectsStateHandler CarrierAdded;
+        // Событие, возникающее при внесении перевозчиков в БД
+        public event ObjectsStateHandler CarriersAddedtoDB;
+
         // Добавляет работника в список работников
         public void AddCarrier(Carrier obj)
         {
             carriersList.Add(obj);
+            if (CarrierAdded != null)
+                CarrierAdded($"Добавлен новый перевозчик - {obj.GetLastNameAndFM()}");
         }
 
         // Выводит информацию в консоль по содержимому каждого объекта листа
@@ -75,6 +82,9 @@ namespace HW_Logistics_20190717
 
             sqlQuery = sb.ToString();
             obj.SaveData(sqlQuery);
+
+            if (CarriersAddedtoDB != null)
+                CarriersAddedtoDB("Данные о перевозчиках внесены в таблицу Customers базы данных.");
             //throw new NotImplementedException();
         }
 

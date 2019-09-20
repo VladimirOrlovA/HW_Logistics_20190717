@@ -13,8 +13,8 @@ namespace HW_Logistics_20190717
 
         // Событие, возникающее при добавлении сотрудника
         public event ObjectsStateHandler EmployeeAdded;
-        // Событие, возникающее при добавление на счет
-        public event ObjectsStateHandler EmployeeAddedtoDB;
+        // Событие, возникающее при внесении сотрудников в БД
+        public event ObjectsStateHandler EmployeesAddedtoDB;
 
         // Добавляет работника в список работников
         public void AddEmployee(Employee obj)
@@ -62,8 +62,8 @@ namespace HW_Logistics_20190717
 
             obj.SaveData(sqlQuery);
 
-            if (EmployeeAddedtoDB != null)
-                EmployeeAddedtoDB("Данные о сотрудниках внесены в таблицу Employees базы данных.");
+            if (EmployeesAddedtoDB != null)
+                EmployeesAddedtoDB("Данные о сотрудниках внесены в таблицу Employees базы данных.");
             //throw new NotImplementedException();
         }
 

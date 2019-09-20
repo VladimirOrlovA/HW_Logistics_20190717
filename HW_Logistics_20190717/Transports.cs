@@ -10,6 +10,7 @@ namespace HW_Logistics_20190717
     {
         Transport[] transportsList = new Transport[0];
         // Добавление заказчика в список заказчиков
+
         public void AddTransport(Transport transport)
         {
             Transport[] tmp = new Transport[transportsList.Length + 1];

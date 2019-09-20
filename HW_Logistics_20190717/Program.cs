@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace HW_Logistics_20190717
 {
+    delegate void ObjectsInfo();
+
     // Объявляем делегат для обработки событий
     public delegate void ObjectsStateHandler(string message);
     class Program
@@ -37,21 +39,27 @@ namespace HW_Logistics_20190717
             Routes routes = new Routes();
 
             Order order = new Order();
+            Orders orders = new Orders();
             // 1, 2, ...
 
             //==== делегаты ==== https://metanit.com/sharp/tutorial/3.13.php 
-            /*
-            del allInfo;
-            allInfo = employees.Info;
-            allInfo += carriers.Info;
-            allInfo += order1.Info;
-            allInfo();
-            */
+
+            ObjectsInfo objectsInfo;
+            objectsInfo = employees.Info;
+            objectsInfo += carriers.Info;
+            objectsInfo += orders.Info;
+              
 
             //==== события ==== https://metanit.com/sharp/tutorial/3.14.php
 
             employees.EmployeeAdded += Show_Message;
-            employees.EmployeeAddedtoDB += Show_Message;
+            employees.EmployeesAddedtoDB += Show_Message;
+
+            customers.CustomerAdded += Show_Message;
+            customers.CustomersAddedtoDB += Show_Message;
+
+            carriers.CarrierAdded += Show_Message;
+            customers.CustomersAddedtoDB += Show_Message;
 
             // ==================== создаем необходимые таблицы в БД ====================
             //employees.CreateTable(db);
@@ -140,6 +148,8 @@ namespace HW_Logistics_20190717
             transports.AddTransport(transport1);
             transports.AddTransport(transport2);
             transports.AddTransport(transport3);
+
+            orders.AddOrder(order1);
 
             // создать матрицу маршрутов и заполнить ее - чтение данных из файла
 
@@ -245,17 +255,16 @@ namespace HW_Logistics_20190717
             employees.Show();
             */
 
-           
+            // === Вызов методов инфо через делегата ===
+            objectsInfo();
 
-             Console.ReadKey();
+            Console.ReadKey();
         }
 
         private static void Show_Message(string message)
         {
             Console.WriteLine(message);
         }
-
-        delegate void del();
     }
 }
 
