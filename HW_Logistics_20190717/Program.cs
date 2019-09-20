@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace HW_Logistics_20190717
 {
+    // Объявляем делегат для обработки событий
+    public delegate void ObjectsStateHandler(string message);
     class Program
     {
         static void Main(string[] args)
         {
-
             // создаем строку с данными для подключения к БД SQL
             //ConnDataBaseSQL db = new ConnDataBaseSQL();
 
@@ -38,6 +39,19 @@ namespace HW_Logistics_20190717
             Order order = new Order();
             // 1, 2, ...
 
+            //==== делегаты ==== https://metanit.com/sharp/tutorial/3.13.php 
+            /*
+            del allInfo;
+            allInfo = employees.Info;
+            allInfo += carriers.Info;
+            allInfo += order1.Info;
+            allInfo();
+            */
+
+            //==== события ==== https://metanit.com/sharp/tutorial/3.14.php
+
+            employees.EmployeeAdded += Show_Message;
+            employees.EmployeeAddedtoDB += Show_Message;
 
             // ==================== создаем необходимые таблицы в БД ====================
             //employees.CreateTable(db);
@@ -76,32 +90,32 @@ namespace HW_Logistics_20190717
             Transport transport2 = new Transport("Газель-Фургон", 1500, 9);
             Transport transport3 = new Transport("Камаз-Автофургон", 10200, 35);
 
-         /*   // ==================== создаем маршруты ====================
-            //Route route1 = new Route("Алматы", "Талдыкорган", 268);
-            //Route route2 = new Route("Алматы", "Балхаш", 640);
-            //Route route3 = new Route("Алматы", "Караганда", 1018);
-            //Route route4 = new Route("Алматы", "Нур-Султан", 1225);
+            /*   // ==================== создаем маршруты ====================
+               //Route route1 = new Route("Алматы", "Талдыкорган", 268);
+               //Route route2 = new Route("Алматы", "Балхаш", 640);
+               //Route route3 = new Route("Алматы", "Караганда", 1018);
+               //Route route4 = new Route("Алматы", "Нур-Султан", 1225);
 
-            //Route route5 = new Route("Талдыкорган", "Ушарал", 231);
-            //Route route6 = new Route("Ушарал", "Аягоз", 230);
-            //Route route7 = new Route("Аягоз", "Колбатау", 196);
-            //Route route8 = new Route("Колбатау", "Усть-Каменогорск", 115);
+               //Route route5 = new Route("Талдыкорган", "Ушарал", 231);
+               //Route route6 = new Route("Ушарал", "Аягоз", 230);
+               //Route route7 = new Route("Аягоз", "Колбатау", 196);
+               //Route route8 = new Route("Колбатау", "Усть-Каменогорск", 115);
 
-            //Route route9 = new Route("Балхаш", "Караганда", 387);
-            //Route route10 = new Route("Караганда", "Павлодар", 432);
-            //Route route11 = new Route("Павлодар", "Семей", 337);
-            //Route route12 = new Route("Семей", "Усть-Каменогорск", 223);
+               //Route route9 = new Route("Балхаш", "Караганда", 387);
+               //Route route10 = new Route("Караганда", "Павлодар", 432);
+               //Route route11 = new Route("Павлодар", "Семей", 337);
+               //Route route12 = new Route("Семей", "Усть-Каменогорск", 223);
 
-            //Route route13 = new Route("Караганда", "Павлодар", 432);
-            //Route route14 = new Route("Павлодар", "Семей", 337);
-            //Route route15 = new Route("Семей", "Колбатау", 167);
-            //Route route16 = new Route("Колбатау", "Усть-Каменогорск", 115);
+               //Route route13 = new Route("Караганда", "Павлодар", 432);
+               //Route route14 = new Route("Павлодар", "Семей", 337);
+               //Route route15 = new Route("Семей", "Колбатау", 167);
+               //Route route16 = new Route("Колбатау", "Усть-Каменогорск", 115);
 
-            //Route route17 = new Route("Нур-Султан", "Павлодар", 438);
-            //Route route18 = new Route("Павлодар", "Курчатов", 237);
-            //Route route19 = new Route("Курчатов", "Семей", 144);
-            //Route route20 = new Route("Семей", "Усть-Каменогорск", 223);
-*/
+               //Route route17 = new Route("Нур-Султан", "Павлодар", 438);
+               //Route route18 = new Route("Павлодар", "Курчатов", 237);
+               //Route route19 = new Route("Курчатов", "Семей", 144);
+               //Route route20 = new Route("Семей", "Усть-Каменогорск", 223);
+   */
             Order order1 = new Order(1, 100, 0.5, "Алматы", "Усть-Каменогорск", Order.OrderStatuses.newOrder);
 
 
@@ -213,6 +227,8 @@ namespace HW_Logistics_20190717
             //Console.WriteLine("----------------------------------------------------------------");
             //Console.WriteLine(employee1.ToString());
 
+            // === сортировки через обобщенные интерфейсы ===
+            /*
             employees.Show();
             employees.employeesList.Sort();
             Console.WriteLine("===== сортировка фамилии =====");
@@ -227,9 +243,20 @@ namespace HW_Logistics_20190717
             Console.WriteLine("===== сортировка по возрасту =====");
             employees.employeesList.Sort(new Employee.SortByAge());
             employees.Show();
+            */
 
-            Console.ReadKey();
+           
+
+             Console.ReadKey();
         }
+
+        private static void Show_Message(string message)
+        {
+            Console.WriteLine(message);
+        }
+
+        delegate void del();
     }
 }
+
 

@@ -6,14 +6,22 @@ using System.Threading.Tasks;
 
 namespace HW_Logistics_20190717
 {
+    
     class Employees
     {
         public List<Employee> employeesList = new List<Employee>();
+
+        // Событие, возникающее при добавлении сотрудника
+        public event ObjectsStateHandler EmployeeAdded;
+        // Событие, возникающее при добавление на счет
+        public event ObjectsStateHandler EmployeeAddedtoDB;
 
         // Добавляет работника в список работников
         public void AddEmployee(Employee obj)
         {
             employeesList.Add(obj);
+            if (EmployeeAdded != null)
+                EmployeeAdded($"Добавлен новый сотрудник - {obj.GetLastNameAndFM()}");
         }
 
         // Выводит информацию в консоль по содержимому каждого объекта листа
@@ -54,6 +62,8 @@ namespace HW_Logistics_20190717
 
             obj.SaveData(sqlQuery);
 
+            if (EmployeeAddedtoDB != null)
+                EmployeeAddedtoDB("Данные о сотрудниках внесены в таблицу Employees базы данных.");
             //throw new NotImplementedException();
         }
 
