@@ -21,8 +21,8 @@ namespace HW_Logistics_20190717
             carrierID = ++carriersCount;
         }
 
-        // Создание маршрутного листа перевозчику
-        public void AddRouteToСarrierRouteList(IConnDataBaseSQL obj, string routeID)
+        // Создание маршрутного листа перевозчику по запросу routeID в БД
+        public void AddRouteToСarrierRouteListByRouteID(IConnDataBaseSQL obj, string routeID)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
@@ -56,6 +56,51 @@ namespace HW_Logistics_20190717
             Array.Copy(tmp, carrierRoutesIdList, carrierRoutesIdList.Length);
             carrierRoutesIdList[carrierRoutesIdList.Length - 1] = routeID;
         }
+
+        // Создание маршрутного листа перевозчику по запросу города A в город B в БД
+        public void AddRouteToСarrierRouteListByCityNamesAB(IConnDataBaseSQL obj, string routeStart, string routeEnd)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("USE LogisticsOVA; ");
+            sb.Append("SELECT * FROM [Routes]");
+            sb.Append($"WHERE routeStart like '{routeStart}' and routeEnd like '{routeEnd}' ");
+            string sqlQuery = sb.ToString();
+            List<string> rowsStr = obj.ReadData(sqlQuery);
+
+            //проверяем есть ли в списках маршрутов маршрут с указанными городами routeStart и routeEnd,
+            //который мы хотим добавить перевозчику
+            try
+            {
+                if(rowsStr.Count == 0)
+                    throw new Exception("Ошибка: маршрут с заданым номером не существует.");
+                if(rowsStr.Count > 1)
+                    throw new Exception("Ошибка: Найдено более одной записи с таким маршрутом.\n" +
+                        "Проверьте корректность записей в таблице маршрутов");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return;
+            }
+
+            string routeID = rowsStr[0].Substring(0, rowsStr[0].IndexOf(';'));
+
+            /* каждый отдельный маршрут должен быть связан с предыдущим и последующим 
+             * routeEnd(1) == routeStart(2) и routeEnd(2) == routeStart(3) 
+             * проверяем цепь маршрутов
+             * !!! реализовать после..., по мере необходимости !!!
+             * пока просто вносим маршруты соблюдая описанную выше логику - цепь маршрутов
+             */
+
+            string[] tmp = new string[carrierRoutesIdList.Length + 1];
+            Array.Copy(carrierRoutesIdList, tmp, carrierRoutesIdList.Length);
+            Array.Resize(ref carrierRoutesIdList, (carrierRoutesIdList.Length + 1));
+            Array.Copy(tmp, carrierRoutesIdList, carrierRoutesIdList.Length);
+            carrierRoutesIdList[carrierRoutesIdList.Length - 1] = routeID; 
+
+            Console.WriteLine($"маршрут {routeStart} - {routeEnd} добавлен, номер маршрута : {routeID}");
+        }
+
 
         // Создание списка транспортных средств перевозчика
         public void AddTransportToTransportsList(IConnDataBaseSQL obj, int transportID)

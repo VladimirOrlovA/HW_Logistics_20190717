@@ -11,12 +11,18 @@ namespace HW_Logistics_20190717
 
     // Объявляем делегат для обработки событий
     public delegate void ObjectsStateHandler(string message);
+
     class Program
     {
+        private static void Show_Message(string message)
+        {
+            Console.WriteLine(message);
+        }
+
         static void Main(string[] args)
         {
             // создаем строку с данными для подключения к БД SQL
-            //ConnDataBaseSQL db = new ConnDataBaseSQL();
+            ConnDataBaseSQL db = new ConnDataBaseSQL();
 
             // создаем базу данных если не существует
             //db.CreareDataBase();
@@ -152,36 +158,30 @@ namespace HW_Logistics_20190717
             orders.AddOrder(order1);
 
             // создать матрицу маршрутов и заполнить ее - чтение данных из файла
-
             //routes.FillArray();
             //routes.PrintArray();
 
             // ==================== Собираем маршрут перевозчику - формируем реальный маршрут ====================
-            /*
-                        carrier1.AddRouteToСarrierRouteList(db, "");
-                        carrier1.AddRouteToСarrierRouteList(db, "");
-                        carrier1.AddRouteToСarrierRouteList(db, "");
-                        carrier1.AddRouteToСarrierRouteList(db, "");
-                        carrier1.AddRouteToСarrierRouteList(db, "");
+            
+                        carrier1.AddRouteToСarrierRouteListByCityNamesAB(db, "Алматы", "Тараз");
+                        //carrier1.AddRouteToСarrierRouteList(db, "");
+                        //carrier1.AddRouteToСarrierRouteList(db, "");
+                        //carrier1.AddRouteToСarrierRouteList(db, "");
+                        //carrier1.AddRouteToСarrierRouteList(db, "");
 
-                        carrier2.AddRouteToСarrierRouteList(db, "");
-                        carrier2.AddRouteToСarrierRouteList(db, "");
-                        carrier2.AddRouteToСarrierRouteList(db, "");
-                        carrier2.AddRouteToСarrierRouteList(db, "");
-                        carrier2.AddRouteToСarrierRouteList(db, "");
+                        //carrier2.AddRouteToСarrierRouteList(db, "");
+                        //carrier2.AddRouteToСarrierRouteList(db, "");
+                        //carrier2.AddRouteToСarrierRouteList(db, "");
+                        //carrier2.AddRouteToСarrierRouteList(db, "");
+                        //carrier2.AddRouteToСarrierRouteList(db, "");
 
-                        carrier3.AddRouteToСarrierRouteList(db, "");
-                        carrier3.AddRouteToСarrierRouteList(db, "");
-                        carrier3.AddRouteToСarrierRouteList(db, "");
-                        carrier3.AddRouteToСarrierRouteList(db, "");
-                        carrier3.AddRouteToСarrierRouteList(db, "");
+                        //carrier3.AddRouteToСarrierRouteList(db, "");
+                        //carrier3.AddRouteToСarrierRouteList(db, "");
+                        //carrier3.AddRouteToСarrierRouteList(db, "");
+                        //carrier3.AddRouteToСarrierRouteList(db, "");
+                        //carrier3.AddRouteToСarrierRouteList(db, "");
 
-                        carrier4.AddRouteToСarrierRouteList(db, "");
-                        carrier4.AddRouteToСarrierRouteList(db, "");
-                        carrier4.AddRouteToСarrierRouteList(db, "");
-                        carrier4.AddRouteToСarrierRouteList(db, "");
-                        carrier4.AddRouteToСarrierRouteList(db, "");
-            */
+            
             // ==================== Закрепляем транспорт за перевозчиком ====================
             //carrier1.AddTransportToTransportsList(db, 1);
             //carrier2.AddTransportToTransportsList(db, 2);
@@ -197,9 +197,7 @@ namespace HW_Logistics_20190717
             // запись коллекции объектов в таблицу SQL
             //employees.InsertTable(db);
             //customers.InsertTable(db);
-
             //routes.InsertTable(db);
-
             //transports.InsertTable(db);
 
 
@@ -209,7 +207,7 @@ namespace HW_Logistics_20190717
             //customers.Info();
             //carriers.Info();
             //transports.Info();
-            //routes.Info();
+            //routes.InfoFromSQLtable();
             //routes.InfoFromSQLtable();
             //transports.InfoFromSQLtable();
 
@@ -256,14 +254,9 @@ namespace HW_Logistics_20190717
             */
 
             // === Вызов методов инфо через делегата ===
-            objectsInfo();
+            //objectsInfo();
 
             Console.ReadKey();
-        }
-
-        private static void Show_Message(string message)
-        {
-            Console.WriteLine(message);
         }
     }
 }

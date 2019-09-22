@@ -106,7 +106,7 @@ namespace HW_Logistics_20190717
                     Route route = new Route();
                     route.routeDistance = Convert.ToInt32(valueStr);
                     route.routeID = Convert.ToString(i) + "-" + Convert.ToString(j);
-                   
+
                     // заполнить routeStart и routeEnd
                     route.routeStart = arrayCityName[i];
                     route.routeEnd = arrayCityName[j];
@@ -234,12 +234,20 @@ namespace HW_Logistics_20190717
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
             sb.Append("SELECT * FROM Routes ");
+            sb.Append("ORDER BY routeStart ");
             string sqlQuery = sb.ToString();
 
             // получаем массив из строк считанный из таблицы и выводим в консоль
             List<string> rowsStr = obj.ReadData(sqlQuery);
-            foreach (string i in rowsStr)
-                Console.WriteLine(i);
+
+            for (int i = 0; i != rowsStr.Count; i++)
+            {
+                Console.Write(rowsStr[i] + "\t\t\t\t");
+                if (i % 3 == 0) Console.WriteLine();
+            }
+
+            //foreach (string i in rowsStr)
+            //    Console.WriteLine(i);
             //throw new NotImplementedException();
         }
 
