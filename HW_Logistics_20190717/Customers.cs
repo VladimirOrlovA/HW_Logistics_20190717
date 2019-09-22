@@ -10,10 +10,17 @@ namespace HW_Logistics_20190717
     {
         private List<Customer> customersList = new List<Customer>();
 
+        // Событие, возникающее при добавлении заказчика
+        public event ObjectsStateHandler CustomerAdded;
+        // Событие, возникающее при внесении заказчиков в БД
+        public event ObjectsStateHandler CustomersAddedtoDB;
+
         // Добавление заказчика в список заказчиков
         public void AddCustomer(Customer obj)
         {
             customersList.Add(obj);
+            if (CustomerAdded != null)
+                CustomerAdded($"Добавлен новый заказчик - {obj.GetLastNameAndFM()}");
         }
 
         // Выводит информацию в консоль по содержимому каждого объекта листа
@@ -47,6 +54,8 @@ namespace HW_Logistics_20190717
 
             obj.SaveData(sqlQuery);
 
+            if (CustomersAddedtoDB != null)
+                CustomersAddedtoDB("Данные о заказчиках внесены в таблицу Customers базы данных.");
             //throw new NotImplementedException();
         }
 
