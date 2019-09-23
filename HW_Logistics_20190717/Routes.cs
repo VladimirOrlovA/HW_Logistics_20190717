@@ -245,23 +245,19 @@ namespace HW_Logistics_20190717
                 Console.Write(rowsStr[i] + "\t\t\t\t");
                 if (i % 3 == 0) Console.WriteLine();
             }
-
-            //foreach (string i in rowsStr)
-            //    Console.WriteLine(i);
             //throw new NotImplementedException();
         }
 
-        public void ViewTableOnRouteID(IConnDataBaseSQL obj, string routeID)
+        // вывод в строку данных маршрута из таблицы Routes БД SQL по заданному routeID
+        public string ViewTableOnRouteID(IConnDataBaseSQL obj, string routeID)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
             sb.Append("SELECT * FROM Routes ");
             sb.Append($"WHERE routeID like '{routeID}'");
             string sqlQuery = sb.ToString();
-
             List<string> rowsStr = obj.ReadData(sqlQuery);
-            foreach (string i in rowsStr)
-                Console.WriteLine(i);
+            return rowsStr[0];
             //throw new NotImplementedException();
         }
 

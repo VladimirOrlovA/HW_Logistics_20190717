@@ -104,34 +104,11 @@ namespace HW_Logistics_20190717
             Transport transport2 = new Transport("Газель-Фургон", 1500, 9);
             Transport transport3 = new Transport("Камаз-Автофургон", 10200, 35);
 
-            /*   // ==================== создаем маршруты ====================
-               //Route route1 = new Route("Алматы", "Талдыкорган", 268);
-               //Route route2 = new Route("Алматы", "Балхаш", 640);
-               //Route route3 = new Route("Алматы", "Караганда", 1018);
-               //Route route4 = new Route("Алматы", "Нур-Султан", 1225);
-
-               //Route route5 = new Route("Талдыкорган", "Ушарал", 231);
-               //Route route6 = new Route("Ушарал", "Аягоз", 230);
-               //Route route7 = new Route("Аягоз", "Колбатау", 196);
-               //Route route8 = new Route("Колбатау", "Усть-Каменогорск", 115);
-
-               //Route route9 = new Route("Балхаш", "Караганда", 387);
-               //Route route10 = new Route("Караганда", "Павлодар", 432);
-               //Route route11 = new Route("Павлодар", "Семей", 337);
-               //Route route12 = new Route("Семей", "Усть-Каменогорск", 223);
-
-               //Route route13 = new Route("Караганда", "Павлодар", 432);
-               //Route route14 = new Route("Павлодар", "Семей", 337);
-               //Route route15 = new Route("Семей", "Колбатау", 167);
-               //Route route16 = new Route("Колбатау", "Усть-Каменогорск", 115);
-
-               //Route route17 = new Route("Нур-Султан", "Павлодар", 438);
-               //Route route18 = new Route("Павлодар", "Курчатов", 237);
-               //Route route19 = new Route("Курчатов", "Семей", 144);
-               //Route route20 = new Route("Семей", "Усть-Каменогорск", 223);
-   */
             Order order1 = new Order(1, 100, 0.5, "Алматы", "Усть-Каменогорск", Order.OrderStatuses.newOrder);
 
+            // === создаем матрицу маршрутов и заполняем ее из файла ===
+            //routes.FillArray();
+            //routes.PrintArray();
 
             // ==================== Создаем списки объектов ====================
 
@@ -156,10 +133,6 @@ namespace HW_Logistics_20190717
             transports.AddTransport(transport3);
 
             orders.AddOrder(order1);
-
-            // создать матрицу маршрутов и заполнить ее - чтение данных из файла
-            //routes.FillArray();
-            //routes.PrintArray();
 
             // ==================== Собираем маршрут перевозчику - формируем реальный маршрут ====================
 

@@ -71,9 +71,9 @@ namespace HW_Logistics_20190717
             //который мы хотим добавить перевозчику
             try
             {
-                if(rowsStr.Count == 0)
+                if (rowsStr.Count == 0)
                     throw new Exception("Ошибка: маршрут с заданым номером не существует.");
-                if(rowsStr.Count > 1)
+                if (rowsStr.Count > 1)
                     throw new Exception("Ошибка: Найдено более одной записи с таким маршрутом.\n" +
                         "Проверьте корректность записей в таблице маршрутов");
             }
@@ -96,7 +96,7 @@ namespace HW_Logistics_20190717
             Array.Copy(carrierRoutesIdList, tmp, carrierRoutesIdList.Length);
             Array.Resize(ref carrierRoutesIdList, (carrierRoutesIdList.Length + 1));
             Array.Copy(tmp, carrierRoutesIdList, carrierRoutesIdList.Length);
-            carrierRoutesIdList[carrierRoutesIdList.Length - 1] = routeID; 
+            carrierRoutesIdList[carrierRoutesIdList.Length - 1] = routeID;
 
             Console.WriteLine($"маршрут {routeStart} - {routeEnd} добавлен, номер маршрута : {routeID}");
         }
@@ -167,19 +167,37 @@ namespace HW_Logistics_20190717
                 Console.Write(i + " ");
             Console.WriteLine();
 
+            Routes routes = new Routes();
+            ConnDataBaseSQL db = new ConnDataBaseSQL();
+
+            // выводим список маршрутов - маршрутный лист
+            foreach (string i in carrierRoutesIdList)
+                Console.Write(routes.ViewTableOnRouteID(db, i));
+
+            // выводим общую протяженность маршрутного листа
+            int routesLength = 0;
+            foreach (string i in carrierRoutesIdList)
+            {
+                string tmp = null;
+                tmp = routes.ViewTableOnRouteID(db, i);
+                tmp = tmp.Substring(tmp.IndexOf(';') + 1);
+                tmp = tmp.Substring(tmp.IndexOf(';') + 1);
+                tmp = tmp.Substring(tmp.IndexOf(';') + 2);
+                tmp = tmp.Substring(0, tmp.IndexOf(';'));
+                routesLength += Convert.ToInt32(tmp);
+            }
+            Console.Write($"Протяженность маршрутного листа: { routesLength} км");
+
+            Console.WriteLine("\n");
+
+            // выводим список транспорта
             Console.Write("Номера машин ------------ ");
 
             foreach (int i in carrierTransportsIdList)
                 Console.Write(i + " ");
             Console.WriteLine("\n");
-
-            // выводим список маршрутов
-            Routes routes = new Routes();
-            foreach (string i in carrierRoutesIdList)
-                routes.InfoFromSQLtableOnRouteID(i);
-
-            Console.WriteLine("\n");
-            // выводим список транспорта
+            
+            // выводим список машин
             Transports transports = new Transports();
             foreach (int i in carrierTransportsIdList)
                 transports.InfoFromSQLtableOnRouteID(i);
