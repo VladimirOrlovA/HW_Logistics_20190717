@@ -162,31 +162,37 @@ namespace HW_Logistics_20190717
             //routes.PrintArray();
 
             // ==================== Собираем маршрут перевозчику - формируем реальный маршрут ====================
-            
-                        carrier1.AddRouteToСarrierRouteListByCityNamesAB(db, "Алматы", "Тараз");
-                        //carrier1.AddRouteToСarrierRouteList(db, "");
-                        //carrier1.AddRouteToСarrierRouteList(db, "");
-                        //carrier1.AddRouteToСarrierRouteList(db, "");
-                        //carrier1.AddRouteToСarrierRouteList(db, "");
 
-                        //carrier2.AddRouteToСarrierRouteList(db, "");
-                        //carrier2.AddRouteToСarrierRouteList(db, "");
-                        //carrier2.AddRouteToСarrierRouteList(db, "");
-                        //carrier2.AddRouteToСarrierRouteList(db, "");
-                        //carrier2.AddRouteToСarrierRouteList(db, "");
+            carrier1.AddRouteToСarrierRouteListByCityNamesAB(db, "Алматы", "Тараз");
+            carrier1.AddRouteToСarrierRouteListByCityNamesAB(db, "Тараз", "Шымкент");
+            carrier1.AddRouteToСarrierRouteListByCityNamesAB(db, "Шымкент", "Кызылорда");
+            carrier1.AddRouteToСarrierRouteListByCityNamesAB(db, "Кызылорда", "Жезказган");
+            carrier1.AddRouteToСarrierRouteListByCityNamesAB(db, "Жезказган", "Караганда");
+            carrier1.AddRouteToСarrierRouteListByCityNamesAB(db, "Караганда", "Костанай");
 
-                        //carrier3.AddRouteToСarrierRouteList(db, "");
-                        //carrier3.AddRouteToСarrierRouteList(db, "");
-                        //carrier3.AddRouteToСarrierRouteList(db, "");
-                        //carrier3.AddRouteToСarrierRouteList(db, "");
-                        //carrier3.AddRouteToСarrierRouteList(db, "");
+            carrier2.AddRouteToСarrierRouteListByCityNamesAB(db, "Алматы", "Караганда");
+            carrier2.AddRouteToСarrierRouteListByCityNamesAB(db, "Караганда", "Жезказган");
+            carrier2.AddRouteToСarrierRouteListByCityNamesAB(db, "Жезказган", "Нур-Султан");
+            carrier2.AddRouteToСarrierRouteListByCityNamesAB(db, "Нур-Султан", "Петропавловск");
+            carrier2.AddRouteToСarrierRouteListByCityNamesAB(db, "Петропавловск", "Костанай");
 
-            
+            carrier3.AddRouteToСarrierRouteListByCityNamesAB(db, "Алматы", "Семей");
+            carrier3.AddRouteToСarrierRouteListByCityNamesAB(db, "Семей", "Павлодар");
+            carrier3.AddRouteToСarrierRouteListByCityNamesAB(db, "Павлодар", "Петропавловск");
+            carrier3.AddRouteToСarrierRouteListByCityNamesAB(db, "Петропавловск", "Нур-Султан");
+            carrier3.AddRouteToСarrierRouteListByCityNamesAB(db, "Нур-Султан", "Костанай");
+
+            carrier4.AddRouteToСarrierRouteListByCityNamesAB(db, "Алматы", "Усть-Каменогорск");
+            carrier4.AddRouteToСarrierRouteListByCityNamesAB(db, "Усть-Каменогорск", "Караганда");
+            carrier4.AddRouteToСarrierRouteListByCityNamesAB(db, "Караганда", "Жезказган");
+            carrier4.AddRouteToСarrierRouteListByCityNamesAB(db, "Жезказган", "Актобе");
+            carrier4.AddRouteToСarrierRouteListByCityNamesAB(db, "Актобе", "Костанай");
+
             // ==================== Закрепляем транспорт за перевозчиком ====================
-            //carrier1.AddTransportToTransportsList(db, 1);
-            //carrier2.AddTransportToTransportsList(db, 2);
-            //carrier3.AddTransportToTransportsList(db, 3);
-            //carrier4.AddTransportToTransportsList(db, 1);
+            carrier1.AddTransportToTransportsList(db, 1);
+            carrier2.AddTransportToTransportsList(db, 2);
+            carrier3.AddTransportToTransportsList(db, 3);
+            carrier4.AddTransportToTransportsList(db, 1);
 
             // Запись одиночных объектов в таблицу SQL
             //employee1.InsertTable(db);
@@ -205,7 +211,7 @@ namespace HW_Logistics_20190717
             // Вывод информации об объекте
             //employees.Info();
             //customers.Info();
-            //carriers.Info();
+            carriers.Info();
             //transports.Info();
             //routes.InfoFromSQLtable();
             //routes.InfoFromSQLtable();

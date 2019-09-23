@@ -256,7 +256,7 @@ namespace HW_Logistics_20190717
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
             sb.Append("SELECT * FROM Routes ");
-            sb.Append("WHERE routeID=" + routeID);
+            sb.Append($"WHERE routeID like '{routeID}'");
             string sqlQuery = sb.ToString();
 
             List<string> rowsStr = obj.ReadData(sqlQuery);
