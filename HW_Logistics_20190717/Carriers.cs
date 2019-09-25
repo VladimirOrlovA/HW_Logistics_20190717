@@ -8,7 +8,7 @@ namespace HW_Logistics_20190717
 {
     class Carriers
     {
-        private List<Carrier> carriersList = new List<Carrier>();
+        public List<Carrier> carriersList = new List<Carrier>();
 
         // Событие, возникающее при добавлении перевозчика
         public event ObjectsStateHandler CarrierAdded;

@@ -158,62 +158,53 @@ namespace HW_Logistics_20190717
             Console.WriteLine();
         }
 
-        public void AD(int pointA, int pointB)
+        public void AD(Routes routes, Carriers carriers) //(int pointA, int pointB)
         {
-            int size = 6;
+            Console.WriteLine(routes.arrRoutes.GetLength(1));
+            int size = routes.arrRoutes.GetLength(1);
             int[,] linkMatrix = new int[size, size]; // матрица связей
             int[] distance = new int[size]; // минимальное расстояние
             int[] nodes = new int[size]; // посещенные вершины
             int tempDistance, minIndex, minDistance;
             int beginIndex = 0;
 
-            // Инициализация матрицы связей
-            //for (int i = 0; i < size; i++)
-            //{
-            //    linkMatrix[i, i] = 0;
-            //    for (int j = i + 1; j < size; j++)
-            //    {
-            //        Console.Write($"Введите расстояние {i + 1} - {j + 1} : ");
-            //        tempDistance = Convert.ToInt32(Console.ReadLine());
-            //        linkMatrix[i, j] = tempDistance;
-            //        linkMatrix[j, i] = tempDistance;
-            //    }
-            //}
+            /* Считываем все routeID (они же индексы матрицы) у всех имеющихся перевозчиков,
+             * чтобы заполнить матрицу связей для поиска оптимального маршрута
+             */
+            List<string> routesID = new List<string>();
+            foreach (Carrier i in carriers.carriersList)
+                for (int r = 0; r != i.carrierRoutesIdList.Length; r++)
+                {
+                    routesID.Add(i.carrierRoutesIdList[r]);
+                    Console.WriteLine(i.carrierRoutesIdList[r]);
+                }
 
+            /*//Инициализация матрицы связей
+            //Записываем в матрицу имеющиеся маршруты перевозчиков
             for (int i = 0; i < size; i++)
+            {
                 linkMatrix[i, i] = 0;
-            linkMatrix[0, 1] = 7;
-            linkMatrix[0, 2] = 9;
-            linkMatrix[0, 3] = 0;
-            linkMatrix[0, 4] = 0;
-            linkMatrix[0, 5] = 14;
-            linkMatrix[1, 2] = 10;
-            linkMatrix[1, 3] = 15;
-            linkMatrix[1, 4] = 0;
-            linkMatrix[1, 5] = 0;
-            linkMatrix[2, 3] = 11;
-            linkMatrix[2, 4] = 0;
-            linkMatrix[2, 5] = 2;
-            linkMatrix[3, 4] = 6;
-            linkMatrix[3, 5] = 0;
-            linkMatrix[4, 5] = 9;
+                for (int j = i + 1; j < size; j++)
+                {
+                    foreach (string strRouteId in routesID)
+                    {
+                        int firstInd = Convert.ToInt32(strRouteId.Substring(strRouteId.IndexOf('-')));
+                        int secondInd = Convert.ToInt32(strRouteId.Substring(0, strRouteId.IndexOf('-')));
+                        if ()
+                        {
+                            linkMatrix[i, j] = routes.arrRoutes[i, j].routeDistance;
+                            linkMatrix[j, i] = routes.arrRoutes[j, i].routeDistance;
+                        }
+                        //if (strRouteId == routes.arrRoutes[i, j].routeID)
+                        //{
+                        //    linkMatrix[i, j] = routes.arrRoutes[i, j].routeDistance;
+                        //    linkMatrix[j, i] = routes.arrRoutes[j, i].routeDistance;
+                        //}
 
-            linkMatrix[1, 0] = 7;
-            linkMatrix[2, 0] = 9;
-            linkMatrix[3, 0] = 0;
-            linkMatrix[4, 0] = 0;
-            linkMatrix[5, 0] = 14;
-            linkMatrix[2, 1] = 10;
-            linkMatrix[3, 1] = 15;
-            linkMatrix[4, 1] = 0;
-            linkMatrix[5, 1] = 0;
-            linkMatrix[3, 2] = 11;
-            linkMatrix[4, 2] = 0;
-            linkMatrix[5, 2] = 2;
-            linkMatrix[4, 3] = 6;
-            linkMatrix[5, 3] = 0;
-            linkMatrix[5, 4] = 9;
+                    }
 
+                }
+            }*/
             Console.WriteLine();
 
             // Вывод матрицы связей

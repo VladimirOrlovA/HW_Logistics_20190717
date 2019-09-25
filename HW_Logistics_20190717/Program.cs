@@ -184,7 +184,7 @@ namespace HW_Logistics_20190717
             // Вывод информации об объекте
             //employees.Info();
             //customers.Info();
-            carriers.Info();
+            //carriers.Info();
             //transports.Info();
             //routes.InfoFromSQLtable();
             //routes.InfoFromSQLtable();
@@ -198,9 +198,18 @@ namespace HW_Logistics_20190717
 
             // !!!!!!!!!!!!!! Реализовать алгоритм Дейкстры !!!!!!!!!!!!
 
-            //DijkstraAlgorithm da = new DijkstraAlgorithm();
+            DijkstraAlgorithm da = new DijkstraAlgorithm();
 
-            //da.Algorithm();
+            routes.FillArray();
+            routes.PrintArray();
+            Console.WriteLine(routes.arrRoutes.Length);
+            da.AD(routes, carriers);
+
+       
+
+
+
+
 
 
             // ========= Перегрузка базовых методов =========

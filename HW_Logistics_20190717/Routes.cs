@@ -74,8 +74,8 @@ namespace HW_Logistics_20190717
                 if (fileStr[0][i] == ',')
                     columnNum++;
 
-            Console.WriteLine($"Строк - {rowNum}");
-            Console.WriteLine($"Колонок - {columnNum}");
+            //Console.WriteLine($"Строк - {rowNum}");
+            //Console.WriteLine($"Колонок - {columnNum}");
 
             // изменяем размер массива для приема данных с файла
             ResizeArray<Route>(ref arrRoutes, rowNum, columnNum);
@@ -112,7 +112,7 @@ namespace HW_Logistics_20190717
                     route.routeEnd = arrayCityName[j];
 
                     arrRoutes[i, j] = route;
-                    route.Info();
+                    //route.Info();
                     valueStr = null;
                 }
                 rowStr = null;
@@ -148,8 +148,9 @@ namespace HW_Logistics_20190717
             {
                 for (int j = 0; j < columnNum; j++)
                 {
-                    Console.Write(arrRoutes[i, j].routeID + " = " + arrRoutes[i, j].routeDistance + "км \n");
+                    Console.Write(arrRoutes[i, j].routeID + " = " + arrRoutes[i, j].routeDistance + "км " + "\t");
                 }
+                Console.WriteLine();
             }
 
         }
