@@ -201,15 +201,11 @@ namespace HW_Logistics_20190717
             DijkstraAlgorithm da = new DijkstraAlgorithm();
 
             routes.FillArray();
-            routes.PrintArray();
+            //routes.PrintArray();
             Console.WriteLine(routes.arrRoutes.Length);
-            da.AD(routes, carriers);
+            //da.AD(routes, carriers);
 
-       
-
-
-
-
+            da.LinkMatrix(carriers);
 
 
             // ========= Перегрузка базовых методов =========
