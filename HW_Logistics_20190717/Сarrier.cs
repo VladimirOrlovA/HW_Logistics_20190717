@@ -98,7 +98,7 @@ namespace HW_Logistics_20190717
             Array.Copy(tmp, carrierRoutesIdList, carrierRoutesIdList.Length);
             carrierRoutesIdList[carrierRoutesIdList.Length - 1] = routeID;
 
-            Console.WriteLine($"маршрут {routeStart} - {routeEnd} добавлен, номер маршрута : {routeID}");
+            //Console.WriteLine($"маршрут {routeStart} - {routeEnd} добавлен, номер маршрута : {routeID}");
         }
 
 
@@ -132,13 +132,13 @@ namespace HW_Logistics_20190717
                 return;
             }
 
-            Console.WriteLine($"транспорт за номером {transportID} добавлен");
-
             int[] tmp = new int[carrierTransportsIdList.Length + 1];
             Array.Copy(carrierTransportsIdList, tmp, carrierTransportsIdList.Length);
             Array.Resize(ref carrierTransportsIdList, (carrierTransportsIdList.Length + 1));
             Array.Copy(tmp, carrierTransportsIdList, carrierTransportsIdList.Length);
             carrierTransportsIdList[carrierTransportsIdList.Length - 1] = transportID;
+
+            //Console.WriteLine($"транспорт за номером {transportID} добавлен");
         }
 
         public override bool Equals(object obj)
@@ -172,7 +172,7 @@ namespace HW_Logistics_20190717
 
             // выводим список маршрутов - маршрутный лист
             foreach (string i in carrierRoutesIdList)
-                Console.Write(routes.ViewTableOnRouteID(db, i));
+                Console.WriteLine(routes.ViewTableOnRouteID(db, i));
 
             // выводим общую протяженность маршрутного листа
             int routesLength = 0;

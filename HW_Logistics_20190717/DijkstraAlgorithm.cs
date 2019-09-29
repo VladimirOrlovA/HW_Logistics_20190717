@@ -118,7 +118,7 @@ namespace HW_Logistics_20190717
                             }
                         }
                     }
-                    nodes[minIndex] = 0;
+                    nodes[minIndex] = 0; // помечаем вершину как просмотренную
                 }
             } while (minIndex < 10000);
 
@@ -196,7 +196,7 @@ namespace HW_Logistics_20190717
                     {
                         int firstInd = Convert.ToInt32(strRouteId.Substring(strRouteId.IndexOf('-')));
                         int secondInd = Convert.ToInt32(strRouteId.Substring(0, strRouteId.IndexOf('-')));
-                        if ()
+                        if (true)
                         {
                             linkMatrix[i, j] = routes.arrRoutes[i, j].routeDistance;
                             linkMatrix[j, i] = routes.arrRoutes[j, i].routeDistance;
@@ -304,58 +304,38 @@ namespace HW_Logistics_20190717
 
         public void ADrev1(Routes routes, Carriers carriers) //(int pointA, int pointB)
         {
+            /*смотрим все маршруты у всех перевозчиков и собираем их в один массив
+             * для последующего определения связанных вершин графа и внесения их в матрицу связей*/
+            GetСityLinksList(carriers);
+            //Console.WriteLine($"Кол-во всех маршрутов перевозчиков = {cityLinks.Count}");
+
             Console.WriteLine(routes.arrRoutes.GetLength(1));
             int size = routes.arrRoutes.GetLength(1); // устанавливаем размер матрицы связей
             int[,] linkMatrix = new int[size, size]; // матрица связей
             int[] distance = new int[size]; // минимальное расстояние
             int[] nodes = new int[size]; // посещенные вершины
             int tempDistance, minIndex, minDistance;
-            int beginIndex = 0;
-
-            /* Считываем все routeID (3-15 это имя, в имени 3 - номер города 15 - номер для связи) 
-             * у всех имеющихся перевозчиков,
-             * чтобы заполнить матрицу связей для поиска оптимального маршрута
-             */
-            List<string> routesID = new List<string>();
-            foreach (Carrier i in carriers.carriersList)
-                for (int r = 0; r != i.carrierRoutesIdList.Length; r++)
-                {
-                    routesID.Add(i.carrierRoutesIdList[r]);
-                    Console.WriteLine(i.carrierRoutesIdList[r]);
-                }
-
-            /* routeID содержит запись 3-15, где 3 вершина  15 это признак второй вершины с которой 
-             * есть связь например у вершины 3-15 есть связь с вершиной 15-18 */
+            int beginIndex = 3;
+         
 
             //Инициализация матрицы связей
             //Записываем в матрицу имеющиеся маршруты перевозчиков
-            for (int i = 0; i < size; i++)
-            {
-                linkMatrix[i, i] = 0;
-                for (int j = i + 1; j < size; j++)
+            for (int i = 0; i != cityLinks.Count; i++)
+                for (int j = 0; j != cityLinks.Count; j++)
                 {
-                    foreach (string strRouteId in routesID)
+                    if (cityLinks[i].nextNode == cityLinks[j].node)
                     {
-                        int firstInd = Convert.ToInt32(strRouteId.Substring(strRouteId.IndexOf('-')));
-                        int secondInd = Convert.ToInt32(strRouteId.Substring(0, strRouteId.IndexOf('-')));
-                        if ()
-                        {
-                            linkMatrix[i, j] = routes.arrRoutes[i, j].routeDistance;
-                            linkMatrix[j, i] = routes.arrRoutes[j, i].routeDistance;
-                        }
-                        //if (strRouteId == routes.arrRoutes[i, j].routeID)
-                        //{
-                        //    linkMatrix[i, j] = routes.arrRoutes[i, j].routeDistance;
-                        //    linkMatrix[j, i] = routes.arrRoutes[j, i].routeDistance;
-                        //}
+                        linkMatrix[cityLinks[i].node, cityLinks[j].node] =
+                            routes.arrRoutes[cityLinks[i].node, cityLinks[j].node].routeDistance;
 
+                        linkMatrix[cityLinks[j].node, cityLinks[i].node] =
+                            routes.arrRoutes[cityLinks[i].node, cityLinks[j].node].routeDistance;
                     }
-
                 }
-            }
-            Console.WriteLine();
 
             // Вывод матрицы связей
+            Console.WriteLine("\n============================= матрица связей =============================\n");
+            Console.WriteLine();
             for (int i = 0; i < size; i++)
             {
                 for (int j = 0; j < size; j++)
@@ -367,7 +347,7 @@ namespace HW_Logistics_20190717
             //Инициализация вершин и расстояний
             for (int i = 0; i < size; i++)
             {
-                distance[i] = 10000; // устанавливаем максимальный вес вершины
+                distance[i] = 100000; // устанавливаем максимальный вес вершины
                 nodes[i] = 1; // помечаем все вершины 1, признак того что они не просмотрены
             }
             distance[beginIndex] = 0;
@@ -375,8 +355,8 @@ namespace HW_Logistics_20190717
             // Шаг алгоритма
             do
             {
-                minIndex = 10000;
-                minDistance = 10000;
+                minIndex = 100000;
+                minDistance = 100000;
                 for (int i = 0; i < size; i++)
                 { // Если вершину ещё не обошли и вес меньше minDistance
                     if ((nodes[i] == 1) && (distance[i] < minDistance))
@@ -388,7 +368,7 @@ namespace HW_Logistics_20190717
                 // Добавляем найденный минимальный вес
                 // к текущему весу вершины
                 // и сравниваем с текущим минимальным весом вершины
-                if (minIndex != 10000)
+                if (minIndex != 100000)
                 {
                     for (int i = 0; i < size; i++)
                     {
@@ -404,18 +384,22 @@ namespace HW_Logistics_20190717
                     }
                     nodes[minIndex] = 0;
                 }
-            } while (minIndex < 10000);
+            } while (minIndex < 100000);
 
 
             // Вывод кратчайших расстояний до вершин
-            Console.Write("\nКратчайшие расстояния до вершин: ");
+            Console.Write($"\nКратчайшие расстояния от вершины {beginIndex} до вершин: \n");
             for (int i = 0; i < size; i++)
-                Console.Write(distance[i] + " ");
+            {
+                if(distance[i]!=100000)
+                Console.WriteLine($"{i} - {distance[i]}км ");
+            }
+                
             Console.WriteLine();
 
             // Восстановление пути
             int[] checkNodes = new int[size]; // массив посещенных вершин
-            int end = 4; // индекс конечной вершины = 5 - 1
+            int end = 10; // 10 костонай - индекс конечной вершины = 10 - 1   //// было значени 4  //индекс конечной вершины = 5 - 1
             checkNodes[0] = end + 1; // начальный элемент - конечная вершина
             int k = 1; // индекс предыдущей вершины
             int weight = distance[end]; // вес конечной вершины
@@ -444,28 +428,32 @@ namespace HW_Logistics_20190717
             Console.WriteLine();
         }
 
-        // Заполнить матрицу связей
-        // есть список маршрутов 12-0 связан с маршрутом 0-10
-        public void LinkMatrix(Carriers carriers)
+        // Заполнение матрицы связей
+        void GetСityLinksList(Carriers carriers)
         {
-            //SortedList<int, int> linkMatrix = new SortedList<int, int>();
+            /* Считываем все routeID (3-15 это номер маршрута, в номере 3 - номер города 15 - 
+             * номер города, для связи) у всех имеющихся перевозчиков, чтобы заполнить матрицу 
+             * связей для поиска оптимального маршрута
+             */
 
-            //List<CityLink> cityLinks = new List<CityLink>();
+            /* routeID содержит запись 3-15, где 3 вершина  15 это признак второй вершины с которой 
+             * есть связь, например у вершины 3-15 есть связь с вершиной 15-18 */
+
             foreach (Carrier i in carriers.carriersList)
                 for (int r = 0; r != i.carrierRoutesIdList.Length; r++)
                 {
                     string str = i.carrierRoutesIdList[r];
-
                     int node = Convert.ToInt32(str.Substring(0, str.IndexOf('-')));
                     int nextNode = Convert.ToInt32(str.Substring(str.IndexOf('-') + 1));
                     CityLink tmp = new CityLink(node, nextNode);
                     cityLinks.Add(tmp);
 
                     Console.WriteLine($"Город {tmp.node} связан с городом {tmp.nextNode}");
-                    Console.WriteLine(i.carrierRoutesIdList[r]);
+                    //Console.WriteLine(i.carrierRoutesIdList[r]);
                 }
         }
 
+        // Структура для метода - Заполнение матрицы связей
         public struct CityLink
         {
             public int node;

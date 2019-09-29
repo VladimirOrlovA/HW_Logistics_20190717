@@ -112,7 +112,7 @@ namespace HW_Logistics_20190717
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            Console.WriteLine();
+                            //Console.WriteLine();
 
                             //считываем строки таблицы
                             while (reader.Read())

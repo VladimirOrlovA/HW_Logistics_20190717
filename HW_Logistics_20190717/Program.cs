@@ -16,7 +16,8 @@ namespace HW_Logistics_20190717
     {
         private static void Show_Message(string message)
         {
-            Console.WriteLine(message);
+            if (message != null)
+                Console.WriteLine(message);
         }
 
         static void Main(string[] args)
@@ -54,18 +55,18 @@ namespace HW_Logistics_20190717
             objectsInfo = employees.Info;
             objectsInfo += carriers.Info;
             objectsInfo += orders.Info;
-              
+
 
             //==== события ==== https://metanit.com/sharp/tutorial/3.14.php
 
-            employees.EmployeeAdded += Show_Message;
-            employees.EmployeesAddedtoDB += Show_Message;
+            //employees.EmployeeAdded += Show_Message;
+            //employees.EmployeesAddedtoDB += Show_Message;
 
-            customers.CustomerAdded += Show_Message;
-            customers.CustomersAddedtoDB += Show_Message;
+            //customers.CustomerAdded += Show_Message;
+            //customers.CustomersAddedtoDB += Show_Message;
 
-            carriers.CarrierAdded += Show_Message;
-            customers.CustomersAddedtoDB += Show_Message;
+            //carriers.CarrierAdded += Show_Message;
+            //customers.CustomersAddedtoDB += Show_Message;
 
             // ==================== создаем необходимые таблицы в БД ====================
             //employees.CreateTable(db);
@@ -200,12 +201,15 @@ namespace HW_Logistics_20190717
 
             DijkstraAlgorithm da = new DijkstraAlgorithm();
 
+            carriers.Info();
+
             routes.FillArray();
             //routes.PrintArray();
             Console.WriteLine(routes.arrRoutes.Length);
             //da.AD(routes, carriers);
+            da.ADrev1(routes, carriers);
 
-            da.LinkMatrix(carriers);
+            //da.Algorithm();
 
 
             // ========= Перегрузка базовых методов =========
