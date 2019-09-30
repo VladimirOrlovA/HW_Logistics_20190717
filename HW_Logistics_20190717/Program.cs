@@ -161,6 +161,7 @@ namespace HW_Logistics_20190717
             carrier4.AddRouteToСarrierRouteListByCityNamesAB(db, "Караганда", "Жезказган");
             carrier4.AddRouteToСarrierRouteListByCityNamesAB(db, "Жезказган", "Актобе");
             carrier4.AddRouteToСarrierRouteListByCityNamesAB(db, "Актобе", "Костанай");
+            carrier4.AddRouteToСarrierRouteListByCityNamesAB(db, "Костанай", "Актобе");
 
             // ==================== Закрепляем транспорт за перевозчиком ====================
             carrier1.AddTransportToTransportsList(db, 1);
@@ -198,18 +199,13 @@ namespace HW_Logistics_20190717
 
 
             // !!!!!!!!!!!!!! Реализовать алгоритм Дейкстры !!!!!!!!!!!!
-
-            DijkstraAlgorithm da = new DijkstraAlgorithm();
-
-            carriers.Info();
-
-            routes.FillArray();
-            //routes.PrintArray();
-            Console.WriteLine(routes.arrRoutes.Length);
-            //da.AD(routes, carriers);
-            da.ADrev1(routes, carriers);
-
-            //da.Algorithm();
+            
+            //carriers.Info();
+            routes.FillArrayRoutes();
+            //routes.PrintArrayRoutes();
+            //daf.PrintLinkMatrix();
+            DijkstraAlgorithm da = new DijkstraAlgorithm(routes, carriers);
+            da.Algorithm(order1, routes);
 
 
             // ========= Перегрузка базовых методов =========

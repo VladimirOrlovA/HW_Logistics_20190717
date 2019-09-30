@@ -13,7 +13,8 @@ namespace HW_Logistics_20190717
         public static int columnNum = 1;
         public string[] fileStr = new string[0];
 
-        public Route[,] arrRoutes = new Route[rowNum, columnNum];
+        public Route[,] arrRoutes = new Route[0, 0];
+        string[] arrayCityName = new string[0];
 
         // изменение размера двумерного массива
         void ResizeArray<T>(ref T[,] original, int newRowNum, int newColumnNum)
@@ -25,6 +26,12 @@ namespace HW_Logistics_20190717
             for (int co = 0; co <= columns; co++)
                 Array.Copy(original, co * columnCount, newArray, co * columnCount2, columnCount);
             original = newArray;
+        }
+
+        // изменение размера одномерного массива
+        void ResizeArray1D<T>(ref T[] original, int newColumnNum)
+        {
+            Array.Resize(ref original, newColumnNum);
         }
 
         // заполнение строкового массива из файла 
@@ -60,7 +67,8 @@ namespace HW_Logistics_20190717
             //    Console.WriteLine(i);
         }
 
-        public void FillArray()
+        // заполняем массив маршрутов
+        public void FillArrayRoutes()
         {
             // заполненяем строковый массив строками из файла
             ReadFileToArrString();
@@ -81,7 +89,7 @@ namespace HW_Logistics_20190717
             ResizeArray<Route>(ref arrRoutes, rowNum, columnNum);
 
             // получаем массив из названий городов
-            string[] arrayCityName = ArrayCityName();
+            string[] arrayCityName = GetArrayCityName();
 
             // запись данных в массив
             string rowStr = null;
@@ -119,9 +127,24 @@ namespace HW_Logistics_20190717
             }
         }
 
-        string[] ArrayCityName()
+        // выводим массив маршрутов в консоль
+        public void PrintArrayRoutes()
         {
-            string[] arrayCityName = new string[columnNum];
+            for (int i = 0; i < rowNum; i++)
+            {
+                for (int j = 0; j < columnNum; j++)
+                {
+                    Console.Write(arrRoutes[i, j].routeID + " = " + arrRoutes[i, j].routeDistance + "км " + "\t");
+                }
+                Console.WriteLine();
+            }
+
+        }
+
+        // заполняем массив названий городов
+        void FillArrayCityName()
+        {
+            ResizeArray1D<string>(ref arrayCityName, columnNum);
             string CityNameStr = fileStr[rowNum];
             int startIndex = 0;
             string valueStr = null;
@@ -137,22 +160,23 @@ namespace HW_Logistics_20190717
                 else valueStr = CityNameStr;
 
                 arrayCityName[i] = valueStr;
-                Console.WriteLine(valueStr);
+                //Console.WriteLine(valueStr);
             }
+        }
+
+        // возвращаем массив названий городов
+        public string[] GetArrayCityName()
+        {
+            FillArrayCityName();
             return arrayCityName;
         }
 
-        public void PrintArray()
+        // возвращаем строку названия города из массива городов по номеру города
+        public string GetCityName(int cityNumber)
         {
-            for (int i = 0; i < rowNum; i++)
-            {
-                for (int j = 0; j < columnNum; j++)
-                {
-                    Console.Write(arrRoutes[i, j].routeID + " = " + arrRoutes[i, j].routeDistance + "км " + "\t");
-                }
-                Console.WriteLine();
-            }
-
+            FillArrayCityName();
+            string cityName = arrayCityName[cityNumber];
+            return cityName;
         }
 
         // вывод списка маршрутов из таблицы Routes БД SQL
