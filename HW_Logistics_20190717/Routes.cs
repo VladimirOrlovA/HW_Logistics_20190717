@@ -179,6 +179,25 @@ namespace HW_Logistics_20190717
             return cityName;
         }
 
+        // возвращаем номер города из массива городов по названию города
+        public int GetCityNumber(string cityName)
+        {
+            int cityNumber = -1;
+            FillArrayCityName();
+            try
+            {
+                for (; cityNumber < arrayCityName.Length; cityNumber++)
+                    if (cityName == arrayCityName[cityNumber]) break;
+                if (cityNumber == -1) throw new Exception("Введенного города нет в системе");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Введенного города нет в системе");
+                return cityNumber;
+            }
+
+            return cityNumber;
+        }
         // вывод списка маршрутов из таблицы Routes БД SQL
         public void InfoFromSQLtable()
         {

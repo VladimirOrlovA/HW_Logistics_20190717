@@ -200,13 +200,15 @@ namespace HW_Logistics_20190717
 
             // !!!!!!!!!!!!!! Реализовать алгоритм Дейкстры !!!!!!!!!!!!
             
-            //carriers.Info();
+            carriers.Info();
             routes.FillArrayRoutes();
             //routes.PrintArrayRoutes();
             //daf.PrintLinkMatrix();
             DijkstraAlgorithm da = new DijkstraAlgorithm(routes, carriers);
             da.Algorithm(order1, routes);
 
+            Console.WriteLine(routes.GetCityName(15));
+            Console.WriteLine(routes.GetCityNumber("Тараз"));
 
             // ========= Перегрузка базовых методов =========
             //Console.WriteLine($"Hash code for object {employee.GetType()} : {employee1.GetHashCode()}");
