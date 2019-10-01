@@ -105,7 +105,7 @@ namespace HW_Logistics_20190717
             Transport transport2 = new Transport("Газель-Фургон", 1500, 9);
             Transport transport3 = new Transport("Камаз-Автофургон", 10200, 35);
 
-            Order order1 = new Order(1, 100, 0.5, "Алматы", "Усть-Каменогорск", Order.OrderStatuses.newOrder);
+            Order order1 = new Order(1, 100, 0.5, "Алматы", "Актобе", Order.OrderStatuses.newOrder);
 
             // === создаем матрицу маршрутов и заполняем ее из файла ===
             //routes.FillArray();
@@ -207,8 +207,6 @@ namespace HW_Logistics_20190717
             DijkstraAlgorithm da = new DijkstraAlgorithm(routes, carriers);
             da.Algorithm(order1, routes);
 
-            Console.WriteLine(routes.GetCityName(15));
-            Console.WriteLine(routes.GetCityNumber("Тараз"));
 
             // ========= Перегрузка базовых методов =========
             //Console.WriteLine($"Hash code for object {employee.GetType()} : {employee1.GetHashCode()}");

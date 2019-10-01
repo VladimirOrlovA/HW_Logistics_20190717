@@ -105,9 +105,10 @@ namespace HW_Logistics_20190717
 
         public void Algorithm(Order order, Routes routes)
         {
-            beginIndex = 3;
+            beginIndex = routes.GetCityNumber(order.from);
             distance[beginIndex] = 0;
-            endIndex = 10;
+
+            endIndex = routes.GetCityNumber(order.to);
 
             // Шаг алгоритма
             do

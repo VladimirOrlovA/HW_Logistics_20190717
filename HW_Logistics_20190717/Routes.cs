@@ -184,16 +184,18 @@ namespace HW_Logistics_20190717
         {
             int cityNumber = -1;
             FillArrayCityName();
-            try
+
+            for (int i = 0; i < arrayCityName.Length; i++)
+                if (cityName == arrayCityName[i])
+                {
+                    cityNumber = i;
+                    break;
+                }
+
+            if (cityNumber == -1)
             {
-                for (; cityNumber < arrayCityName.Length; cityNumber++)
-                    if (cityName == arrayCityName[cityNumber]) break;
-                if (cityNumber == -1) throw new Exception("Введенного города нет в системе");
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Введенного города нет в системе");
-                return cityNumber;
+                cityNumber = 0;
+                Console.WriteLine("\nВведенного города нет в системе. По умолчанию установлен '0'");
             }
 
             return cityNumber;
