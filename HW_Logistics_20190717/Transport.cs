@@ -11,16 +11,45 @@ namespace HW_Logistics_20190717
         private static int transportCount = 0;
         public int transportID { get; }
         public string transportType { get; set; }
-        public int carryingСapacity { get; set; }
+        public int bodyWeight { get; set; }
         public double bodyVolume { get; set; }
+        public int currentWeight { get; set; }
+        public double currentVolume { get; set; }
+
+        public struct CurrentLoad
+        {
+            int capacity;
+            double volume;
+
+            public CurrentLoad(int capacity, double volume)
+            {
+                this.capacity = capacity;
+                this.volume = volume;
+            }
+
+            public CurrentLoad GetcurrentLoad()
+            {
+                return this;
+            }
+
+            public void SetCurrentLoad(ref int capacity, double volume)
+            {
+                this.capacity += capacity;
+                this.volume += volume;
+            }
+            public void CurrentLoadInfo()
+            {
+                Console.Write($"Масса:{capacity}, Объем:{volume}");
+            }
+        }
 
         public Transport() { }
 
-        public Transport(string transportType, int carryingСapacity, double bodyVolume)
+        public Transport(string transportType, int bodyWeight, double bodyVolume)
         {
             this.transportID = ++transportCount;
             this.transportType = transportType;
-            this.carryingСapacity = carryingСapacity;
+            this.bodyWeight = bodyWeight;
             this.bodyVolume = bodyVolume;
         }
 
@@ -39,13 +68,21 @@ namespace HW_Logistics_20190717
             return base.ToString();
         }
 
+        public void Loading(int addWeight, double addVolume) 
+        {
+            if ((bodyWeight != currentWeight + addWeight)&& (bodyVolume != currentVolume + addVolume))
+                currentWeight += addWeight;
+                currentVolume += addVolume;
+        }
+
         public void Info()
         {
             Console.WriteLine("\n----------------- Информация о транспорте -----------------\n\n");
             Console.WriteLine("Номер транспорта --------- " + transportID);
             Console.WriteLine("Тип машины --------------- " + transportType);
-            Console.WriteLine("Грузоподъемность --------- " + carryingСapacity + " кг");
-            Console.WriteLine("Расстояние --------------- " + bodyVolume + " куб.м");
+            Console.WriteLine("Грузоподъемность --------- " + bodyWeight + " кг");
+            Console.WriteLine("Объем грузового отсека --- " + bodyVolume + " куб.м");
+            Console.WriteLine("\n\nТекущая загрузка --------- " + currentWeight + " кг" + " - " + currentVolume + " куб.м");
             Console.WriteLine("\n-----------------------------------------------------------\n\n");
         }
 
@@ -57,9 +94,9 @@ namespace HW_Logistics_20190717
 
             StringBuilder sb = new StringBuilder();
             sb.Append("USE LogisticsOVA; ");
-            sb.Append("INSERT INTO Transports (transportType, carryingСapacity, " +
+            sb.Append("INSERT INTO Transports (transportType, bodyWeight, " +
                 "bodyVolume) VALUES ");
-            sb.Append($"('{transportType}', '{carryingСapacity}', " +
+            sb.Append($"('{transportType}', '{bodyWeight}', " +
                 $"'{bodyVolume}') ");
 
             string sqlQuery = sb.ToString();

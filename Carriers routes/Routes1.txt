@@ -1,0 +1,27 @@
+            // ==================== Ñîáèğàåì ìàğøğóò ïåğåâîç÷èêó - ôîğìèğóåì ğåàëüíûé ìàğøğóò ====================
+
+            carrier1.AddRouteToÑarrierRouteListByCityNamesAB(db, "Àëìàòû", "Òàğàç");
+            carrier1.AddRouteToÑarrierRouteListByCityNamesAB(db, "Òàğàç", "Øûìêåíò");
+            carrier1.AddRouteToÑarrierRouteListByCityNamesAB(db, "Øûìêåíò", "Êûçûëîğäà");
+            carrier1.AddRouteToÑarrierRouteListByCityNamesAB(db, "Êûçûëîğäà", "Æåçêàçãàí");
+            carrier1.AddRouteToÑarrierRouteListByCityNamesAB(db, "Æåçêàçãàí", "Êàğàãàíäà");
+            carrier1.AddRouteToÑarrierRouteListByCityNamesAB(db, "Êàğàãàíäà", "Êîñòàíàé");
+
+            carrier2.AddRouteToÑarrierRouteListByCityNamesAB(db, "Àëìàòû", "Êàğàãàíäà");
+            carrier2.AddRouteToÑarrierRouteListByCityNamesAB(db, "Êàğàãàíäà", "Æåçêàçãàí");
+            carrier2.AddRouteToÑarrierRouteListByCityNamesAB(db, "Æåçêàçãàí", "Íóğ-Ñóëòàí");
+            carrier2.AddRouteToÑarrierRouteListByCityNamesAB(db, "Íóğ-Ñóëòàí", "Ïåòğîïàâëîâñê");
+            carrier2.AddRouteToÑarrierRouteListByCityNamesAB(db, "Ïåòğîïàâëîâñê", "Êîñòàíàé");
+
+            carrier3.AddRouteToÑarrierRouteListByCityNamesAB(db, "Àëìàòû", "Ñåìåé");
+            carrier3.AddRouteToÑarrierRouteListByCityNamesAB(db, "Ñåìåé", "Ïàâëîäàğ");
+            carrier3.AddRouteToÑarrierRouteListByCityNamesAB(db, "Ïàâëîäàğ", "Ïåòğîïàâëîâñê");
+            carrier3.AddRouteToÑarrierRouteListByCityNamesAB(db, "Ïåòğîïàâëîâñê", "Íóğ-Ñóëòàí");
+            carrier3.AddRouteToÑarrierRouteListByCityNamesAB(db, "Íóğ-Ñóëòàí", "Êîñòàíàé");
+
+            carrier4.AddRouteToÑarrierRouteListByCityNamesAB(db, "Àëìàòû", "Óñòü-Êàìåíîãîğñê");
+            carrier4.AddRouteToÑarrierRouteListByCityNamesAB(db, "Óñòü-Êàìåíîãîğñê", "Êàğàãàíäà");
+            carrier4.AddRouteToÑarrierRouteListByCityNamesAB(db, "Êàğàãàíäà", "Æåçêàçãàí");
+            carrier4.AddRouteToÑarrierRouteListByCityNamesAB(db, "Æåçêàçãàí", "Àêòîáå");
+            carrier4.AddRouteToÑarrierRouteListByCityNamesAB(db, "Àêòîáå", "Êîñòàíàé");
+            carrier4.AddRouteToÑarrierRouteListByCityNamesAB(db, "Êîñòàíàé", "Àêòîáå");

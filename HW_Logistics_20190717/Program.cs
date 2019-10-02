@@ -105,7 +105,7 @@ namespace HW_Logistics_20190717
             Transport transport2 = new Transport("Газель-Фургон", 1500, 9);
             Transport transport3 = new Transport("Камаз-Автофургон", 10200, 35);
 
-            Order order1 = new Order(1, 100, 0.5, "Алматы", "Актобе", Order.OrderStatuses.newOrder);
+            Order order1 = new Order(1, 100, 0.5, "Алматы", "Жезказган", Order.OrderStatuses.newOrder);
 
             // === создаем матрицу маршрутов и заполняем ее из файла ===
             //routes.FillArray();
@@ -200,20 +200,28 @@ namespace HW_Logistics_20190717
 
             // !!!!!!!!!!!!!! Реализовать алгоритм Дейкстры !!!!!!!!!!!!
             
-            carriers.Info();
+            //carriers.Info();
             routes.FillArrayRoutes();
             //routes.PrintArrayRoutes();
             //daf.PrintLinkMatrix();
-            DijkstraAlgorithm da = new DijkstraAlgorithm(routes, carriers);
-            da.Algorithm(order1, routes);
+            //DijkstraAlgorithm da = new DijkstraAlgorithm(routes, carriers);
+            //da.Algorithm(order1, routes);
+
 
             //========================================================================================
             /*По двум точкам из заказа сделать поиск маршрутов их содержащих, посчитать расстояние и 
              * выбрать маршрут с наименьшей дистанцией.*/
 
+            BestCarrier bc = new BestCarrier();
+            bc.SearchBestWay(carriers, routes, order1);
+
             //========================================================================================
             /*Посмотреть машину с максимальной загрузкой, но так чтобы в нее помещалась посылка из заказа*/
-  
+
+            transport1.Info();
+            transport1.Loading(10, 0.5);
+            transport1.Loading(10, 0.5);
+            transport1.Info();
 
 
             // ========= Перегрузка базовых методов =========

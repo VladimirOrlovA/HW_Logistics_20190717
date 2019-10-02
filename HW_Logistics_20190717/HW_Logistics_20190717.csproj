@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BestCarrier.cs" />
     <Compile Include="Carriers.cs" />
     <Compile Include="ConnDataBaseSQL.cs" />
     <Compile Include="Customers.cs" />

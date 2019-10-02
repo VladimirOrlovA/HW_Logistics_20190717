@@ -97,7 +97,7 @@ namespace HW_Logistics_20190717
             foreach (Transport i in transportsList)
             {
                 count++;
-                sb.Append($"('{i.transportType}', '{i.carryingСapacity}', " +
+                sb.Append($"('{i.transportType}', '{i.bodyWeight}', " +
                     $"'{i.bodyVolume}') ");
                 if (transportsList.Length != count) sb.Append(", ");
             }

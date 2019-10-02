@@ -59,7 +59,7 @@ namespace HW_Logistics_20190717
                     //Console.WriteLine(i.carrierRoutesIdList[r]);
                 }
 
-            
+
             //Инициализация матрицы связей
             //Записываем в матрицу имеющиеся маршруты перевозчиков
             foreach (string strRouteId in routesID)
@@ -75,6 +75,14 @@ namespace HW_Logistics_20190717
                         linkMatrix[j, i] = route;
                     }
                 }
+
+            //int size = routes.arrRoutes.GetLength(1);
+
+            //for (int i = 0; i < size; i++)
+            //    for (int j = 0; j < size; j++)
+            //    {
+            //        linkMatrix[i, j] = routes.arrRoutes[i,j];
+            //    }
 
             Console.WriteLine();
         }
