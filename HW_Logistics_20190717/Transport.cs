@@ -68,11 +68,14 @@ namespace HW_Logistics_20190717
             return base.ToString();
         }
 
+        // загрузка машины
         public void Loading(int addWeight, double addVolume) 
         {
-            if ((bodyWeight != currentWeight + addWeight)&& (bodyVolume != currentVolume + addVolume))
+            if ((bodyWeight >= currentWeight + addWeight) && (bodyVolume >= currentVolume + addVolume))
+            {
                 currentWeight += addWeight;
                 currentVolume += addVolume;
+            }
         }
 
         public void Info()

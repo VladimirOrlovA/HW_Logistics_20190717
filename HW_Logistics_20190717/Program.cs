@@ -220,7 +220,7 @@ namespace HW_Logistics_20190717
 
             transport1.Info();
             transport1.Loading(10, 0.5);
-            transport1.Loading(10, 0.5);
+            transport1.Loading(815, 2.5);
             transport1.Info();
 
 
