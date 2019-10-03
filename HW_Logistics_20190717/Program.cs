@@ -199,7 +199,7 @@ namespace HW_Logistics_20190717
 
 
             // !!!!!!!!!!!!!! Реализовать алгоритм Дейкстры !!!!!!!!!!!!
-            
+
             //carriers.Info();
             routes.FillArrayRoutes();
             //routes.PrintArrayRoutes();
@@ -215,7 +215,7 @@ namespace HW_Logistics_20190717
 
             //transports.Info();
             transport1.Loading(800, 1.5);
-            transport2.Loading(1200, 4.0);
+            transport2.Loading(1200, 4.5);
             transport3.Loading(10000, 34.0);
             //transports.Info();
 

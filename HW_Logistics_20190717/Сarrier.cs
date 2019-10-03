@@ -12,9 +12,10 @@ namespace HW_Logistics_20190717
         public int carrierID { get; }
         public string[] carrierRoutesIdList = new string[0];
         public int[] carrierTransportsIdList = new int[0];
-        public bool ABfound { get; set; }
-        public int ABdistanceForOrder { get; set; }
-        public double ABcostForOrder { get; set; }
+        public bool foundRouteAB { get; set; }
+        public int distanceABforOrder { get; set; }
+        public double costABforOrder { get; set; }
+        public double dayABforOrder { get; set; }
 
         public Carrier() { }
 
@@ -156,7 +157,7 @@ namespace HW_Logistics_20190717
 
         public override string ToString()
         {
-            return base.ToString();
+            return $"Перевозчик № {carrierID} \t расстояние {distanceABforOrder}км \t цена {costABforOrder:#.##} \t доставка {dayABforOrder}дн";
         }
 
         public override void Info()
