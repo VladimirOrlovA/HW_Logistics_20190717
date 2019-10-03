@@ -12,6 +12,9 @@ namespace HW_Logistics_20190717
         public int carrierID { get; }
         public string[] carrierRoutesIdList = new string[0];
         public int[] carrierTransportsIdList = new int[0];
+        public bool ABfound { get; set; }
+        public int ABdistanceForOrder { get; set; }
+        public double ABcostForOrder { get; set; }
 
         public Carrier() { }
 

@@ -167,7 +167,7 @@ namespace HW_Logistics_20190717
             carrier1.AddTransportToTransportsList(db, 1);
             carrier2.AddTransportToTransportsList(db, 2);
             carrier3.AddTransportToTransportsList(db, 3);
-            carrier4.AddTransportToTransportsList(db, 1);
+            carrier4.AddTransportToTransportsList(db, 3);
 
             // Запись одиночных объектов в таблицу SQL
             //employee1.InsertTable(db);
@@ -211,17 +211,19 @@ namespace HW_Logistics_20190717
             //========================================================================================
             /*По двум точкам из заказа сделать поиск маршрутов их содержащих, посчитать расстояние и 
              * выбрать маршрут с наименьшей дистанцией.*/
-
-            BestCarrier bc = new BestCarrier();
-            bc.SearchBestWay(carriers, routes, order1);
-
-            //========================================================================================
             /*Посмотреть машину с максимальной загрузкой, но так чтобы в нее помещалась посылка из заказа*/
 
-            transport1.Info();
-            transport1.Loading(10, 0.5);
-            transport1.Loading(815, 2.5);
-            transport1.Info();
+            //transports.Info();
+            transport1.Loading(800, 1.5);
+            transport2.Loading(1200, 4.0);
+            transport3.Loading(10000, 34.0);
+            //transports.Info();
+
+            carriers.Info();
+            BestCarrier bc = new BestCarrier();
+            bc.BestWayandPrice(carriers, routes, order1, transports);
+
+            //========================================================================================
 
 
             // ========= Перегрузка базовых методов =========

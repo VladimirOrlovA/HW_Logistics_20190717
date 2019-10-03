@@ -71,11 +71,26 @@ namespace HW_Logistics_20190717
         // загрузка машины
         public void Loading(int addWeight, double addVolume) 
         {
-            if ((bodyWeight >= currentWeight + addWeight) && (bodyVolume >= currentVolume + addVolume))
+            if ((bodyWeight >= currentWeight + addWeight) && (bodyVolume > currentVolume + addVolume))
             {
                 currentWeight += addWeight;
                 currentVolume += addVolume;
             }
+        }
+
+        // расчет коэф себестоимости перевозки груза с базовыми параметрами 5кг 0,125куб.м
+        public double GetСoefficientCost()
+        {
+            /*перевозка груза до 5кг 0,027куб.м на расстояние 100км = 500тг
+             * себестоимость перевозки груза в зависимости от текущей загрузки
+             * Расчитываем коэффициент цены от текущей загрузки машины по объему, 
+             * т.к. перевозмый объем превалирует над перевозимым весом (вес как правило не достигается) */
+
+            double LoadCoef = bodyVolume / currentVolume;
+
+            double сoefficientCost = 500 * LoadCoef;
+
+            return сoefficientCost;
         }
 
         public void Info()
