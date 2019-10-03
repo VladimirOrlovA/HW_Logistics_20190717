@@ -52,6 +52,8 @@
     <Compile Include="Customers.cs" />
     <Compile Include="DijkstraAlgorithm.cs" />
     <Compile Include="IConnDataBaseSQL.cs" />
+    <Compile Include="IReadFromXML.cs" />
+    <Compile Include="IWriteToXML.cs" />
     <Compile Include="LoadArrayRoutes.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Orders.cs" />

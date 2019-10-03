@@ -133,6 +133,9 @@ namespace HW_Logistics_20190717
             transports.AddTransport(transport2);
             transports.AddTransport(transport3);
 
+            routes.FillArrayRoutes();
+            //routes.PrintArrayRoutes();
+
             orders.AddOrder(order1);
 
             // ==================== Собираем маршрут перевозчику - формируем реальный маршрут ====================
@@ -201,8 +204,6 @@ namespace HW_Logistics_20190717
             // !!!!!!!!!!!!!! Реализовать алгоритм Дейкстры !!!!!!!!!!!!
 
             //carriers.Info();
-            routes.FillArrayRoutes();
-            //routes.PrintArrayRoutes();
             //daf.PrintLinkMatrix();
             //DijkstraAlgorithm da = new DijkstraAlgorithm(routes, carriers);
             //da.Algorithm(order1, routes);
@@ -225,6 +226,15 @@ namespace HW_Logistics_20190717
 
             //========================================================================================
 
+            // ========= Чтение запись объектов в XML =========
+
+            employees.DOMWriteXML("Employees.xml");
+            
+            Employees xe = new Employees();
+
+            xe.DOMReadXML("Employees.xml");
+
+            xe.Info();
 
             // ========= Перегрузка базовых методов =========
             //Console.WriteLine($"Hash code for object {employee.GetType()} : {employee1.GetHashCode()}");
