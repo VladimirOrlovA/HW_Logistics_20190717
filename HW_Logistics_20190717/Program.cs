@@ -236,6 +236,8 @@ namespace HW_Logistics_20190717
 
             xe.Info();
 
+            DateTime dtat = new DateTime(1981-1-8);
+
             // ========= Перегрузка базовых методов =========
             //Console.WriteLine($"Hash code for object {employee.GetType()} : {employee1.GetHashCode()}");
             //Console.WriteLine($"Hash code for object {employee.GetType()} : {employee2.GetHashCode()}");

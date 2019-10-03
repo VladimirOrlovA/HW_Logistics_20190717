@@ -114,7 +114,7 @@ namespace HW_Logistics_20190717
             XmlDocument doc = new XmlDocument();
 
             //Создаем заголовок XML 
-            XmlDeclaration xmldecl = doc.CreateXmlDeclaration("1.0", null, null);
+            XmlDeclaration xmldecl = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
 
             // Создаем основную ноду
             XmlElement node = doc.CreateElement("employees");
@@ -124,9 +124,9 @@ namespace HW_Logistics_20190717
                 XmlElement xmlEmployee = doc.CreateElement("employee");
 
                 // Создаем ноду фамилии 
-                XmlElement xmlLastName = doc.CreateElement("lastName");
+                XmlAttribute xmlLastName = doc.CreateAttribute("lastName");
                 xmlLastName.InnerText = employee.LastName;
-                xmlEmployee.AppendChild(xmlLastName);
+                xmlEmployee.Attributes.Append(xmlLastName);
 
                 // Создаем ноду имени 
                 XmlElement xmlFirstName = doc.CreateElement("firstName");
@@ -189,7 +189,7 @@ namespace HW_Logistics_20190717
             {
                 //string lastName, string firstName, string middleName, DateTime birthday,
                 //        long iin, DateTime employmentDate, string position, int solary
-                XmlNodeList lastNamelist = elem.GetElementsByTagName("lastName");
+                XmlNode attrib = elem.Attributes.GetNamedItem("lastName");
                 XmlNodeList firstNamelist = elem.GetElementsByTagName("firstName");
                 XmlNodeList middleNamelist = elem.GetElementsByTagName("middleName");
                 XmlNodeList birthdaylist = elem.GetElementsByTagName("birthday");
@@ -202,7 +202,8 @@ namespace HW_Logistics_20190717
                 XmlNodeList solarylist = elem.GetElementsByTagName("solary");
 
                 this.employeesList.Add(new Employee(
-                    lastNamelist.Item(0).InnerText,
+                    attrib.Value,
+                    //lastNamelist.Item(0).InnerText,
                     firstNamelist.Item(0).InnerText,
                     middleNamelist.Item(0).InnerText,
                     Convert.ToDateTime(birthdaylist.Item(0).InnerText),
@@ -210,7 +211,8 @@ namespace HW_Logistics_20190717
                     //Convert.ToInt32(employeeIDlist.Item(0).InnerText), 
                     Convert.ToDateTime(employmentDatelist.Item(0).InnerText),
                     positionlist.Item(0).InnerText,
-                    Convert.ToInt32(solarylist.Item(0).InnerText)));
+                    Convert.ToInt32(solarylist.Item(0).InnerText)
+                    ));
             }
         }
     }
