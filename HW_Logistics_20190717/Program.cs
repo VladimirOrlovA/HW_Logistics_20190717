@@ -239,9 +239,9 @@ namespace HW_Logistics_20190717
             //xc.Info();
 
             carriers.DOMWriteXML("Carriers.xml");
-            //Carriers xcarr = new Carriers();
-            //xcarr.DOMReadXML("Carriers.xml");
-            //xcarr.Info();
+            Carriers xcarriers = new Carriers();
+            xcarriers.DOMReadXML("Carriers.xml");
+            xcarriers.Info();
 
             // ========= Перегрузка базовых методов =========
             //Console.WriteLine($"Hash code for object {employee.GetType()} : {employee1.GetHashCode()}");

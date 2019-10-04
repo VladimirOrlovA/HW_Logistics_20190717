@@ -197,9 +197,14 @@ namespace HW_Logistics_20190717
                     Convert.ToInt64(attrib5.Value)
                     ));
 
-                XmlNodeList listID = doc.GetElementsByTagName("carrierRoutesIdList");
-                    foreach (XmlElement id in listID)
-                        XmlNodeList firstNamelist = elem.GetElementsByTagName("firstName");
+                int count = 0;
+                XmlNodeList carrierRoutesIdList = doc.GetElementsByTagName("carrierRoutesIdList");
+                foreach (XmlElement i in carrierRoutesIdList)
+                {
+                    XmlNodeList routeID = elem.GetElementsByTagName("routeID");
+                    this.carriersList.Last().AddRouteFromXML(routeID.Item(count).InnerText);
+                    count++;
+                }
 
             }
         }

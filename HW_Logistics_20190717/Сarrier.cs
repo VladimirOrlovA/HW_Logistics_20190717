@@ -105,6 +105,15 @@ namespace HW_Logistics_20190717
             //Console.WriteLine($"маршрут {routeStart} - {routeEnd} добавлен, номер маршрута : {routeID}");
         }
 
+        // Добавление в маршрутный лист перевозчика записи о routeID из XML файла
+        public void AddRouteFromXML(string routeID)
+        {
+            string[] tmp = new string[carrierRoutesIdList.Length + 1];
+            Array.Copy(carrierRoutesIdList, tmp, carrierRoutesIdList.Length);
+            Array.Resize(ref carrierRoutesIdList, (carrierRoutesIdList.Length + 1));
+            Array.Copy(tmp, carrierRoutesIdList, carrierRoutesIdList.Length);
+            carrierRoutesIdList[carrierRoutesIdList.Length - 1] = routeID;
+        }
 
         // Создание списка транспортных средств перевозчика
         public void AddTransportToTransportsList(IConnDataBaseSQL obj, int transportID)
