@@ -149,13 +149,13 @@ namespace HW_Logistics_20190717
 
                 // Создаем ноду маршрутный лист (массив из идентификаторов маршрутов)
                 XmlElement xmlcarrierRoutesIdList = doc.CreateElement("carrierRoutesIdList");
-                //foreach (string routeID in carrier.carrierRoutesIdList)
-                //{
-                //    XmlAttribute xmlrouteID = doc.CreateAttribute("routeID");
-                //    xmlrouteID.InnerText = (routeID);
-                //    xmlcarrierRoutesIdList.Attributes.Append(xmlrouteID);
-                //}
-                node.AppendChild(xmlcarrierRoutesIdList);
+                foreach (string routeID in carrier.carrierRoutesIdList)
+                {
+                    XmlElement xmlrouteID = doc.CreateElement("routeID");
+                    xmlrouteID.InnerText = (routeID);
+                    xmlcarrierRoutesIdList.AppendChild(xmlrouteID);
+                }
+                xmlcarrier.AppendChild(xmlcarrierRoutesIdList);
 
                 // Добавляем артрибут работника в ноды списка
                 node.AppendChild(xmlcarrier);
@@ -197,9 +197,9 @@ namespace HW_Logistics_20190717
                     Convert.ToInt64(attrib5.Value)
                     ));
 
-                //XmlNodeList solarylist = elem.GetElementsByTagName("solary");
-                //XmlNodeList carrierRoutesIdList = doc.GetElementsByTagName("carrierRoutesIdList");
-                //foreach (XmlElement elem in list)
+                XmlNodeList listID = doc.GetElementsByTagName("carrierRoutesIdList");
+                    foreach (XmlElement id in listID)
+                        XmlNodeList firstNamelist = elem.GetElementsByTagName("firstName");
 
             }
         }
