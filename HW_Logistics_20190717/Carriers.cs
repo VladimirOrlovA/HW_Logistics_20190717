@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Xml;
+
 namespace HW_Logistics_20190717
 {
-    class Carriers
+    class Carriers: IWriteToXML, IReadFromXML
     {
         public List<Carrier> carriersList = new List<Carrier>();
 
@@ -84,7 +86,7 @@ namespace HW_Logistics_20190717
             obj.SaveData(sqlQuery);
 
             if (CarriersAddedtoDB != null)
-                CarriersAddedtoDB("Данные о перевозчиках внесены в таблицу Customers базы данных.");
+                CarriersAddedtoDB("Данные о перевозчиках внесены в таблицу carriers базы данных.");
             //throw new NotImplementedException();
         }
 
@@ -99,5 +101,107 @@ namespace HW_Logistics_20190717
             //throw new NotImplementedException();
         }
 
+        // Запись коллекции в файл XML
+        public void DOMWriteXML(string filename)
+        {
+            // Создаем объектную модель
+            XmlDocument doc = new XmlDocument();
+
+            //Создаем заголовок XML 
+            XmlDeclaration xmldecl = doc.CreateXmlDeclaration("1.0", null, null);
+
+            //lastName, firstName, middleName, birthday, iin
+            //string[] carrierRoutesIdList = new string[0];
+            //[] carrierTransportsIdList = new [0];
+
+
+            // Создаем основную ноду
+            XmlElement node = doc.CreateElement("carriers");
+            foreach (Carrier carrier in carriersList)
+            {
+                // Создаем ноду для заказчика
+                XmlElement xmlcarrier = doc.CreateElement("carrier");
+
+                // Создаем артрибут фамилии 
+                XmlAttribute xmlLastName = doc.CreateAttribute("lastName");
+                xmlLastName.InnerText = carrier.LastName;
+                xmlcarrier.Attributes.Append(xmlLastName);
+
+                // Создаем артрибут имени 
+                XmlAttribute xmlFirstName = doc.CreateAttribute("firstName");
+                xmlFirstName.InnerText = carrier.FirstName;
+                xmlcarrier.Attributes.Append(xmlFirstName);
+
+                // Создаем артрибут отчества 
+                XmlAttribute xmlMiddleName = doc.CreateAttribute("middleName");
+                xmlMiddleName.InnerText = carrier.MiddleName;
+                xmlcarrier.Attributes.Append(xmlMiddleName);
+
+                // Создаем артрибут даты рождения
+                XmlAttribute xmlBirthday = doc.CreateAttribute("birthday");
+                xmlBirthday.InnerText = Convert.ToString($"{carrier.birthday.Year}-{carrier.birthday.Month}-{carrier.birthday.Day}");
+                xmlcarrier.Attributes.Append(xmlBirthday);
+
+                // Создаем артрибут ИИН
+                XmlAttribute xmlIin = doc.CreateAttribute("iin");
+                xmlIin.InnerText = Convert.ToString(carrier.iin);
+                xmlcarrier.Attributes.Append(xmlIin);
+
+                // Создаем ноду маршрутный лист (массив из идентификаторов маршрутов)
+                XmlElement xmlcarrierRoutesIdList = doc.CreateElement("carrierRoutesIdList");
+                //foreach (string routeID in carrier.carrierRoutesIdList)
+                //{
+                //    XmlAttribute xmlrouteID = doc.CreateAttribute("routeID");
+                //    xmlrouteID.InnerText = (routeID);
+                //    xmlcarrierRoutesIdList.Attributes.Append(xmlrouteID);
+                //}
+                node.AppendChild(xmlcarrierRoutesIdList);
+
+                // Добавляем артрибут работника в ноды списка
+                node.AppendChild(xmlcarrier);
+            }
+            // Добавляем созданную структуру в корень
+            doc.AppendChild(node);
+            doc.InsertBefore(xmldecl, node);
+            doc.Save(filename);
+
+            
+            Console.WriteLine("Display the modified XML...");
+            doc.Save(Console.Out);
+        }
+
+        // Запись коллекции в файл XML
+        public void DOMReadXML(string filename)
+        {
+            // Создаем объектную модель
+            XmlDocument doc = new XmlDocument();
+            doc.Load(filename);
+
+            // Выбираем необходимый список нод
+            XmlNodeList list = doc.GetElementsByTagName("carrier");
+            foreach (XmlElement elem in list)
+            {
+                //string lastName, string firstName, string middleName, DateTime birthday,
+                //        long iin, DateTime employmentDate, string position, int solary
+                XmlNode attrib1 = elem.Attributes.GetNamedItem("lastName");
+                XmlNode attrib2 = elem.Attributes.GetNamedItem("firstName");
+                XmlNode attrib3 = elem.Attributes.GetNamedItem("middleName");
+                XmlNode attrib4 = elem.Attributes.GetNamedItem("birthday");
+                XmlNode attrib5 = elem.Attributes.GetNamedItem("iin");
+
+                this.carriersList.Add(new Carrier(
+                    attrib1.Value,
+                    attrib2.Value,
+                    attrib3.Value,
+                    Convert.ToDateTime(attrib4.Value),
+                    Convert.ToInt64(attrib5.Value)
+                    ));
+
+                //XmlNodeList solarylist = elem.GetElementsByTagName("solary");
+                //XmlNodeList carrierRoutesIdList = doc.GetElementsByTagName("carrierRoutesIdList");
+                //foreach (XmlElement elem in list)
+
+            }
+        }
     }
 }

@@ -228,15 +228,20 @@ namespace HW_Logistics_20190717
 
             // ========= Чтение запись объектов в XML =========
 
-            employees.DOMWriteXML("Employees.xml");
-            
-            Employees xe = new Employees();
+            //employees.DOMWriteXML("Employees.xml");
+            //Employees xe = new Employees();
+            //xe.DOMReadXML("Employees.xml");
+            //xe.Info();
 
-            xe.DOMReadXML("Employees.xml");
+            //customers.DOMWriteXML("Customers.xml");
+            //Customers xc = new Customers();
+            //xc.DOMReadXML("Customers.xml");
+            //xc.Info();
 
-            xe.Info();
-
-            DateTime dtat = new DateTime(1981-1-8);
+            carriers.DOMWriteXML("Carriers.xml");
+            //Carriers xcarr = new Carriers();
+            //xcarr.DOMReadXML("Carriers.xml");
+            //xcarr.Info();
 
             // ========= Перегрузка базовых методов =========
             //Console.WriteLine($"Hash code for object {employee.GetType()} : {employee1.GetHashCode()}");

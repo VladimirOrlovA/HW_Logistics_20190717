@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace HW_Logistics_20190717
 {
-    class Customers
+    class Customers : IWriteToXML, IReadFromXML
     {
         private List<Customer> customersList = new List<Customer>();
 
@@ -96,6 +97,91 @@ namespace HW_Logistics_20190717
             string sqlQuery = sb.ToString();
             obj.ReadData(sqlQuery);
             //throw new NotImplementedException();
+        }
+
+        // Запись коллекции в файл XML
+        public void DOMWriteXML(string filename)
+        {
+            // Создаем объектную модель
+            XmlDocument doc = new XmlDocument();
+
+            //Создаем заголовок XML 
+            XmlDeclaration xmldecl = doc.CreateXmlDeclaration("1.0", null, null);
+
+            //string lastName, string firstName, string middleName, DateTime birthday, long iin) //, int orderID)
+
+
+            // Создаем основную ноду
+            XmlElement node = doc.CreateElement("customers");
+            foreach (Customer customer in customersList)
+            {
+                // Создаем ноду для заказчика
+                XmlElement xmlcustomer = doc.CreateElement("customer");
+
+                // Создаем артрибут фамилии 
+                XmlAttribute xmlLastName = doc.CreateAttribute("lastName");
+                xmlLastName.InnerText = customer.LastName;
+                xmlcustomer.Attributes.Append(xmlLastName);
+
+                // Создаем артрибут имени 
+                XmlAttribute xmlFirstName = doc.CreateAttribute("firstName");
+                xmlFirstName.InnerText = customer.FirstName;
+                xmlcustomer.Attributes.Append(xmlFirstName);
+
+                // Создаем артрибут отчества 
+                XmlAttribute xmlMiddleName = doc.CreateAttribute("middleName");
+                xmlMiddleName.InnerText = customer.MiddleName;
+                xmlcustomer.Attributes.Append(xmlMiddleName);
+
+                // Создаем артрибут даты рождения
+                XmlAttribute xmlBirthday = doc.CreateAttribute("birthday");
+                xmlBirthday.InnerText = Convert.ToString($"{customer.birthday.Year}-{customer.birthday.Month}-{customer.birthday.Day}");
+                xmlcustomer.Attributes.Append(xmlBirthday);
+
+                // Создаем артрибут ИИН
+                XmlAttribute xmlIin = doc.CreateAttribute("iin");
+                xmlIin.InnerText = Convert.ToString(customer.iin);
+                xmlcustomer.Attributes.Append(xmlIin);
+
+                // Добавляем артрибут работника в ноды списка
+                node.AppendChild(xmlcustomer);
+            }
+            // Добавляем созданную структуру в корень
+            doc.AppendChild(node);
+            doc.InsertBefore(xmldecl, node);
+            doc.Save(filename);
+
+            Console.WriteLine("Display the modified XML...");
+            doc.Save(Console.Out);
+        }
+
+        // Запись коллекции в файл XML
+        public void DOMReadXML(string filename)
+        {
+            // Создаем объектную модель
+            XmlDocument doc = new XmlDocument();
+            doc.Load(filename);
+
+            // Выбираем необходимый список нод
+            XmlNodeList list = doc.GetElementsByTagName("customer");
+            foreach (XmlElement elem in list)
+            {
+                //string lastName, string firstName, string middleName, DateTime birthday,
+                //        long iin, DateTime employmentDate, string position, int solary
+                XmlNode attrib1 = elem.Attributes.GetNamedItem("lastName");
+                XmlNode attrib2 = elem.Attributes.GetNamedItem("firstName");
+                XmlNode attrib3 = elem.Attributes.GetNamedItem("middleName");
+                XmlNode attrib4 = elem.Attributes.GetNamedItem("birthday");
+                XmlNode attrib5 = elem.Attributes.GetNamedItem("iin");
+
+                this.customersList.Add(new Customer(
+                    attrib1.Value,
+                    attrib2.Value,
+                    attrib3.Value,
+                    Convert.ToDateTime(attrib4.Value),
+                    Convert.ToInt64(attrib5.Value)
+                    ));
+            }
         }
     }
 }

@@ -108,13 +108,14 @@ namespace HW_Logistics_20190717
             //throw new NotImplementedException();
         }
 
+        // Запись коллекции в файл XML
         public void DOMWriteXML(string filename)
         {
             // Создаем объектную модель
             XmlDocument doc = new XmlDocument();
 
             //Создаем заголовок XML 
-            XmlDeclaration xmldecl = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            XmlDeclaration xmldecl = doc.CreateXmlDeclaration("1.0", null, null);
 
             // Создаем основную ноду
             XmlElement node = doc.CreateElement("employees");
@@ -165,7 +166,7 @@ namespace HW_Logistics_20190717
 
                 // Создаем ноду оклада
                 XmlElement xmlSolary = doc.CreateElement("solary");
-                xmlSolary.InnerText = Convert.ToString(employee.position);
+                xmlSolary.InnerText = Convert.ToString(employee.solary);
                 xmlEmployee.AppendChild(xmlSolary);
 
                 // Добавляем ноду работника в ноды списка
@@ -175,8 +176,12 @@ namespace HW_Logistics_20190717
             doc.AppendChild(node);
             doc.InsertBefore(xmldecl, node);
             doc.Save(filename);
+
+            Console.WriteLine("Display the modified XML...");
+            doc.Save(Console.Out);
         }
 
+        // Запись коллекции в файл XML
         public void DOMReadXML(string filename)
         {
             // Создаем объектную модель
@@ -187,8 +192,6 @@ namespace HW_Logistics_20190717
             XmlNodeList list = doc.GetElementsByTagName("employee");
             foreach (XmlElement elem in list)
             {
-                //string lastName, string firstName, string middleName, DateTime birthday,
-                //        long iin, DateTime employmentDate, string position, int solary
                 XmlNode attrib = elem.Attributes.GetNamedItem("lastName");
                 XmlNodeList firstNamelist = elem.GetElementsByTagName("firstName");
                 XmlNodeList middleNamelist = elem.GetElementsByTagName("middleName");
