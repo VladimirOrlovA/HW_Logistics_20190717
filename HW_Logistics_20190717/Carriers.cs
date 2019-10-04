@@ -149,6 +149,12 @@ namespace HW_Logistics_20190717
 
                 // Создаем ноду маршрутный лист (массив из идентификаторов маршрутов)
                 XmlElement xmlcarrierRoutesIdList = doc.CreateElement("carrierRoutesIdList");
+
+                // Создаем артрибут фамилии 
+                XmlAttribute xmlLastName1 = doc.CreateAttribute("lastName1");
+                xmlLastName1.InnerText = carrier.LastName;
+                xmlcarrierRoutesIdList.Attributes.Append(xmlLastName1);
+
                 foreach (string routeID in carrier.carrierRoutesIdList)
                 {
                     XmlElement xmlrouteID = doc.CreateElement("routeID");
@@ -181,8 +187,6 @@ namespace HW_Logistics_20190717
             XmlNodeList list = doc.GetElementsByTagName("carrier");
             foreach (XmlElement elem in list)
             {
-                //string lastName, string firstName, string middleName, DateTime birthday,
-                //        long iin, DateTime employmentDate, string position, int solary
                 XmlNode attrib1 = elem.Attributes.GetNamedItem("lastName");
                 XmlNode attrib2 = elem.Attributes.GetNamedItem("firstName");
                 XmlNode attrib3 = elem.Attributes.GetNamedItem("middleName");
@@ -197,13 +201,11 @@ namespace HW_Logistics_20190717
                     Convert.ToInt64(attrib5.Value)
                     ));
 
-                int count = 0;
                 XmlNodeList carrierRoutesIdList = doc.GetElementsByTagName("carrierRoutesIdList");
-                foreach (XmlElement i in carrierRoutesIdList)
+                for (int i=0; i < carrierRoutesIdList.Count; i++ )
                 {
                     XmlNodeList routeID = elem.GetElementsByTagName("routeID");
-                    this.carriersList.Last().AddRouteFromXML(routeID.Item(count).InnerText);
-                    count++;
+                    this.carriersList.Last().AddRouteFromXML(routeID.Item(i).InnerText);
                 }
 
             }
