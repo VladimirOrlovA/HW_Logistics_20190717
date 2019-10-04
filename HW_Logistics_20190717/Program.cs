@@ -106,6 +106,9 @@ namespace HW_Logistics_20190717
             Transport transport3 = new Transport("Камаз-Автофургон", 10200, 35);
 
             Order order1 = new Order(1, 100, 0.5, "Алматы", "Жезказган", Order.OrderStatuses.newOrder);
+            Order order2 = new Order(1, 100, 0.5, "Павлодар", "Костанай", Order.OrderStatuses.newOrder);
+            Order order3 = new Order(1, 100, 0.5, "Караганда", "Петропавловск", Order.OrderStatuses.newOrder);
+            Order order4 = new Order(1, 100, 0.5, "Алматы", "Караганда", Order.OrderStatuses.newOrder);
 
             // === создаем матрицу маршрутов и заполняем ее из файла ===
             //routes.FillArray();
@@ -137,6 +140,8 @@ namespace HW_Logistics_20190717
             //routes.PrintArrayRoutes();
 
             orders.AddOrder(order1);
+            orders.AddOrder(order2);
+            orders.AddOrder(order3);
 
             // ==================== Собираем маршрут перевозчику - формируем реальный маршрут ====================
 
@@ -222,7 +227,11 @@ namespace HW_Logistics_20190717
 
             carriers.Info();
             BestCarrier bc = new BestCarrier();
+            
             bc.BestWayandPrice(carriers, routes, order1, transports);
+            //bc.BestWayandPrice(carriers, routes, order2, transports);
+            //bc.BestWayandPrice(carriers, routes, order3, transports);
+            //bc.BestWayandPrice(carriers, routes, order4, transports);
 
             //========================================================================================
 
@@ -238,10 +247,10 @@ namespace HW_Logistics_20190717
             //xc.DOMReadXML("Customers.xml");
             //xc.Info();
 
-            carriers.DOMWriteXML("Carriers.xml");
-            Carriers xcarriers = new Carriers();
-            xcarriers.DOMReadXML("Carriers.xml");
-            xcarriers.Info();
+            //carriers.DOMWriteXML("Carriers.xml");
+            //Carriers xcarriers = new Carriers();
+            //xcarriers.DOMReadXML("Carriers.xml");
+            //xcarriers.Info();
 
             // ========= Перегрузка базовых методов =========
             //Console.WriteLine($"Hash code for object {employee.GetType()} : {employee1.GetHashCode()}");

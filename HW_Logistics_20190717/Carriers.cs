@@ -202,7 +202,7 @@ namespace HW_Logistics_20190717
                     ));
 
                 XmlNodeList carrierRoutesIdList = doc.GetElementsByTagName("carrierRoutesIdList");
-                for (int i=0; i < carrierRoutesIdList.Count; i++ )
+                for (int i = 0; i < carrierRoutesIdList.Count; i++)
                 {
                     XmlNodeList routeID = elem.GetElementsByTagName("routeID");
                     this.carriersList.Last().AddRouteFromXML(routeID.Item(i).InnerText);
