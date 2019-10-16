@@ -105,7 +105,7 @@ namespace HW_Logistics_20190717
             Transport transport2 = new Transport("Газель-Фургон", 1500, 9);
             Transport transport3 = new Transport("Камаз-Автофургон", 10200, 35);
 
-            Order order1 = new Order(1, 100, 0.5, "Алматы", "Жезказган", Order.OrderStatuses.newOrder);
+            Order order1 = new Order(1, 100, 0.5, "Алматы", "Костанай", Order.OrderStatuses.newOrder);
             Order order2 = new Order(1, 100, 0.5, "Павлодар", "Костанай", Order.OrderStatuses.newOrder);
             Order order3 = new Order(1, 100, 0.5, "Караганда", "Петропавловск", Order.OrderStatuses.newOrder);
             Order order4 = new Order(1, 100, 0.5, "Алматы", "Караганда", Order.OrderStatuses.newOrder);
@@ -208,10 +208,10 @@ namespace HW_Logistics_20190717
 
             // !!!!!!!!!!!!!! Реализовать алгоритм Дейкстры !!!!!!!!!!!!
 
-            //carriers.Info();
-            //daf.PrintLinkMatrix();
-            //DijkstraAlgorithm da = new DijkstraAlgorithm(routes, carriers);
-            //da.Algorithm(order1, routes);
+            carriers.Info();
+            //da.PrintLinkMatrix();
+            DijkstraAlgorithm da = new DijkstraAlgorithm(routes, carriers);
+            da.Algorithm(order1, routes);
 
 
             //========================================================================================
@@ -225,9 +225,9 @@ namespace HW_Logistics_20190717
             transport3.Loading(10000, 34.0);
             //transports.Info();
 
-            carriers.Info();
+            //carriers.Info();
             BestCarrier bc = new BestCarrier();
-            
+
             bc.BestWayandPrice(carriers, routes, order1, transports);
             //bc.BestWayandPrice(carriers, routes, order2, transports);
             //bc.BestWayandPrice(carriers, routes, order3, transports);
@@ -242,6 +242,7 @@ namespace HW_Logistics_20190717
             //xe.DOMReadXML("Employees.xml");
             //xe.Info();
 
+            //customers.Info();
             //customers.DOMWriteXML("Customers.xml");
             //Customers xc = new Customers();
             //xc.DOMReadXML("Customers.xml");

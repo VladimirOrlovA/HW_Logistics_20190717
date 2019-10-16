@@ -10,7 +10,7 @@ namespace HW_Logistics_20190717
     {
         // срок доставки 100км пути 1 день
         int kmPerDay = 100;
-        
+
         // расстояние между городами по заданному маршруту
         int ABdistance = 0;
 
@@ -32,28 +32,28 @@ namespace HW_Logistics_20190717
             SearchBestWay(carriers, routes, order);
             SearchBestPrice(carriers, routes, order, transports);
 
-            
+
 
             minDistance = 100000;
             minCost = 100000;
 
-            for (int i=0; i<carriers.carriersList.Capacity; i++)
-                if(carriers.carriersList[i].foundRouteAB)
+            for (int i = 0; i < carriers.carriersList.Capacity; i++)
+                if (carriers.carriersList[i].foundRouteAB)
                 {
                     if (carriers.carriersList[i].distanceABforOrder < minDistance && carriers.carriersList[i].costABforOrder < minCost)
                     {
-                        minDistance= carriers.carriersList[i].distanceABforOrder;
+                        minDistance = carriers.carriersList[i].distanceABforOrder;
                         minCost = carriers.carriersList[i].costABforOrder;
                         bestCarrierInd = i;
                     }
-                        
+
                     Console.WriteLine(carriers.carriersList[i]);
                 }
 
             Console.WriteLine("\nЛучший вариант - мин срок и мин стоимость\n");
 
             Console.WriteLine(carriers.carriersList[bestCarrierInd]);
-            
+
         }
 
 
@@ -92,9 +92,13 @@ namespace HW_Logistics_20190717
                 }
 
                 if (ABdistance < minDistance)
+                {
                     minDistance = ABdistance;
+                    carrierIDwithBestWay = c.carrierID;
+                }
 
-                carrierIDwithBestWay = c.carrierID;
+
+
                 c.distanceABforOrder = ABdistance;
 
                 if (c.foundRouteAB)
@@ -112,9 +116,9 @@ namespace HW_Logistics_20190717
             Console.WriteLine();
             //Console.WriteLine($"Найдено по запросу - {carriersCount - 1}");
             Console.WriteLine($"Самый короткий путь из {order.from} в {order.to} у Перевозчика № {carrierIDwithBestWay} - расстояние {minDistance}км");
-            
+
             Console.WriteLine();
-            Console.WriteLine($"Будет доставлено за  {minDistance/kmPerDay} дней");
+            Console.WriteLine($"Будет доставлено за  {minDistance / kmPerDay} дней");
 
             Console.WriteLine("\n\n");
         }
